@@ -116,10 +116,43 @@ The wheat hyperspectral dataset was collected under controlled laboratory condit
 
 The RGB and hyperspectral models will be developed and evaluated separately. Claims about early prediction or field-scale forecasting will depend on experimental evidence.
 
-### 10. Next Actions
+### 10. SWIR Archive Inspection – 12 November 2026
 
-1. Verify RGB dataset downloads and labels.
-2. Inspect the wheat hyperspectral archive structure.
-3. Check available storage requirements.
-4. Finalise the datasets with the team.
-5. Begin preprocessing after dataset approval.
+The online ZIP preview of `20210311.zip` was inspected without downloading the complete archive.
+
+**Identified file structure:**
+
+Files are organised by pot number and leaf side (D and G). The inspected entries include:
+
+- `.hdr` – Hyperspectral image header and acquisition metadata.
+- `.hyspex` – Raw hyperspectral measurements.
+- `.jpg` – Visual image associated with the scan.
+- `_leaf1.csv`, `_leaf2.csv`, `_leaf3.csv` – Files containing integer coordinate pairs, potentially identifying leaf regions.
+
+**Verified details from `01_D.hdr`:**
+
+| Property | Value |
+|---|---|
+| Dimensions | 420 × 320 pixels |
+| Spectral bands | 256 |
+| Spectral range | 964–2494 nm |
+| Wavelength unit | nm |
+| Data type | Unsigned 16-bit integer |
+| Interleave | BIL |
+| Acquisition date | 11 March 2021 |
+| Header offset | 1,974,272 bytes |
+| Ignore value | 16383 |
+
+**Pending verification:**
+
+- Confirm the relationship between archive pot numbers and metadata pot identifiers.
+- Verify the coordinate CSV files against their corresponding JPG images.
+- Test reading the raw `.hyspex` measurements.
+- Confirm the usable sample count and file mapping.
+
+**Storage status:**
+
+- Only three metadata CSV files have been downloaded.
+- No raw hyperspectral archives have been downloaded.
+- Available C: drive space: approximately 60.70 GB.
+- Large-scale downloading is postponed until sample selection and storage requirements are confirmed.
