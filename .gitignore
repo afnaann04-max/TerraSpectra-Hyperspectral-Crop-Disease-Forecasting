@@ -223,3 +223,5 @@ __marimo__/
 data/raw/
 data/processed/VNIR_combined_leaf_features.csv
 data/processed/VNIR_cleaned/
+data/processed/VNIR_baseline_features.csv
+data/processed/VNIR_candidate_features.csv
