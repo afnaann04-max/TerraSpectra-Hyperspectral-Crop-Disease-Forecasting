@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Large raw and processed hyperspectral datasets
+data/raw/
+data/processed/VNIR_combined_leaf_features.csv
+data/processed/VNIR_cleaned/
