@@ -60,6 +60,15 @@ The pixel identities and treatment labels match exactly between the two datasets
 Both datasets contain the expected 272,912 records.
 
 Missing spectral values were retained rather than silently imputed or removed. Their handling must be decided within the modelling workflow, using training data only where applicable.
+### Processing-stage distinction
+
+The 7,559 missing values in the baseline CSV correspond to the original combined VNIR dataset.
+
+The separately corrected NPZ spectra contain 8,282 NaNs. The additional 723 NaNs correspond to raw values of 4095, which are declared as data ignore values in the VNIR headers.
+
+The corrected NPZ outputs and the CSV feature datasets therefore have matching pixel coordinates but are not spectrally identical.
+
+The candidate CSV contains 13 missing values because it retains only the selected 30 baseline bands.
 
 ## 4. Baseline and candidate consistency
 
@@ -73,6 +82,7 @@ The cross-dataset comparison confirmed:
 - All candidate spectral values match the corresponding baseline values across all 272,912 records.
 
 Therefore, the candidate dataset is a consistent reduced-feature version of the baseline dataset.
+The baseline and candidate comparisons above apply to the CSV feature datasets. They do not establish spectral identity between those CSV files and the separately corrected NPZ outputs.
 
 ## 5. Final validation result
 
@@ -101,4 +111,7 @@ The VNIR baseline and candidate feature datasets passed the final structural, id
 
 Both datasets are preserved with their original validated pixel records and metadata. They are ready to enter the next modelling preparation stage, where missing-value handling, group-aware data splitting, feature selection evaluation, and model training will be addressed.
 
-**Final status: VNIR Step 3.5 dataset validation completed successfully.**
+**Final status: VNIR Step 3.5 CSV dataset validation completed successfully.**
+
+
+The corrected NPZ outputs have also passed the separate numerical invalid-value, interpolation and coordinate-alignment audits.
