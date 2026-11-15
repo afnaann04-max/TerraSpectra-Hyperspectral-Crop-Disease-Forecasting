@@ -85,6 +85,24 @@ Each member must provide:
 
 Statuses will be updated only after reviewing actual evidence.
 
+## 5A. Daily progress update - 15 November 2026
+
+### Hiba - VNIR
+- Completed today's VNIR data-quality and calibration assessment documentation.
+- Recorded missing-value and spectral-gap findings.
+- Documented the 30 validation comparisons across 10 VNIR files and three CSV references.
+- Created `VNIR_PROGRESS_REPORT_2026-11-15.md`.
+- Calibration provenance, full-dataset class counts and biological replication remain unresolved.
+
+### Member 2 - SWIR
+- Today's initial investigation task completed.
+- Submitted investigation files for review.
+- Evidence review and further SWIR validation remain pending.
+
+### Member 3 - RGB
+- Today's assigned investigation task remains pending.
+- No completion status is claimed until evidence is submitted and reviewed.
+
 ## 6. Scientific and repository rules
 
 - Preserve original raw data.

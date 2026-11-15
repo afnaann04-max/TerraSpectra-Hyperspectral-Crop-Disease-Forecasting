@@ -387,3 +387,26 @@ VNIR leaf-level spectra and the previously calculated SWIR whole-scan mean spect
 
 The current analysis is exploratory and uses only four representative scans. It does not establish a disease-specific spectral signature or demonstrate classification performance. Further work should use appropriately matched leaf regions, more samples and careful validation before combining data from the two sensors.
 
+## VNIR Data Quality and Calibration Assessment - 15 November 2026
+
+### Missing values and spectral quality
+- Original combined CSV contains 7,559 missing values.
+- Baseline dataset contains 7,559 missing values.
+- Candidate dataset contains 13 missing values.
+- The corrected NPZ retains all 723 values marked with ignore value 4095 as missing.
+- Interpolation was limited to internal gaps of one or two spectral bands. Larger gaps and edge gaps remain missing.
+
+### NPZ validation
+- Compared 10 VNIR files against three CSV reference datasets.
+- Completed 30 validation comparisons.
+- Pixel counts and coordinate ordering passed the validation checks.
+- The corrected NPZ data remain distinct from the original combined CSV.
+
+### Calibration and acquisition limitations
+- Integration time and frame period are recorded in the available metadata.
+- Radiometric calibration procedures and reference measurements have not been independently verified.
+- The current analysis uses recorded spectral intensity values; calibrated reflectance has not been confirmed.
+- Acquisition conditions and scan timing may influence spectral comparisons.
+
+### Data quality conclusion
+Structural and numerical validation checks have passed. However, missing spectral values, unverified calibration provenance, limited biological replication and possible acquisition-time confounding must be considered before model development or scientific interpretation.
