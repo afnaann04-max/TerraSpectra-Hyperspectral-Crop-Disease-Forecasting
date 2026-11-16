@@ -93,13 +93,25 @@ A related research listing by the contributor was found, but its full text was n
 
 ## 8. Conclusion
 
-**Verification status: PARTIALLY VERIFIED**
+**Verification Status: PARTIALLY VERIFIED**
 
-The existence of six progressive severity levels and image-level severity annotation is confirmed by the official dataset description.
+The official Mendeley dataset description confirms that:
+- The dataset reports six progressive disease severity levels.
+- Image-level severity annotation is reported for the images.
+- Severity assessment considers lesion extent, lesion height progression, symptom colour intensity, lesion density and spatial spread.
 
-However, the exact six class labels, class boundaries, scoring scale, annotation format and image-to-label mapping remain unverified.
+However, the following information remains unverified:
+- Exact names or numerical codes of the six severity classes.
+- Severity definitions and class boundaries.
+- The specific scoring scale used.
+- The annotation file and its format.
+- The actual mapping between individual image files and their corresponding severity labels.
 
-The dataset remains a candidate and should not receive final approval until these details are clarified.
+A related ResearchGate publication was identified, but it has not been established as direct supporting documentation for this specific dataset's six-class annotation scheme.
+
+The standard 0–9 rice sheath blight severity scale must not be assumed to apply to this dataset.
+
+The dataset remains a candidate and should not receive final approval until the missing severity-label and annotation information is clarified.
 
 **Restrictions followed:**
 - The 4.06 GB archive was not downloaded.
