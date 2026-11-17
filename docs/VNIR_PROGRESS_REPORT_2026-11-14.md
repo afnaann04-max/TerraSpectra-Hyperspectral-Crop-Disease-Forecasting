@@ -1,4 +1,4 @@
-﻿# VNIR Progress Report — 14 November 2026
+# VNIR Progress Report — 14 November 2026
 
 ## Project status
 VNIR dataset investigation, preprocessing validation, biological replication review and acquisition-confounding assessment.
@@ -14,13 +14,14 @@ VNIR dataset investigation, preprocessing validation, biological replication rev
 
 ## 2. Biological replication findings
 
-- The VNIR sampling metadata contains 48 pot records.
-- Pots 01–12 have sampling records at six DPI dates.
-- Pots 13–48 have sampling records at 18 DPI dates.
-- One technical NA entry was recorded at DPI 10.
+- The VNIR sampling metadata contains 48 unique pot records.
+- Sampling coverage varies by date: 48 pots are recorded from -1 to 7 DPI, while 36 pots are recorded from 8 to 20 DPI.
+- The metadata covers 18 sampling time points.
+- Leaf counts vary by date and pot side.
 - The metadata does not provide individual plant IDs.
-- The number of plants per pot could not be confirmed.
-- Pot is therefore the available experimental grouping unit, but its equivalence to one individual plant is unconfirmed.
+- The number of plants per pot could not be confirmed from the local metadata.
+- Individual physical leaf tracking across dates has not been established.
+- Pot is the available experimental grouping unit, but its equivalence to one individual plant is unconfirmed.
 
 ## 3. Acquisition and confounding findings
 
