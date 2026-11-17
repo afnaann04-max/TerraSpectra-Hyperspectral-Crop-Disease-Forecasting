@@ -1,6 +1,7 @@
 # TerraSpectra Team Investigation Tracker
 
 **Date:** 17 November 2026
+
 **Project stage:** Dataset investigation, evidence verification and suitability assessment
 
 ## 1. Team responsibilities
@@ -19,7 +20,7 @@ Current known dataset status based on previous investigations:
 |---|---|
 | Wheat Septoria VNIR | Available; selected scans investigated and suitability assessed |
 | Wheat Septoria SWIR | Official archive previously downloaded; historical 96/96 expected pot-side scan matches documented |
-| NWRD Wheat Rust | Not located in previously searched project folders; source investigation pending |
+| NWRD Wheat Rust | Official source investigated; archive not downloaded; archive contents not independently verified |
 | CCMT Tomato | Not located in previously searched project folders; source investigation pending |
 | Rice Sheath Blight | Initial source and severity-label investigation completed; archive contents not yet fully verified |
 
@@ -95,7 +96,11 @@ Claims must be distinguished as verified findings, previously documented results
 | SWIR documentation files pushed | Five files confirmed by Member 2 |
 | RGB Rice Sheath Blight initial source investigation | Completed |
 | Rice Sheath Blight severity-label investigation | Completed with remaining annotation questions |
-| NWRD Wheat Rust investigation | Latest submission status requires confirmation |
+| NWRD Wheat Rust initial source verification | Completed; report reviewed |
+| NWRD dataset licence | Unresolved; author clarification required |
+| NWRD archive inventory and image-mask pairing | Not independently verified; archive not downloaded |
+| NWRD train/validation/test split | Zenodo/GitHub discrepancy unresolved |
+| NWRD Git handover | Completed; commit `20c1031` pushed to `Afnan` |
 | CCMT Tomato investigation | Pending further source verification |
 
 Statuses will be updated only after reviewing actual evidence.
@@ -227,8 +232,32 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 
 ### Member 3 — RGB
 
-- Latest 17 November submission status requires confirmation.
-- Do not mark additional RGB investigation tasks complete without reviewing the submitted evidence.
+**NWRD Wheat Rust initial source verification: Completed.**
+
+- Investigated the NUST Wheat Rust Disease Dataset (NWRD).
+- Submitted `docs/NWRD_WHEAT_RUST_SOURCE_VERIFICATION.md`.
+- Official source: https://zenodo.org/records/21672928
+- DOI: `10.5281/zenodo.21672928`.
+- The official description reports 100 RGB field images and corresponding binary segmentation masks. Actual archive contents have not been independently inspected.
+- Dataset licence remains unresolved. Zenodo identifies copyright information, but a specific dataset reuse licence has not been established.
+- Archive was not downloaded; actual image counts, mask counts and image-mask pairing remain unverified.
+- Zenodo describes an 80/10/10 split, while the GitHub README describes 90% train and validation combined and 10% test. This discrepancy remains unresolved.
+- Dataset remains a candidate and is not approved for modelling.
+
+**NWRD Git handover: Completed.**
+
+- Branch: `Afnan`
+- Commit ID: `20c1031`
+- Commit message: `docs: add NWRD wheat rust source verification`
+- Push and branch synchronisation confirmed by Member 3.
+
+**Remaining RGB work:**
+
+- Continue CCMT Tomato source investigation.
+- Seek NWRD licence clarification.
+- Investigate the dataset split discrepancy.
+- Verify archive contents when inspection is authorized.
+- Continue Rice Sheath Blight annotation questions where further evidence is available.
 
 ## 6. Scientific and repository rules
 
@@ -253,9 +282,11 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 
 ### RGB — Member 3
 
-- Review the latest NWRD Wheat Rust investigation submission when received.
-- Continue CCMT Tomato source and access verification.
-- Resolve remaining Rice Sheath Blight annotation questions when additional evidence becomes available.
+- Continue CCMT Tomato source and licence verification.
+- Obtain clarification of the NWRD dataset licence.
+- Resolve the NWRD Zenodo/GitHub train/validation/test split discrepancy.
+- Verify NWRD image counts and image-mask pairing when archive inspection is authorized.
+- Continue Rice Sheath Blight annotation verification where evidence is available.
 
 ### VNIR — Hiba
 
@@ -284,13 +315,13 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 |---|---|
 | Hiba | Review team progress, coordinate dataset-readiness decisions and maintain the central tracker. |
 | Member 2 | Complete SWIR data-readiness and preprocessing-feasibility assessment. |
-| Member 3 | Continue the next RGB dataset investigation based on the latest verified status and assigned priorities. |
+| Member 3 | Continue CCMT Tomato source investigation and NWRD licence, split and archive-verification follow-ups. |
 
 ## 10. Overall project assessment
 
 **Current stage:** Dataset investigation, evidence verification and feasibility assessment.
 
-**Progress:** Meaningful investigation and documentation have been completed across VNIR and SWIR, with RGB source and label investigations underway.
+**Progress:** Meaningful investigation and documentation have been completed across VNIR and SWIR. Initial Rice Sheath Blight and NWRD source investigations are completed, while further RGB source and annotation verification remains underway.
 
 **Main strengths:**
 
@@ -303,7 +334,8 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 
 - VNIR calibration provenance and processing reproducibility remain unresolved.
 - SWIR acquisition settings and some technical metadata remain unresolved.
-- RGB archive contents, annotation mappings and additional dataset sources require further verification.
+- NWRD licence, archive contents, image-mask pairing and split discrepancy require further verification.
+- Rice Sheath Blight annotation mappings and CCMT Tomato source details require further verification.
 - Dataset compatibility and reliable temporal labels have not been established.
 
 **Next milestone:** Complete the initial source and suitability assessment of all candidate datasets, establish the experimental units and determine which datasets can genuinely support the intended research objectives.
