@@ -259,6 +259,34 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 - Verify archive contents when inspection is authorized.
 - Continue Rice Sheath Blight annotation questions where further evidence is available.
 
+## 5E. Daily progress update — 18 November 2026
+
+### Hiba — Cross-dataset assessment and coordination
+
+- Completed the cross-dataset suitability assessment and experimental-design recommendations.
+- Reviewed the SWIR data-readiness and preprocessing-feasibility assessment submitted by Member 2.
+- Retrieved and reviewed the SWIR readiness report from the Fahma branch.
+- Verified Fahma's Git commit: `dd5e954` (`Add SWIR data readiness assessment`).
+- Historical 96/96 scan verification remains documented; the standalone filename-to-pot/side mapping table is unavailable.
+- Recorded that original SWIR `.hyspex`, `.hdr` and calibration/reference files are not locally accessible to Fahma.
+- Confirmed that preprocessing has not been executed and raw data has not been modified.
+
+**Fahma — SWIR Git handover:**
+
+- Branch: `Fahma`
+- Commit: `dd5e954`
+- File: `research/SWIR/SWIR_DATA_READINESS_ASSESSMENT_2026-11-18.md`
+- Commit and push verified on `origin/Fahma`.
+- Report retrieved into Hiba's working branch and reviewed.
+
+**SWIR readiness decision:**
+
+- Initial data-readiness and preprocessing-feasibility assessment: Completed.
+- Preprocessing workflow: Proposed, not executed.
+- Raw-file/header validation: Blocked pending access to original raw files and calibration references.
+- Remaining questions include wavelength arrays, binary layout, ignore values, acquisition settings, calibration details and raw-value quality.
+- Historical scan mapping evidence remains a limitation.
+
 ## 6. Scientific and repository rules
 
 - Preserve original raw data.
