@@ -458,3 +458,33 @@ Public-source investigations have advanced across all five candidate datasets. A
 No preprocessing or model training is approved by this update. Keep modality-specific pipelines separate until dataset compatibility and experimental design are established.
 
 **Next milestone:** Complete the remaining evidence review and freeze candidate datasets and research objectives before preprocessing begins.
+
+## Additional SWIR Technical Verification Update — 19 November 2026
+
+### Member 2 — Fahma
+
+**Status:** Technical verification preparation completed; original-data access remains blocked.
+
+- Completed and pushed the SWIR technical verification update.
+- Branch: `Fahma`
+- Commit: `7e3caa8`
+- File: `research/SWIR/SWIR_TECHNICAL_VERIFICATION_UPDATE_2026-11-19.md`
+
+**Completed work:**
+- Documented the availability status of the original SWIR archive and supporting files.
+- Retained the historical 96/96 scan verification without repeating it.
+- Prepared the header-inspection and raw-data quality-control checklists.
+- Documented the proposed preprocessing workflow.
+- Distinguished preparation steps from operations requiring verified metadata and calibration information.
+
+**Outstanding blockers:**
+- Original `.hyspex` files and matching `.hdr` files are unavailable.
+- Dark-current and white-reference calibration files remain unconfirmed.
+- Original archive holder and access arrangements remain unidentified.
+- Instrument acquisition records and detailed filename-to-pot/side mapping evidence remain unavailable.
+
+**Readiness decision:** SWIR preprocessing is not ready for execution. Actual header inspection, raw-data quality checks and calibration verification must wait until the original files are accessible.
+
+**Restrictions:** No archive was downloaded again, no raw data was modified, no preprocessing was executed and no model was trained.
+
+**Next action:** Identify the original dataset holder, obtain the required files and perform read-only technical verification when access is provided.
