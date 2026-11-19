@@ -1,14 +1,15 @@
 # TerraSpectra — Cross-Dataset Suitability Assessment
 
-**Date:** 18 November 2026
+**Assessment date:** 18 November 2026
+**Updated:** 19 November 2026
 **Prepared by:** Hiba
-**Status:** Draft — pending team investigation updates and review
+**Status:** Draft — pending final team investigation updates and review
 
 ## 1. Purpose
 
-This document evaluates the available datasets for TerraSpectra: Hyperspectral Crop Disease Forecasting.
+This document evaluates five candidate datasets for TerraSpectra: Hyperspectral Crop Disease Forecasting.
 
-The assessment compares five candidate datasets across:
+The assessment compares the available datasets across:
 
 - Disease detection
 - Disease classification
@@ -17,17 +18,19 @@ The assessment compares five candidate datasets across:
 
 It also provides preliminary dataset-selection recommendations, experimental design requirements, and conditions for future multimodal integration.
 
-**Important:** These are evidence-based suitability recommendations, not results from trained models. No dataset is considered fully approved for modelling until its outstanding source, licence, label and sample-structure checks are completed.
+**Important:** These are evidence-based suitability recommendations, not results from trained models. No dataset is fully approved for modelling until the outstanding source, licence, label, archive and sample-structure checks have been completed.
 
 ## 2. Cross-dataset comparison
 
 | Dataset | Modality | Crop and disease | Reported data | Main limitations |
 |---|---|---|---|---|
 | VNIR Wheat Septoria | VNIR hyperspectral | Wheat — Septoria | 48 metadata pots; 216 bands in inspected subset | Small inspected subset, calibration uncertainty, scan-treatment confounding and biological tracking uncertainty |
-| SWIR Wheat Septoria | SWIR hyperspectral | Wheat — Septoria | 48 pot records, 279 leaf-level records, 256 channels; 96 scans historically reported | Local calibration and scan-label evidence require further verification; biological tracking uncertainty |
-| Rice Sheath Blight | RGB | Rice — sheath blight | 1,609 original images and six severity levels reported | Exact severity class definitions, annotation mapping and licence require verification |
-| NWRD Wheat Rust | RGB | Wheat — rust | 100 field images and binary masks reported | Dataset reuse licence, archive contents, image-mask matching and split discrepancy unresolved |
-| CCMT Tomato | RGB | Tomato — disease details pending | Insufficient verified information | Official source, licence, image count, labels and annotation structure not yet established |
+| SWIR Wheat Septoria | SWIR hyperspectral | Wheat — Septoria | 48 pot records, 279 leaf-level records, 256 channels; 96 scans historically reported | Original raw headers and calibration references unavailable for verification; acquisition settings and biological tracking require clarification |
+| Rice Sheath Blight | RGB | Rice — sheath blight | 1,609 original field images and six progressive severity levels reported | Exact severity class names, boundaries and image-to-label mapping unresolved; archive not inspected |
+| NWRD Wheat Rust | RGB | Wheat — rust | 100 images and binary segmentation masks reported | Dataset reuse licence unresolved; archive and image-mask pairing unverified; paper and README split discrepancy |
+| CCMT Tomato | RGB | Tomato — five reported disease/health classes | 5,435 raw images and 27,178 augmented images reported | Archive counts, augmentation-to-original mapping, duplicates and biological sample grouping unverified |
+
+The values above are based on published dataset descriptions and completed public-source investigations. They should not be interpreted as proof that the corresponding archives have been downloaded or independently inspected.
 
 ### 2.1 VNIR Wheat Septoria
 
@@ -47,42 +50,86 @@ The metadata contains 48 pot records and 279 leaf-level records. The instrument 
 
 A previous investigation reported 96 expected and 96 actual scans. This is historical team-reported verification; the original filename-to-pot-side matching evidence is not independently preserved in the current report.
 
-The paper describes dark-current correction and reflectance calculation, but the application of calibration to the local data files remains unverified. Repeated DPI dates do not establish that the same biological samples were tracked over time.
+The paper describes dark-current correction and reflectance calculation, but the application of calibration to the local data files remains unverified. Original raw headers and calibration references have not been obtained for technical verification. Important acquisition properties, including exact integration time, frame period and scan speed, remain unresolved.
 
-**Preliminary conclusion:** Promising for exploratory spectral analysis. Detection and classification remain conditional. Severity assessment and forecasting are not established.
+Repeated DPI dates do not establish that the same biological samples were tracked over time.
+
+**Preliminary conclusion:** Promising for exploratory spectral analysis. Detection and classification remain conditional. Severity assessment and forecasting are not established. Raw-data preprocessing should not begin until the necessary file-format and calibration information is available.
 
 ### 2.3 RGB Rice Sheath Blight
 
-The dataset is described as the Colour-Mix Augmentation Dataset for Rice Sheath Blight Severity Estimation.
+The dataset is titled *Colour-Mix Augmentation Dataset for Rice Sheath Blight Severity Estimation*.
 
 - Mendeley Data DOI: `10.17632/489spnkhp5.1`
-- Reported original image count: 1,609 JPG images.
+- Reported image count: 1,609 original JPG field images.
 - Reported severity categories: six progressive levels.
+- Crop and disease: rice sheath blight.
+- Collection context: Jyotsna rice variety, Puncha season, January–March, in fields at Kottekkad and Kuttur, Thrissur, Kerala.
+- Image acquisition: iPhone 6s, 12 MP camera, according to the dataset description.
+- Expert review: the description reports review by an expert from the Department of Plant Pathology, College of Agriculture, Padannakkad, Kasaragod.
 
-The dataset is potentially useful for severity estimation. However, the exact six class names, severity boundaries, scoring definitions and annotation mapping have not yet been verified. The dataset licence and archive contents also require confirmation.
+The dataset description reports that blurred and duplicate images were removed and that the supplied 1,609 images are original field images rather than synthetic augmented derivatives. The dataset title refers to Colour-Mix Augmentation, but this does not establish that augmented images are included in the supplied archive.
 
-**Preliminary conclusion:** Promising candidate for severity estimation, conditional on label, annotation and licence verification.
+The public Mendeley record displays a CC BY 4.0 licence. This is a public-record licence finding; the archive itself has not been downloaded or inspected.
+
+The six progressive severity levels are reported, and the description identifies severity-related characteristics such as lesion extent, lesion height progression along the sheath, symptom colour intensity and lesion density or spatial spread. However, the exact six class names, numerical boundaries, specific scoring-scale reference and image-to-label mapping remain unresolved.
+
+No evidence currently establishes that the dataset provides segmentation masks or bounding-box annotations. Repeated observation periods mentioned in the description also do not establish that the same plants or leaves were tracked longitudinally.
+
+**Preliminary conclusion:** Promising candidate for severity-estimation investigation, conditional on verification of the six class definitions, scoring boundaries and image-to-label mapping. The archive and sample structure must be inspected before supervised modelling is approved.
 
 ### 2.4 NWRD Wheat Rust
 
-The NUST Wheat Rust Disease Dataset is described in Zenodo under DOI `10.5281/zenodo.21672928`.
+The NUST Wheat Rust Disease Dataset is described in Zenodo under DOI `10.5281/zenodo.21672928`. Its associated publication is available under DOI `10.3390/s23156942`.
 
-The reported dataset contains 100 field images and binary Rust/Non-rust segmentation masks. The associated paper describes manual pixel-level annotations.
+The public-source investigation reports:
 
-Important unresolved issues:
+- 100 field images.
+- JPG images and PNG binary segmentation masks.
+- Manual pixel-level annotations described in the associated paper.
+- A GitHub repository containing dataset documentation and split information.
 
-- The dataset reuse licence is not explicitly established by the available Zenodo rights statement.
-- The archive has not been independently inspected.
-- Image-mask pairing and exact mask pixel values remain unverified.
-- Zenodo and the GitHub README describe different training/validation split arrangements.
+The dataset is a potential candidate for binary wheat-rust segmentation. However, several issues remain unresolved:
 
-**Preliminary conclusion:** Conditional candidate for binary rust segmentation. Do not approve use until licence and archive verification are completed.
+- The Zenodo rights information displays `Copyright (C) 2023 The Authors`; an explicit dataset reuse licence has not been established.
+- The GitHub repository displays an MIT licence, but this does not automatically establish that the dataset images and masks are covered by the same licence.
+- The archive has not been downloaded and independently inspected.
+- Actual image and mask counts, valid image-mask pairing, missing files and mask pixel values remain unverified.
+- The paper reports an 80/10/10 train/validation/test split, whereas the GitHub README describes 90% training and validation data combined and 10% testing. The configuration also refers to a validation split of 0.1. These descriptions may reflect a two-stage split, but the exact implementation, sample counts and split assignment have not been confirmed.
+
+**Preliminary conclusion:** Conditional candidate for binary rust segmentation. Dataset reuse permission, archive integrity, image-mask pairing and the split discrepancy must be resolved before modelling approval. Segmentation results should not automatically be presented as image-level disease classification results.
 
 ### 2.5 CCMT Tomato
 
-The available evidence is insufficient to establish the official dataset source, licence, image count, disease labels, annotation format or sample structure.
+The dataset is titled *Dataset for Crop Pest and Disease Detection (CCMT)*.
 
-**Preliminary conclusion:** Not approved for selection until the assigned source investigation is completed.
+- Mendeley Data DOI: `10.17632/bwh3zbpkpv.1`
+- Associated publication DOI: `10.1016/j.dib.2023.109306`
+- Crops covered: cashew, cassava, maize and tomato.
+- Tomato raw image count reported: 5,435.
+- Tomato augmented image count reported: 27,178.
+- Five reported tomato classes: Healthy, Leaf blight, Leaf curl, Septoria leaf spot and Verticillium wilt.
+
+The reported raw tomato class counts are:
+
+| Tomato class | Reported raw image count |
+|---|---:|
+| Healthy | 500 |
+| Leaf blight | 1,301 |
+| Leaf curl | 518 |
+| Septoria leaf spot | 2,343 |
+| Verticillium wilt | 773 |
+| **Total** | **5,435** |
+
+The public Mendeley record lists a CC BY 4.0 licence. The dataset licence should be distinguished from the licence governing the associated publication.
+
+The source description reports JPEG images captured using a Canon EOS Rebel T7 DSLR with an EF-S 18–55 mm lens on farms in Ghana between October and December 2022. Annotation is reported to have taken place between December 2022 and January 2023, involving plant virologists or pathologists and expert review.
+
+The available public-source evidence supports image-level class labels. It does not establish bounding-box or segmentation-mask annotations.
+
+The reported raw and augmented counts have not been independently verified against the official archive. The exact archive hierarchy, file-to-label mapping, duplicate status, original-to-augmented relationships and biological sample identifiers remain unresolved. Augmented derivatives must be linked to their original images and kept in the same data partition to prevent data leakage.
+
+**Preliminary conclusion:** Conditional candidate for RGB image-level disease classification. The five reported classes provide a basis for further investigation, but archive inventory, label verification, augmentation mapping, duplicate checks and sample-grouping assessment are required before modelling approval.
 
 ## 3. Dataset suitability by research objective
 
@@ -99,14 +146,14 @@ The following categories describe the strength of current evidence:
 | SWIR Wheat Septoria | Conditional | Conditional | Not established | Not established |
 | Rice Sheath Blight | Conditional | Conditional | Conditional | Not established |
 | NWRD Wheat Rust | Potentially suitable for segmentation | Conditional | Not established | Not established |
-| CCMT Tomato | Not assessed | Not assessed | Not assessed | Not assessed |
+| CCMT Tomato | Not assessed | Conditional | Not established | Not established |
 
 ### Interpretation
 
 - VNIR and SWIR provide spectral information for investigating wheat Septoria, but neither currently supports a claim of validated disease prediction.
 - Rice Sheath Blight is the clearest candidate for investigating severity estimation, provided its severity labels are verified.
 - NWRD is potentially useful for pixel-level rust segmentation. Segmentation should not automatically be described as image-level disease classification.
-- CCMT cannot yet be evaluated.
+- CCMT is a conditional candidate for image-level tomato disease classification. Its archive-level structure and labels still require verification.
 - None of the current datasets provides sufficient verified evidence for a forecasting claim.
 
 ## 4. Preliminary dataset-selection recommendations
@@ -120,10 +167,12 @@ Proposed use: Severity estimation.
 Reason: The dataset reports six progressive severity levels and is specifically intended for severity estimation.
 
 Conditions before approval:
+
 - Verify all six class names and definitions.
 - Verify the scoring scale and class boundaries.
 - Verify image-to-label mapping.
-- Confirm the dataset licence and access conditions.
+- Inspect the archive and confirm the available annotation structure.
+- Retain the CC BY 4.0 public-record finding and comply with the stated attribution requirements.
 
 **SWIR Wheat Septoria**
 
@@ -132,6 +181,7 @@ Proposed use: Exploratory spectral analysis and conditional disease detection/cl
 Reason: The dataset has 256 spectral channels and detailed pot-level and leaf-level metadata.
 
 Conditions before approval:
+
 - Verify calibration provenance.
 - Establish reliable scan-to-sample linkage.
 - Clarify biological experimental units.
@@ -144,6 +194,7 @@ Conditions before approval:
 Proposed use: Binary rust segmentation.
 
 Conditions:
+
 - Confirm the dataset reuse licence.
 - Inspect archive contents.
 - Verify image-mask pairing and mask values.
@@ -154,26 +205,31 @@ Conditions:
 Proposed use: Exploratory spectral analysis and comparison with SWIR.
 
 Conditions:
+
 - Establish calibration provenance.
 - Investigate usable scan coverage.
 - Address treatment confounding with scan identity.
 - Clarify biological sample tracking.
 
-### 4.3 Not approved yet
+### 4.3 Not approved for modelling yet
 
 **CCMT Tomato**
 
-The dataset should remain outside the selected modelling scope until its official source, licence, labels and data structure are verified.
+CCMT is a conditional candidate for RGB image-level disease classification. Its public dataset record, reported licence, five tomato classes and published image counts have been reviewed.
+
+However, the official archive has not been downloaded and independently inspected. File-to-label mapping, actual image counts, duplicate status, original-to-augmented relationships and biological sample grouping remain unresolved.
+
+Modelling approval should therefore remain pending until these checks are completed.
 
 ### 4.4 Recommended project direction
 
 1. Prioritise Rice Sheath Blight for severity-estimation investigation, subject to label verification.
 2. Investigate NWRD for binary rust segmentation, subject to licence and archive verification.
 3. Retain VNIR and SWIR as separate exploratory spectral research pipelines.
-4. Consider CCMT only after the pending source investigation.
+4. Consider CCMT for image-level classification after archive-level verification.
 5. Treat multimodal fusion and forecasting as future research directions, not confirmed deliverables.
 
-These are provisional recommendations. Final selection must incorporate the outstanding Member 2 and Member 3 investigation results.
+These are provisional recommendations. Final selection must incorporate the remaining Member 2 and Member 3 investigation results and the team's overall project feasibility.
 
 ## 5. Experimental design recommendations
 
@@ -185,7 +241,7 @@ These are provisional recommendations. Final selection must incorporate the outs
 | SWIR Wheat | Pot or biological plant, after verification | Multiple leaves and scans may belong to the same pot |
 | Rice Sheath Blight | Original plant/specimen if identifiable; otherwise original image | Augmented copies must remain with their original image |
 | NWRD Wheat Rust | Original field image or plant grouping, if identifiable | Image patches and masks from one image must remain together |
-| CCMT Tomato | Undetermined | Establish sample structure first |
+| CCMT Tomato | Undetermined | Establish sample structure and original-to-augmented relationships first |
 
 The true biological experimental unit must be confirmed from the dataset protocol. A pot or image is only a provisional grouping unit and must not automatically be treated as an independent biological replicate.
 
@@ -310,6 +366,7 @@ This description reflects the current evidence without promising an unverified f
 ## 10. Outstanding questions and dependencies
 
 ### VNIR
+
 - Can local NPZ calibration be established?
 - Can the original correction and preprocessing scripts be located?
 - What is the true biological experimental unit?
@@ -317,6 +374,7 @@ This description reflects the current evidence without promising an unverified f
 - Which metadata pots have usable spectral files?
 
 ### SWIR
+
 - Can original scan-to-pot-side matching evidence be recovered?
 - What were the exact integration time, frame period and scan speed?
 - Can local calibration be independently verified?
@@ -324,12 +382,14 @@ This description reflects the current evidence without promising an unverified f
 - What is the protocol behind the leaf confidence scores?
 
 ### Rice Sheath Blight
+
 - What are the exact six severity class names and definitions?
 - What are the severity scoring boundaries?
 - How are labels mapped to original images?
-- What licence governs dataset reuse?
+- Does the archive contain any additional annotation files?
 
 ### NWRD
+
 - What licence permits dataset reuse?
 - Do the archive contents match the reported image and mask counts?
 - Are all image-mask pairs valid?
@@ -337,15 +397,19 @@ This description reflects the current evidence without promising an unverified f
 - Which train/validation/test split is authoritative?
 
 ### CCMT Tomato
-- What is the official dataset source?
-- What licence and access conditions apply?
-- What are the image count, disease labels and annotation format?
-- What sample grouping and collection information are available?
+
+- Do the official archive counts match the published raw and augmented counts?
+- What is the exact archive hierarchy and file-to-label mapping?
+- Can original images be reliably linked to augmented derivatives?
+- Are there duplicate or near-duplicate images?
+- What biological sample grouping and collection information are available?
 
 ### Overall project
+
 - Which datasets will be approved after the member investigations?
 - Which task will become the primary modelling objective?
 - Is there enough evidence for any multimodal or forecasting experiment?
+- Can the selected datasets and objectives be completed within the project deadline?
 
 ## 11. References and source records
 
@@ -356,13 +420,20 @@ This description reflects the current evidence without promising an unverified f
 5. NWRD Wheat Rust: Zenodo, DOI `10.5281/zenodo.21672928` — https://zenodo.org/records/21672928
 6. NWRD associated paper — https://pmc.ncbi.nlm.nih.gov/articles/PMC10422341/
 7. NWRD GitHub repository — https://github.com/dll-ncai/NUST-Wheat-Rust-Disease-NWRD
+8. CCMT Tomato: Mendeley Data, DOI `10.17632/bwh3zbpkpv.1` — https://data.mendeley.com/datasets/bwh3zbpkpv/1
+9. CCMT associated paper, DOI `10.1016/j.dib.2023.109306`.
 
-The source references above identify the reported dataset and publication records. They do not imply that every archive, licence, label or acquisition detail has been independently verified.
+The source references identify the reported dataset and publication records. They do not imply that every archive, licence, label or acquisition detail has been independently verified.
 
 ## 12. Assessment status
 
-**Completed in this draft:**
-- Existing VNIR, SWIR, Rice and NWRD evidence review.
+**Completed in this assessment:**
+
+- Existing VNIR evidence review.
+- SWIR public-source investigation and readiness assessment review.
+- Rice Sheath Blight public-source and severity-label evidence review.
+- NWRD public-source and segmentation-label evidence review.
+- CCMT official public-source investigation.
 - Cross-dataset comparison.
 - Objective suitability evaluation.
 - Preliminary dataset-selection recommendations.
@@ -371,11 +442,15 @@ The source references above identify the reported dataset and publication record
 - Forecasting requirements and limitations.
 
 **Still pending:**
-- CCMT source verification.
-- Today's SWIR and RGB member investigation updates.
-- Final dataset selection and approval.
-- Team review of this assessment.
-- Documentation and reference verification.
-- Git diff review and approval before commit/push.
 
-**Current conclusion:** TerraSpectra has a defensible research direction, but dataset approvals and modelling scope must remain conditional until the outstanding evidence is resolved.
+- VNIR calibration and sample-linkage verification.
+- SWIR raw-header, calibration and acquisition verification.
+- Rice severity-class definitions, boundaries and image-to-label mapping.
+- NWRD dataset reuse permission, archive inspection, image-mask pairing and split clarification.
+- CCMT archive inventory, raw/augmented mapping, duplicate checks and sample-grouping assessment.
+- Final dataset selection and modelling approval.
+- Remaining team investigation updates and team review.
+- Documentation and reference verification.
+- Git diff review and explicit approval before commit/push.
+
+**Current conclusion:** TerraSpectra has a defensible research direction, but dataset approvals and modelling scope must remain conditional until the outstanding evidence is resolved. The project should prioritise scientifically supportable objectives and avoid claiming forecasting or multimodal fusion without adequate data.

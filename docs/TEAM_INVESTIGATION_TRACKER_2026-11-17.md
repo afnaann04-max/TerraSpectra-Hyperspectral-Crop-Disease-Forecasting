@@ -369,3 +369,92 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 **Next milestone:** Complete the initial source and suitability assessment of all candidate datasets, establish the experimental units and determine which datasets can genuinely support the intended research objectives.
 
 **Final note:** Documentation completion does not equal scientific validation. The next priority is to establish whether the available data can support a defensible disease-detection, severity-assessment or forecasting study before moving into preprocessing and model development.
+
+## 5F. Daily progress update — 19 November 2026
+
+### Hiba — Cross-dataset assessment and integration
+
+- Reviewed Member 3's three updated RGB investigation reports:
+  - `docs/NWRD_FOLLOW_UP_VERIFICATION.md`
+  - `docs/RICE_SHEATH_BLIGHT_SEVERITY_LABEL_VERIFICATION.md`
+  - `docs/TOMATO_DATASET_SOURCE_VERIFICATION.md`
+- Retrieved the three reports from Afnan's branch into the Hiba working branch.
+- Updated `docs/CROSS_DATASET_SUITABILITY_ASSESSMENT_2026-11-18.md` with the latest RGB and SWIR evidence.
+- Recorded the CCMT public-record CC BY 4.0 licence and remaining archive-verification requirements.
+- Recorded the NWRD licence, archive and train/validation/test split uncertainties.
+- Recorded the Rice Sheath Blight CC BY 4.0 public-record finding and unresolved severity-label details.
+- Reviewed Sections 2.4 and 2.5 and confirmed their headings are unique.
+- Ran `git diff --check`; no whitespace errors remain.
+- The assessment has 122 insertions and 47 deletions. It remains modified but unstaged.
+- The three RGB reports are staged locally but have not been committed or pushed.
+
+### Member 3 — RGB investigation
+
+**NWRD Wheat Rust — Follow-up verification completed.**
+
+- Reviewed the official Zenodo and GitHub source information.
+- Documented the reported 100 images and binary segmentation masks.
+- Recorded the unresolved dataset reuse licence.
+- Documented the discrepancy between the paper's 80/10/10 split and the GitHub README's 90% train-plus-validation and 10% test description.
+- Archive integrity, actual image/mask counts and image-mask pairing remain unverified.
+
+**CCMT Tomato — Public-source investigation completed.**
+
+- Reviewed the official Mendeley Data record and associated publication.
+- Recorded 5,435 reported raw tomato images, 27,178 augmented tomato images and five tomato classes.
+- Recorded the CC BY 4.0 licence listed on the public dataset record.
+- Archive contents, image-to-label mapping, duplicates, augmentation relationships and biological sample grouping remain unverified.
+
+**Rice Sheath Blight — Follow-up verification completed.**
+
+- Reviewed the official Mendeley Data record.
+- Recorded the public-record CC BY 4.0 licence.
+- Exact six class names, definitions, severity boundaries and image-to-label mapping remain unresolved.
+- Repeated observation periods do not establish longitudinal tracking of the same plants or leaves.
+- Archive contents have not been independently inspected.
+
+**RGB Git handover:**
+
+- Three updated reports were retrieved into the Hiba working branch.
+- The files are staged locally but have not yet been committed or pushed by Hiba.
+
+### Member 2 — SWIR Wheat Septoria
+
+- SWIR data-readiness and preprocessing-feasibility assessment remains completed and reviewed.
+- Preprocessing workflow is proposed only; it has not been executed.
+- Original raw headers and calibration/reference files remain unavailable for local validation.
+- Wavelength arrays, binary layout, acquisition settings and calibration provenance remain unresolved.
+
+## 5G. Current evidence-based progress status — 19 November 2026
+
+| Work item | Current status |
+|---|---|
+| VNIR investigation and suitability assessment | Completed for investigated data; documented limitations remain |
+| SWIR source and metadata investigation | Completed; technical metadata gaps remain |
+| SWIR data-readiness assessment | Completed and reviewed |
+| NWRD initial source verification | Completed |
+| NWRD follow-up verification | Completed; licence, archive and split questions unresolved |
+| CCMT public-source investigation | Completed; archive-level verification pending |
+| Rice Sheath Blight severity-label follow-up | Completed; exact class definitions and annotation mapping unresolved |
+| Cross-dataset suitability assessment | Updated; final team review pending |
+| RGB report retrieval into Hiba branch | Completed; three reports staged, not committed |
+| Tracker update | 19 November update being added |
+| Preprocessing and model training | Not approved or started |
+
+## 11. Next actions — 20 November 2026
+
+- Hiba: Complete the cross-dataset assessment review and update the central tracker.
+- Member 2: Clarify whether additional SWIR metadata or calibration evidence can be obtained.
+- Member 3: Continue only RGB follow-ups for which new authoritative evidence is available.
+- Team: Confirm the fourth member's current progress and remaining responsibilities.
+- Hiba: Review staged and unstaged changes separately and seek approval before committing or pushing.
+
+## 12. Updated overall assessment — 19 November 2026
+
+**Current stage:** Cross-dataset evidence consolidation and suitability assessment.
+
+Public-source investigations have advanced across all five candidate datasets. Archive-level verification, licence clarification and biological sample structure remain important limitations.
+
+No preprocessing or model training is approved by this update. Keep modality-specific pipelines separate until dataset compatibility and experimental design are established.
+
+**Next milestone:** Complete the remaining evidence review and freeze candidate datasets and research objectives before preprocessing begins.
