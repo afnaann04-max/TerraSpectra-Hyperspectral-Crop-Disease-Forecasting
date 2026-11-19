@@ -126,4 +126,36 @@ The dataset remains a candidate and should not receive final approval until the 
 3. Related contributor research listing: https://www.researchgate.net/publication/403426363_Context-Aware_Explanation_Drift_Detection_CA-EDD_For_Plant_Disease_Severity_Estimation
 4. Example of separate rice sheath blight severity assessment research: https://pmc.ncbi.nlm.nih.gov/articles/PMC10642295/
 
-**End of report.**
+## Follow-up Verification — 19 November 2026
+
+### Additional official-source review
+
+The official Mendeley Data record was reviewed again to investigate the six disease severity levels and the annotation details.
+
+**Additional information confirmed from the dataset description:**
+- Severity assessment is described as following a standard evaluation scale.
+- The images were reviewed by a domain expert from the Department of Plant Pathology, College of Agriculture, Padannakkad, Kasargod.
+- The description identifies lesion extent, lesion height progression along the sheath, and symptom colour intensity as severity-related visual criteria.
+
+### Remaining unresolved information
+
+- The exact name or reference of the standard severity evaluation scale.
+- The six class names or numerical class codes.
+- Severity score boundaries and thresholds.
+- The exact scale used for scoring.
+- Actual image-to-label mapping.
+- Annotation file format and location within the dataset.
+
+The official dataset description does not provide enough information to establish these details independently.
+
+### Verification conclusion
+
+The dataset creator reports six progressive severity levels and expert-reviewed severity classification. However, the exact class definitions and scoring boundaries remain unverified.
+
+No standard 0–9 scale has been assumed.
+
+No dataset archive was downloaded, extracted, modified, or inspected during this follow-up.
+
+**Source:** https://data.mendeley.com/datasets/489spnkhp5/1
+
+**Follow-up date:** 19 November 2026
