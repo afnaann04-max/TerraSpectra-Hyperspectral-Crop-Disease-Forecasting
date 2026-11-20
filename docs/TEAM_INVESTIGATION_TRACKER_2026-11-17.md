@@ -488,3 +488,31 @@ No preprocessing or model training is approved by this update. Keep modality-spe
 **Restrictions:** No archive was downloaded again, no raw data was modified, no preprocessing was executed and no model was trained.
 
 **Next action:** Identify the original dataset holder, obtain the required files and perform read-only technical verification when access is provided.
+
+## Additional RGB Archive Verification Update — 20 November 2026
+
+**Member:** Afnan — Member 3 (RGB Dataset Investigation)
+**Dataset:** CCMT Tomato
+**Source report:** `docs/TOMATO_DATASET_SOURCE_VERIFICATION.md`
+**Source branch:** `Afnan`
+**Source commit:** `8e1a310` — `docs: update CCMT tomato archive verification findings`
+
+### Archive-level findings
+
+- Official archive structure and image counts were inspected.
+- Verified archive totals: 21,723 training images and 5,435 test images, giving 27,158 images.
+- The publication reports 27,178 augmented tomato images, leaving an unresolved difference of 20 images.
+- Five-class archive counts were documented in the updated source report.
+- Filename-based train/test matching identified one cross-class pairing: a Septoria leaf spot training filename paired with a Leaf blight test filename. The inspected pair had different SHA256 hashes; this does not rule out near-duplicates or augmentation leakage.
+- CC BY 4.0 is listed as the dataset licence.
+- Image-level class labels are supported; bounding-box and segmentation annotations have not been established.
+
+### Remaining limitations
+
+The reason for the 20-image discrepancy, comprehensive train/test duplicate and near-duplicate checks, possible augmentation leakage, complete image-to-label mapping, annotation-file format and full image-integrity verification remain unresolved.
+
+### Readiness decision
+
+The archive investigation provides stronger evidence for the CCMT tomato dataset's structure and class distribution. However, it is **not yet approved for model training**. Any later experiment must first resolve or explicitly document split leakage risks and preserve the original train/test separation.
+
+No preprocessing, augmentation, dataset merging or model training was performed as part of this verification update.
