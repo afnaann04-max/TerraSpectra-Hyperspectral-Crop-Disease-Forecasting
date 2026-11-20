@@ -333,3 +333,84 @@ These details are source-reported and must be distinguished from archive-verifie
 **Investigation update:** 20 November 2026  
 **Prepared by:** Member 3 – RGB Dataset Investigation  
 **Final status:** Public source verification and partial archive-level verification completed; further integrity and leakage checks pending.
+
+## 14. Additional Archive Integrity and Train/Test Leakage Verification (20 November 2026)
+
+Further read-only archive verification was performed using PowerShell and SHA256 hashing directly on files inside the ZIP archive. No files were extracted or modified.
+
+### 14.1 Raw Tomato Archive Count
+
+The raw Tomato folder was independently counted by class.
+
+| Class | Raw images |
+|---|---:|
+| Healthy | 470 |
+| Leaf blight | 1,301 |
+| Leaf curl | 518 |
+| Septoria leaf spot | 2,743 |
+| Verticulium wilt | 773 |
+| **Total** | **5,805** |
+
+The inspected raw Tomato folder contains 5,805 image files, which is 370 more than the source-reported raw count of 5,435.
+
+### 14.2 Exact Raw-to-Augmented Image Matches
+
+SHA256 hashes were calculated for raw Tomato files and augmented Tomato train/test files inside the ZIP archive.
+
+- **Exact raw-to-augmented matches: 5,627**
+
+This confirms exact binary matches between files in the raw Tomato folder and files in the augmented dataset. This result does not independently establish the original-image lineage of every augmented file.
+
+### 14.3 Exact Train/Test Overlap Verification
+
+SHA256 comparison was performed between the augmented Tomato train and test folders.
+
+- Train images: 21,723
+- Test images: 5,435
+- Exact Train–Test matching test files: **4,084**
+
+The matching test files were grouped by class:
+
+| Test class | Exact Train–Test matching files |
+|---|---:|
+| Healthy | 377 |
+| Leaf blight | 982 |
+| Leaf curl | 397 |
+| Septoria leaf spot | 1,755 |
+| Verticulium wilt | 573 |
+| **Total** | **4,084** |
+
+### 14.4 Proportion of Test Files with Exact Train Matches
+
+Of the 5,435 test files, 4,084 were found to have an exact SHA256 match in the training set.
+
+- Exact overlap: 4,084 / 5,435
+- Percentage: **75.1%**
+- Test files without an exact Train match: **1,351 (24.9%)**
+
+This indicates substantial exact-file overlap between the predefined train and test folders.
+
+### 14.5 Interpretation and Limitations
+
+The exact hash comparison confirms that identical file contents exist across the train and test folders. This is evidence of train/test contamination at the exact-file level and raises a serious concern about the independence of the evaluation split.
+
+However, this investigation does not yet establish:
+
+- The number of unique original photographs represented by these matches.
+- Whether non-identical augmented variants of the same original image also cross the train/test boundary.
+- The extent to which model performance metrics would be affected.
+- Whether all exact matches represent the same underlying capture or photograph lineage beyond identical file content.
+
+The results are limited to exact binary file matching using SHA256. Similar-image or transformed-image matching has not been performed.
+
+### 14.6 Verification Method
+
+- Archive inspected directly using PowerShell/.NET ZIP access.
+- File contents streamed for SHA256 calculation.
+- No archive extraction performed.
+- No image preprocessing performed.
+- No augmentation performed.
+- No model training performed.
+- No original dataset files modified or deleted.
+
+These findings are archive-verified and should be distinguished from publication-reported statistics.
