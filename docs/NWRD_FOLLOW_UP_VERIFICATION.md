@@ -104,6 +104,31 @@ No author clarification about the dataset licence or split discrepancy was found
 
 **Conclusion:** Dataset reuse permission and licence remain unresolved. Author clarification is required before making assumptions about redistribution or modification rights.
 
+### 4.4 Additional Licence Evidence — NLM Dataset Catalog
+
+A further verification check was conducted using the NLM Dataset Catalog entry for the same NWRD dataset and Zenodo record.
+
+The NLM Dataset Catalog lists the dataset rights as:
+
+**Creative Commons Attribution 4.0 International (CC BY 4.0).**
+
+The catalog entry links to the same Zenodo dataset DOI: `10.5281/zenodo.21672928`.
+
+This provides additional licence evidence. However, the Zenodo record's visible rights information was previously recorded as `Copyright (C) 2023 The Authors`, so the licence information is not consistently displayed across the sources reviewed.
+
+The research paper is itself published under CC BY 4.0, but the publication licence and dataset licence should be distinguished.
+
+**Updated interpretation:**
+
+- NLM Dataset Catalog: explicitly lists CC BY 4.0 for the dataset.
+- Zenodo record: visible rights statement is Copyright (C) 2023 The Authors.
+- GitHub repository: MIT licence displayed for repository software; not automatically assumed to apply to dataset images and masks.
+- Research paper: CC BY 4.0 publication licence.
+
+The NLM catalog listing is positive evidence of dataset reuse rights, but because of the differing rights displays, explicit confirmation from the dataset authors or clarification on the primary Zenodo record is still recommended before final project approval.
+
+**Status: Licence evidence improved; discrepancy and author clarification remain pending.**
+
 ## 5. Image Count and Image-Mask Pairing
 
 ### 5.1 Published image count
@@ -168,6 +193,7 @@ No archive was downloaded for this investigation.
 | Actual image count | Not verified |
 | Actual mask count | Not verified |
 | Image-mask pairing | Not verified |
+| Dataset reuse licence | NLM Dataset Catalog lists CC BY 4.0; Zenodo displays Copyright (C) 2023 The Authors; discrepancy and author clarification pending |
 
 ## 7. Next Steps
 
@@ -177,7 +203,7 @@ No archive was downloaded for this investigation.
 4. Ask whether every image has a corresponding binary segmentation mask.
 5. Obtain permission before downloading or modifying the archive if required by the project.
 6. Perform archive-level inventory only after explicit authorization.
-
+7. Seek author clarification on the licence discrepancy and confirm that CC BY 4.0 applies to both the dataset images and masks.
 ## 8. Restrictions and Investigation Notes
 
 - No dataset archive was downloaded.
@@ -195,6 +221,8 @@ No archive was downloaded for this investigation.
 3. GitHub README: https://github.com/dll-ncai/NUST-Wheat-Rust-Disease-NWRD/blob/main/README.md
 4. GitHub issues: https://github.com/dll-ncai/NUST-Wheat-Rust-Disease-NWRD/issues
 5. Research paper: https://doi.org/10.3390/s23156942
+6. NLM Dataset Catalog — Dataset rights listing for NWRD (CC BY 4.0):
+   https://datasetcatalog.nlm.nih.gov/dataset?q=0003216471
 
 **Investigation date:** 18 November 2026  
 **Prepared by:** Member 3 – RGB Dataset Investigation  
