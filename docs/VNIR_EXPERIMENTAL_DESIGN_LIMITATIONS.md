@@ -252,3 +252,48 @@ Additional independent biological replicates and a verified experimental design 
 ---
 
 **Assessment status:** VNIR experimental-design investigation completed for the selected four-scan subset. Additional experimental information and independent samples remain necessary.
+
+---
+
+## 10. Final Experimental Design Decision — 20 November 2026
+
+### 10.1 Raw data availability check
+
+A recursive inventory of `data/raw/VNIR/` confirmed the following file counts:
+
+| File type | Count |
+|---|---:|
+| `.hdr` | 4 |
+| `.hyspex` | 4 |
+| `.jpg` | 4 |
+| `.csv` | 10 |
+
+The inventory confirms four available raw hyperspectral scan files in the inspected directory. No additional VNIR scans were identified through this inventory.
+
+### 10.2 Approved experimental scope
+
+The current VNIR subset will be used primarily for exploratory spectral analysis.
+
+- Retain the 216-band dataset as the baseline.
+- Retain the 30-band candidate for exploratory comparison.
+- Investigate spectral patterns between infected and non-infected samples descriptively.
+- Do not interpret pixel-level observations as independent biological samples.
+- Do not claim reliable independent disease classification from the current four-scan subset.
+- Do not claim early disease detection or disease forecasting.
+
+### 10.3 Validation limitations
+
+The four selected scans represent only four pots, with one pot per genotype-treatment combination. Treatment remains confounded with scan identity.
+
+Random pixel-level train/test splitting is not acceptable as the primary evaluation strategy. Any future modelling must use group-aware splitting based on the verified biological experimental unit.
+
+### 10.4 Outstanding requirements
+
+Before stronger modelling claims can be considered:
+
+1. Confirm biological plant identities and the true experimental unit.
+2. Obtain additional independent biological replicates, if available.
+3. Verify processing and calibration provenance.
+4. Establish a leakage-safe validation strategy.
+
+**Final decision:** VNIR is approved for exploratory spectral analysis only at the current evidence stage. Independent classification, early detection and forecasting remain unvalidated.
