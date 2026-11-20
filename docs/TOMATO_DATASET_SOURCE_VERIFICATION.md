@@ -414,3 +414,24 @@ The results are limited to exact binary file matching using SHA256. Similar-imag
 - No original dataset files modified or deleted.
 
 These findings are archive-verified and should be distinguished from publication-reported statistics.
+
+### 14.7 Exact Raw-to-Augmented Matches by Split and Class
+
+A further SHA256 comparison was conducted between the raw Tomato folder and the augmented train/test folders. Files were streamed directly from the ZIP archive; no extraction or modification was performed.
+
+| Class | Raw-to-Train exact matches | Raw-to-Test exact matches |
+|---|---:|---:|
+| Healthy | 376 | 32 |
+| Leaf blight | 1,029 | 323 |
+| Leaf curl | 403 | 51 |
+| Septoria leaf spot | 1,837 | 918 |
+| Verticulium wilt | 619 | 39 |
+| **Total** | **4,264** | **1,363** |
+
+The total raw-to-augmented exact matches were 5,627, consisting of 4,264 train matches and 1,363 test matches.
+
+These counts identify exact file-content matches between raw images and the augmented split files. They do not establish the complete lineage of non-identical transformed or augmented images.
+
+The raw-to-train and raw-to-test match counts are separate from the train/test exact-overlap count of 4,084. The overlap investigation and raw-to-augmented investigation measure different file relationships.
+
+Further original-image lineage verification remains unresolved.
