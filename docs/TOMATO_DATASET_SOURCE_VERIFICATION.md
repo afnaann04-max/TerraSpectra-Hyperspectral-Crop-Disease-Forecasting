@@ -1,11 +1,11 @@
-# CCMT Tomato Dataset — Source Verification Report
+# CCMT Tomato Dataset — Source & Archive Verification Report
 
 **Project:** TerraSpectra – Hyperspectral Crop Disease Forecasting  
 **Assigned responsibility:** Member 3 – RGB Dataset Investigation  
-**Investigation date:** 18 November 2026  
+**Investigation date:** 18–20 November 2026  
 **Dataset:** CCMT – Dataset for Crop Pest and Disease Detection  
 **Crop investigated:** Tomato  
-**Status:** Initial source verification completed; archive-level verification pending
+**Status:** Public source verification and partial archive-level verification completed
 
 ---
 
@@ -18,21 +18,27 @@
 - **Publication:** CCMT: Dataset for Crop Pest and Disease Detection
 - **Publication DOI:** https://doi.org/10.1016/j.dib.2023.109306
 - **Publication platform:** Data in Brief
-- **Publication date:** 2023
+- **Publication year:** 2023
 
 The dataset contains images from four crops: cashew, cassava, maize and tomato. This investigation focuses only on the tomato subset.
+
+---
 
 ## 2. Source and Availability
 
 The dataset is publicly listed on Mendeley Data.
 
-The publication and dataset record provide information about the dataset and its availability. The record provides access to the dataset files.
+The publication and dataset record provide information about the dataset and its availability.
 
-**Access status:** Publicly listed dataset.
+- **Access status:** Publicly listed dataset
+- **Archive inspection status:** Archive contents inspected using PowerShell
+- **Archive-level verification:** Partially completed
 
-**Download status:** Not downloaded.
+The tomato dataset archive was inspected to verify its folder structure, class folders, train/test image counts and class distribution.
 
-**Important:** No archive has been downloaded or extracted during this investigation. Therefore, the actual downloaded file structure, file counts, image integrity and annotation mapping have not been independently verified.
+Some file-level checks were also performed, including train/test filename matching and SHA256 comparison.
+
+---
 
 ## 3. Dataset Licence
 
@@ -44,24 +50,38 @@ The licence permits sharing and adaptation subject to its conditions, including 
 
 The dataset licence should be followed when reusing or adapting the data. The publication licence and dataset licence should not be treated as interchangeable.
 
-## 4. Reported Image Counts
+---
 
-According to the dataset description and publication:
+## 4. Reported Image Counts vs Archive-Verified Counts
 
-| Dataset portion | Reported image count |
+The dataset description and publication report the following tomato image counts:
+
+| Dataset portion | Source-reported count |
 |---|---:|
 | Tomato raw images | 5,435 |
 | Tomato augmented images | 27,178 |
 
-These are published figures, not independently verified archive counts.
+The archive was subsequently inspected and image files were counted in the tomato train and test folders.
 
-The full CCMT dataset covers four crops and reports 24,881 raw images and 102,976 augmented images across the dataset.
+### Archive-verified counts
 
-The tomato subset must be kept separate from the other crop datasets during investigation.
+| Dataset portion | Verified image count |
+|---|---:|
+| Train set | 21,723 |
+| Test set | 5,435 |
+| **Total inspected** | **27,158** |
+
+The archive-level total is **27,158 images**, which differs from the publication's reported augmented tomato count of **27,178**.
+
+**Discrepancy: 20 images.**
+
+This discrepancy has been recorded and requires clarification or further investigation. The source-reported count and archive-verified count are retained separately.
+
+---
 
 ## 5. Tomato Disease Classes
 
-The publication reports five tomato image classes:
+The dataset contains five tomato classes:
 
 1. Healthy
 2. Leaf blight
@@ -69,35 +89,93 @@ The publication reports five tomato image classes:
 4. Septoria leaf spot
 5. Verticillium wilt
 
-### Reported raw tomato class distribution
+### 5.1 Archive-verified class distribution
 
-| Class | Reported image count |
+| Class | Train set | Test set | Total |
+|---|---:|---:|---:|
+| Healthy | 2,000 | 500 | 2,500 |
+| Leaf blight | 5,200 | 1,309 | 6,509 |
+| Leaf curl | 2,050 | 532 | 2,582 |
+| Septoria leaf spot | 9,373 | 2,330 | 11,703 |
+| Verticillium wilt | 3,100 | 764 | 3,864 |
+| **Total** | **21,723** | **5,435** | **27,158** |
+
+These counts were obtained by inspecting the actual archive folders using PowerShell.
+
+### 5.2 Class distribution observations
+
+- **Septoria leaf spot** is the largest class.
+- **Healthy** is the smallest class.
+- The dataset has an unequal class distribution.
+- The class distribution should be considered during future dataset evaluation.
+
+The counts above represent archive-inspected files, not the earlier publication-reported raw image counts.
+
+---
+
+## 6. Train/Test Split Verification
+
+The archive contains separate folders for:
+
+- `train_set`
+- `test_set`
+
+### Verified split counts
+
+| Split | Number of images |
 |---|---:|
-| Healthy | 500 |
-| Leaf blight | 1,301 |
-| Leaf curl | 518 |
-| Septoria leaf spot | 2,343 |
-| Verticillium wilt | 773 |
-| **Total** | **5,435** |
+| Train | 21,723 |
+| Test | 5,435 |
+| Total | 27,158 |
 
-The counts above are taken from the publication's reported class distribution. They have not been independently checked against the archive.
+The archive therefore contains a predefined train/test split.
 
-## 6. Annotation Format
+### 6.1 Train/test class comparison
 
-The publication describes the dataset as labelled images organised according to crop and disease classes.
+A filename-based matching investigation was conducted to compare train/test files and their class folders.
+
+The matching results showed the following class-pair groupings:
+
+| Train class | Test class | Count |
+|---|---|---:|
+| Septoria leaf spot | Septoria leaf spot | 1,755 |
+| Leaf blight | Leaf blight | 982 |
+| Verticillium wilt | Verticillium wilt | 573 |
+| Leaf curl | Leaf curl | 397 |
+| Healthy | Healthy | 377 |
+| Septoria leaf spot | Leaf blight | 1 |
+
+One cross-class pairing was detected:
+
+- **Train class:** Septoria leaf spot
+- **Test class:** Leaf blight
+- **Count:** 1
+
+The corresponding train and test files were checked using SHA256 hashes. The inspected files had different hashes, indicating that they are not identical files.
+
+This result should be treated as a detected filename-based pairing anomaly. The full train/test relationship and potential data leakage have not yet been comprehensively verified.
+
+---
+
+## 7. Image Format and Annotation
+
+The publication reports JPEG images organised according to crop and disease class.
 
 The described labelling process involved plant virologists and pathologists, followed by expert review and consensus.
 
-The available source information supports **image-level class labels**.
+The source information supports image-level class labels.
 
-The reviewed source information does not establish that the tomato subset contains:
+The reviewed information does not establish that the tomato subset contains:
+
 - Bounding-box annotations
 - Pixel-level segmentation masks
 - A separate segmentation annotation file
 
-The exact annotation-file format and image-to-label mapping remain to be verified from the actual files.
+The exact annotation-file format and image-to-label mapping have not been comprehensively verified.
 
-## 7. Image Acquisition Conditions
+---
+
+## 8. Image Acquisition Conditions
 
 The publication reports the following acquisition information:
 
@@ -119,42 +197,63 @@ The University of Energy and Natural Resources in Sunyani, Ghana, is identified 
 
 Exact GPS coordinates, image-level capture dates and camera settings for every image have not been verified.
 
-## 8. Folder Structure
+---
 
-The publication describes raw and augmented data organised by crop and disease class.
+## 9. Archive Folder Structure and Inventory
 
-The previously observed folder structure indicates a tomato directory containing five class folders.
+The archive inspection confirmed the presence of separate tomato training and testing folders, with images organised into disease-class directories.
 
-However, the complete archive hierarchy has not been inspected.
+The inspected class folders include:
 
-The following details remain pending:
-- Exact raw folder and file names
-- Exact augmented folder and file names
-- Number of images in each extracted class folder
-- Whether every image has a corresponding label entry
-- Presence and format of any separate annotation files
-- Whether augmented images can be distinguished from original images by filename or metadata
+- `healthy`
+- `leaf blight`
+- `leaf curl`
+- `septoria leaf spot`
+- `verticillium wilt`
 
-No archive-level folder structure or file count is claimed as verified.
+### Verified archive inventory
 
-## 9. Dataset Relevance to TerraSpectra
+| Folder | Image count |
+|---|---:|
+| `train_set` | 21,723 |
+| `test_set` | 5,435 |
+| **Total** | **27,158** |
 
-The CCMT tomato subset may be useful as an RGB image-classification candidate because it contains images grouped into five reported tomato health/disease categories.
+The folder-level class counts were independently inspected.
 
-However, the dataset is not yet approved for modelling.
+Remaining inventory checks include:
+
+- Complete file inventory
+- All image dimensions
+- Image integrity across every file
+- Comprehensive duplicate-image detection
+- Full image-to-label verification
+- Augmented/original image identification
+
+---
+
+## 10. Dataset Relevance to TerraSpectra
+
+The CCMT tomato subset may be useful as an RGB image-classification candidate because it contains images grouped into five tomato health/disease categories.
+
+However, the dataset is **not yet approved for modelling**.
 
 Before selection, the following need to be evaluated:
-- Actual number of usable original images
-- Class distribution after file-level verification
+
+- Actual number of usable images
+- Verified class distribution
 - Availability and consistency of image-level labels
 - Duplicate or near-duplicate images
 - Differences between original and augmented images
-- Suitability of the image acquisition conditions for the intended project
+- Potential data leakage between train and test
+- Image acquisition conditions and dataset suitability
 - Licence and attribution requirements
 
-The dataset should remain separate from the NWRD Wheat Rust and Rice Sheath Blight datasets.
+The dataset must remain separate from the NWRD Wheat Rust and Rice Sheath Blight datasets during investigation.
 
-## 10. Verified, Reported and Unresolved Information
+---
+
+## 11. Verified, Reported and Unresolved Information
 
 ### A. Verified from public source records
 
@@ -168,35 +267,54 @@ The dataset should remain separate from the NWRD Wheat Rust and Rice Sheath Blig
 - 5,435 raw tomato images.
 - 27,178 augmented tomato images.
 - Five tomato classes.
-- Class-wise raw image counts listed in this report.
+- Class-wise raw image counts.
 - JPEG image format.
 - Canon EOS Rebel T7 camera and EF-A 18–55 mm lens.
 - Collection in Ghana during October–December 2022.
 - Expert image-labelling and review process.
 
-These details are source-reported and have not been independently verified against the archive.
+These details are source-reported and must be distinguished from archive-verified findings.
 
-### C. Unresolved
+### C. Verified from archive inspection
 
-- Actual archive-level image counts.
-- Exact extracted folder structure.
+- Train set contains **21,723** images.
+- Test set contains **5,435** images.
+- Archive total is **27,158** images.
+- Five tomato class folders were inspected.
+- Train/test class counts were inspected.
+- A filename-based train/test matching check was performed.
+- One cross-class pairing was detected in the matching output.
+- SHA256 comparison was performed for the inspected mismatched pair.
+
+### D. Unresolved
+
+- Explanation for the 20-image difference between the source-reported augmented count and the inspected archive count.
+- Comprehensive train/test image pairing.
+- Potential augmented-image leakage between train and test.
 - Exact annotation-file format.
-- Whether any additional annotation files are supplied.
-- Image-to-label mapping at file level.
-- Exact image dimensions for every image.
-- Duplicate and image-integrity status.
+- Complete image-to-label mapping.
+- Image dimensions for every image.
+- Duplicate and near-duplicate image status.
+- Full image integrity verification.
 - Exact metadata availability for individual images.
 
-## 11. Restrictions and Investigation Notes
+---
 
-- No dataset archive was downloaded.
+## 12. Restrictions and Investigation Notes
+
+- Archive contents were inspected.
 - No original files were modified or deleted.
-- No preprocessing or augmentation was performed.
+- No preprocessing was performed.
+- No additional augmentation was performed.
 - No model training was performed.
+- No dataset merging was performed.
 - The dataset has not been approved for modelling.
-- Published counts must not be described as independently verified file counts.
+- Source-reported figures and archive-verified counts are kept separate.
+- The detected class-pair mismatch should not be generalized to the entire dataset without further verification.
 
-## 12. References
+---
+
+## 13. References
 
 1. Mendeley Data – Dataset for Crop Pest and Disease Detection:  
    https://data.mendeley.com/datasets/bwh3zbpkpv/1
@@ -210,6 +328,8 @@ These details are source-reported and have not been independently verified again
 4. Creative Commons Attribution 4.0 International:  
    https://creativecommons.org/licenses/by/4.0/
 
-**Investigation date:** 18 November 2026  
+---
+
+**Investigation update:** 20 November 2026  
 **Prepared by:** Member 3 – RGB Dataset Investigation  
-**Final status:** Public source verification completed; archive-level verification pending.
+**Final status:** Public source verification and partial archive-level verification completed; further integrity and leakage checks pending.
