@@ -1,9 +1,9 @@
 # TerraSpectra — Cross-Dataset Suitability Assessment
 
 **Assessment date:** 18 November 2026
-**Updated:** 19 November 2026
+**Updated:** 21 November 2026
 **Prepared by:** Hiba
-**Status:** Draft — pending final team investigation updates and review
+**Status:** Updated draft — pending final team investigation updates and review
 
 ## 1. Purpose
 
@@ -22,15 +22,15 @@ It also provides preliminary dataset-selection recommendations, experimental des
 
 ## 2. Cross-dataset comparison
 
-| Dataset | Modality | Crop and disease | Reported data | Main limitations |
+| Dataset | Modality | Crop and disease | Reported or verified data | Main limitations |
 |---|---|---|---|---|
 | VNIR Wheat Septoria | VNIR hyperspectral | Wheat — Septoria | 48 metadata pots; 216 bands in inspected subset | Small inspected subset, calibration uncertainty, scan-treatment confounding and biological tracking uncertainty |
 | SWIR Wheat Septoria | SWIR hyperspectral | Wheat — Septoria | 48 pot records, 279 leaf-level records, 256 channels; 96 scans historically reported | Original raw headers and calibration references unavailable for verification; acquisition settings and biological tracking require clarification |
 | Rice Sheath Blight | RGB | Rice — sheath blight | 1,609 original field images and six progressive severity levels reported | Exact severity class names, boundaries and image-to-label mapping unresolved; archive not inspected |
 | NWRD Wheat Rust | RGB | Wheat — rust | 100 images and binary segmentation masks reported | Dataset reuse licence unresolved; archive and image-mask pairing unverified; paper and README split discrepancy |
-| CCMT Tomato | RGB | Tomato — five reported disease/health classes | 5,435 raw images and 27,178 augmented images reported | Archive counts, augmentation-to-original mapping, duplicates and biological sample grouping unverified |
+| CCMT Tomato | RGB | Tomato — five reported disease/health classes | 27,158 images inspected: 21,723 train and 5,435 test; publication reports 27,178 augmented images | 20-image discrepancy, original-to-augmented mapping, comprehensive leakage checks, near-duplicates and biological sample grouping unresolved |
 
-The values above are based on published dataset descriptions and completed public-source investigations. They should not be interpreted as proof that the corresponding archives have been downloaded or independently inspected.
+The values above distinguish published descriptions, historical team-reported checks and archive-level inspections. Archive inspection has been completed for CCMT, but not for every dataset. The reported figures should not be interpreted as proof that all datasets have been independently verified.
 
 ### 2.1 VNIR Wheat Septoria
 
@@ -106,13 +106,16 @@ The dataset is titled *Dataset for Crop Pest and Disease Detection (CCMT)*.
 - Mendeley Data DOI: `10.17632/bwh3zbpkpv.1`
 - Associated publication DOI: `10.1016/j.dib.2023.109306`
 - Crops covered: cashew, cassava, maize and tomato.
-- Tomato raw image count reported: 5,435.
-- Tomato augmented image count reported: 27,178.
 - Five reported tomato classes: Healthy, Leaf blight, Leaf curl, Septoria leaf spot and Verticillium wilt.
+- Public dataset record lists a CC BY 4.0 licence. The dataset licence should be distinguished from the licence governing the associated publication.
+
+#### Published dataset information
+
+The publication reports 5,435 raw tomato images and 27,178 augmented tomato images.
 
 The reported raw tomato class counts are:
 
-| Tomato class | Reported raw image count |
+| Tomato class | Published raw image count |
 |---|---:|
 | Healthy | 500 |
 | Leaf blight | 1,301 |
@@ -121,15 +124,69 @@ The reported raw tomato class counts are:
 | Verticillium wilt | 773 |
 | **Total** | **5,435** |
 
-The public Mendeley record lists a CC BY 4.0 licence. The dataset licence should be distinguished from the licence governing the associated publication.
+The source description reports JPEG images captured using a Canon EOS Rebel T7 DSLR with an EF-S 18–55 mm lens on farms in Ghana between October and December 2022. Annotation reportedly took place between December 2022 and January 2023, involving plant virologists or pathologists and expert review.
 
-The source description reports JPEG images captured using a Canon EOS Rebel T7 DSLR with an EF-S 18–55 mm lens on farms in Ghana between October and December 2022. Annotation is reported to have taken place between December 2022 and January 2023, involving plant virologists or pathologists and expert review.
+#### Archive-level verification — 20 November 2026
 
-The available public-source evidence supports image-level class labels. It does not establish bounding-box or segmentation-mask annotations.
+Member 3 (Afnan) completed an inspection of the available CCMT tomato archive and documented the following counts:
 
-The reported raw and augmented counts have not been independently verified against the official archive. The exact archive hierarchy, file-to-label mapping, duplicate status, original-to-augmented relationships and biological sample identifiers remain unresolved. Augmented derivatives must be linked to their original images and kept in the same data partition to prevent data leakage.
+| Archive partition | Image count |
+|---|---:|
+| Train | 21,723 |
+| Test | 5,435 |
+| **Total inspected** | **27,158** |
 
-**Preliminary conclusion:** Conditional candidate for RGB image-level disease classification. The five reported classes provide a basis for further investigation, but archive inventory, label verification, augmentation mapping, duplicate checks and sample-grouping assessment are required before modelling approval.
+The inspected archive contains 20 fewer images than the 27,178 augmented tomato images reported in the publication. The reason for this difference remains unresolved.
+
+The verified archive class distribution is:
+
+| Tomato class | Train | Test | Total |
+|---|---:|---:|---:|
+| Healthy | 2,000 | 500 | 2,500 |
+| Leaf blight | 5,200 | 1,309 | 6,509 |
+| Leaf curl | 2,050 | 532 | 2,582 |
+| Septoria leaf spot | 9,373 | 2,330 | 11,703 |
+| Verticillium wilt | 3,100 | 764 | 3,864 |
+| **Total** | **21,723** | **5,435** | **27,158** |
+
+The archive class totals are internally consistent. However, the published raw class counts and the inspected test-partition class counts are not identical. Their relationship requires further clarification.
+
+#### Filename matching and duplicate investigation
+
+Filename-based matching between the train and test partitions identified the following class-pair groupings:
+
+| Train class | Test class | Filename matches |
+|---|---|---:|
+| Septoria leaf spot | Septoria leaf spot | 1,755 |
+| Leaf blight | Leaf blight | 982 |
+| Verticillium wilt | Verticillium wilt | 573 |
+| Leaf curl | Leaf curl | 397 |
+| Healthy | Healthy | 377 |
+| Septoria leaf spot | Leaf blight | 1 |
+
+One cross-class filename pairing was identified between a Septoria leaf spot training image and a Leaf blight test image. The SHA-256 hashes of the inspected pair were different. Therefore, this pair is not confirmed as an exact byte-identical duplicate.
+
+The filename-based matching results total 4,085 matches. This is a filename-matching count, not a verified duplicate count. The inspected cross-class pair had different SHA-256 hashes, so it was not an exact byte-identical duplicate.
+
+The filename matches do not establish complete original-to-augmented relationships or prove that the archive is free from train/test leakage. Near-duplicate images and augmentation relationships remain unresolved.
+
+#### Annotation and sample structure
+
+The available evidence supports image-level tomato class labels. It does not establish bounding-box or segmentation-mask annotations.
+
+The following issues remain unresolved:
+
+- The exact cause of the 20-image difference between the publication-reported augmented count and inspected archive count.
+- Complete original-to-augmented image relationships.
+- Comprehensive duplicate and near-duplicate status.
+- Full train/test leakage assessment.
+- Complete image-to-label mapping and annotation-file details.
+- Biological sample identifiers and grouping information.
+- Full archive integrity and metadata verification.
+
+Augmented derivatives, once identified, must remain in the same data partition as their original images. A random image-level split should not be treated as leakage-safe until these relationships are investigated.
+
+**Preliminary conclusion:** CCMT is a conditional candidate for five-class RGB image-level tomato disease classification. The archive counts and class distribution have now been inspected and documented. However, the 20-image discrepancy, original-to-augmented mapping, duplicate status, complete leakage assessment and biological sample grouping remain unresolved. Exploratory archive analysis is supported, but modelling approval and a final leakage-safe evaluation split remain pending.
 
 ## 3. Dataset suitability by research objective
 
@@ -153,7 +210,7 @@ The following categories describe the strength of current evidence:
 - VNIR and SWIR provide spectral information for investigating wheat Septoria, but neither currently supports a claim of validated disease prediction.
 - Rice Sheath Blight is the clearest candidate for investigating severity estimation, provided its severity labels are verified.
 - NWRD is potentially useful for pixel-level rust segmentation. Segmentation should not automatically be described as image-level disease classification.
-- CCMT is a conditional candidate for image-level tomato disease classification. Its archive-level structure and labels still require verification.
+- CCMT is a conditional candidate for image-level tomato disease classification. Its archive counts and class distribution have been inspected, but complete label mapping, augmentation relationships, leakage checks and biological sample grouping remain unresolved.
 - None of the current datasets provides sufficient verified evidence for a forecasting claim.
 
 ## 4. Preliminary dataset-selection recommendations
@@ -200,6 +257,8 @@ Conditions:
 - Verify image-mask pairing and mask values.
 - Resolve the train/validation split discrepancy.
 
+### 4.3 Not approved for modelling yet
+
 **VNIR Wheat Septoria**
 
 Proposed use: Exploratory spectral analysis and comparison with SWIR.
@@ -211,22 +270,22 @@ Conditions:
 - Address treatment confounding with scan identity.
 - Clarify biological sample tracking.
 
-### 4.3 Not approved for modelling yet
-
 **CCMT Tomato**
 
-CCMT is a conditional candidate for RGB image-level disease classification. Its public dataset record, reported licence, five tomato classes and published image counts have been reviewed.
+CCMT is a conditional candidate for RGB image-level disease classification. Its public dataset record, reported CC BY 4.0 licence, five tomato classes and published image counts have been reviewed.
 
-However, the official archive has not been downloaded and independently inspected. File-to-label mapping, actual image counts, duplicate status, original-to-augmented relationships and biological sample grouping remain unresolved.
+The available CCMT tomato archive has now been inspected. The verified archive contains 27,158 images: 21,723 in the training set and 5,435 in the test set. The class distribution across both sets has also been checked. However, this total differs by 20 images from the publication-reported augmented count of 27,178.
 
-Modelling approval should therefore remain pending until these checks are completed.
+Complete train/test leakage checks, near-duplicate verification, original-to-augmented image mapping, comprehensive file-to-label verification and biological sample grouping remain unresolved. One cross-class filename pairing was identified, but its SHA-256 hashes differ, so it is not a byte-identical duplicate.
+
+Modelling approval should therefore remain pending until the remaining data-integrity and leakage checks are addressed and a defensible validation strategy is established.
 
 ### 4.4 Recommended project direction
 
 1. Prioritise Rice Sheath Blight for severity-estimation investigation, subject to label verification.
 2. Investigate NWRD for binary rust segmentation, subject to licence and archive verification.
 3. Retain VNIR and SWIR as separate exploratory spectral research pipelines.
-4. Consider CCMT for image-level classification after archive-level verification.
+4. Consider CCMT for image-level classification. Its archive inventory and class distribution have been inspected, but remaining integrity and leakage checks must be completed before modelling approval.
 5. Treat multimodal fusion and forecasting as future research directions, not confirmed deliverables.
 
 These are provisional recommendations. Final selection must incorporate the remaining Member 2 and Member 3 investigation results and the team's overall project feasibility.
@@ -398,10 +457,11 @@ This description reflects the current evidence without promising an unverified f
 
 ### CCMT Tomato
 
-- Do the official archive counts match the published raw and augmented counts?
-- What is the exact archive hierarchy and file-to-label mapping?
+- What is the exact cause of the 20-image difference between the inspected archive count and the publication-reported augmented count?
+- What is the complete image-to-label mapping and archive hierarchy?
 - Can original images be reliably linked to augmented derivatives?
-- Are there duplicate or near-duplicate images?
+- Are there duplicate or near-duplicate images across the train and test partitions?
+- Has the full train/test leakage assessment been completed?
 - What biological sample grouping and collection information are available?
 
 ### Overall project
@@ -434,6 +494,8 @@ The source references identify the reported dataset and publication records. The
 - Rice Sheath Blight public-source and severity-label evidence review.
 - NWRD public-source and segmentation-label evidence review.
 - CCMT official public-source investigation.
+- CCMT archive-level image-count and class-distribution inspection.
+- CCMT filename-based train/test matching and hash check of the identified cross-class pair.
 - Cross-dataset comparison.
 - Objective suitability evaluation.
 - Preliminary dataset-selection recommendations.
@@ -447,7 +509,7 @@ The source references identify the reported dataset and publication records. The
 - SWIR raw-header, calibration and acquisition verification.
 - Rice severity-class definitions, boundaries and image-to-label mapping.
 - NWRD dataset reuse permission, archive inspection, image-mask pairing and split clarification.
-- CCMT archive inventory, raw/augmented mapping, duplicate checks and sample-grouping assessment.
+- CCMT explanation of the 20-image discrepancy, complete original-to-augmented mapping, comprehensive duplicate and leakage checks, full label mapping and biological sample-grouping assessment.
 - Final dataset selection and modelling approval.
 - Remaining team investigation updates and team review.
 - Documentation and reference verification.
