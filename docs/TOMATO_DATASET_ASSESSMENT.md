@@ -89,9 +89,19 @@ The dataset description alone does not confirm that the existing split is free f
 
 ## 8. Current Status
 
-**Status:** Initial dataset assessment completed using the published Mendeley dataset description and folder structure.
+**Status: Archive-Level Verification Completed — Suitability Review Pending**
 
-Image-level inspection, preprocessing and model development are pending.
+The initial dataset assessment and follow-up archive verification have been completed for the selected Tomato classes.
+
+Verified findings include raw and augmented image counts for Leaf Curl and Septoria Leaf Spot, corrected augmented counts, filename pattern differences, and exact-image overlap between training and testing sets.
+
+The verification identified **4,084 exact-image matches between the augmented training and testing sets**, indicating that the existing split has significant data leakage concerns.
+
+The augmented Tomato archive count was verified as 27,168, while the published dataset description reports 27,178. The remaining 10-image discrepancy is unresolved.
+
+Original-to-augmented image lineage has not been established. Images have not been extracted or visually inspected.
+
+**Current decision:** The dataset remains a candidate for further evaluation, but the existing train/test split should not be used as a reliable leakage-free evaluation split without further investigation.
 
 ## 9. Dataset Reference
 
