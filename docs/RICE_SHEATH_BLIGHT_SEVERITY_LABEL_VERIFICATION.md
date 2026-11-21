@@ -93,31 +93,28 @@ A related research listing by the contributor was found, but its full text was n
 
 ## 8. Conclusion
 
-**Verification Status: PARTIALLY VERIFIED**
+**Verification Status: Partially Verified**
 
-The official Mendeley dataset description confirms that:
-- The dataset reports six progressive disease severity levels.
-- Image-level severity annotation is reported for the images.
-- Severity assessment considers lesion extent, lesion height progression, symptom colour intensity, lesion density and spatial spread.
+The Rice Sheath Blight dataset was investigated using the official Mendeley dataset record and the downloaded archive's README documentation.
 
-However, the following information remains unverified:
-- Exact names or numerical codes of the six severity classes.
-- Severity definitions and class boundaries.
-- The specific scoring scale used.
-- The annotation file and its format.
-- The actual mapping between individual image files and their corresponding severity labels.
+### Verified Findings
+- Dataset reports 1,609 original images.
+- Six severity classes (Stage-1 to Stage-6) are present.
+- Severity stage descriptions were verified from the archive README.
+- Image counts for all six severity folders were reconciled, totaling 1,609 images.
+- The dataset README describes severity assessment based on lesion progression, lesion height, colour intensity, lesion density, and spatial spread.
+- The archive-level folder organization and class grouping were verified.
 
-A related ResearchGate publication was identified, but it has not been established as direct supporting documentation for this specific dataset's six-class annotation scheme.
+### Remaining Limitations
+- The exact named reference or standard numerical severity scale remains unconfirmed.
+- Additional numeric severity thresholds beyond the README's stage descriptions have not been established.
+- Individual image-to-label mapping has not been independently verified beyond the class-folder organization.
+- A separate annotation file and its format have not been confirmed.
+- Images were not extracted or visually inspected.
 
-The standard 0-9 rice sheath blight severity scale must not be assumed to apply to this dataset.
+The standard 0–9 rice sheath blight severity scale must not be assumed to apply to this dataset.
 
-The dataset remains a candidate and should not receive final approval until the missing severity-label and annotation information is clarified.
-
-**Restrictions followed:**
-- The 4.06 GB archive was not downloaded.
-- No image preprocessing was performed.
-- No image analysis or model training was started.
-- No final dataset approval was made.
+**Final status:** Dataset structure, stage descriptions, and counts are verified at the documentation/archive level. Severity-scale clarification and individual annotation mapping remain unresolved. The dataset remains a candidate pending suitability review.
 
 ## 9. Sources
 
@@ -128,37 +125,82 @@ The dataset remains a candidate and should not receive final approval until the 
 
 ## Follow-up Verification — 19 November 2026
 
-### Additional official-source review
+### Additional Official-Source Review
 
-The official Mendeley Data record was reviewed again to investigate the six disease severity levels and the annotation details.
+The official Mendeley Data record was reviewed again, followed by archive-level README verification to investigate severity classes, class definitions, image counts, and annotation details.
 
-**Additional information confirmed from the dataset description:**
-- Severity assessment is described as following a standard evaluation scale.
-- The images were reviewed by a domain expert from the Department of Plant Pathology, College of Agriculture, Padannakkad, Kasargod.
-- The description identifies lesion extent, lesion height progression along the sheath, and symptom colour intensity as severity-related visual criteria.
+The dataset README inside the downloaded archive provided additional information that was not available in the initial dataset description.
 
-### Remaining unresolved information
+### Verified Severity Stage Definitions
 
-- The exact name or reference of the standard severity evaluation scale.
-- The six class names or numerical class codes.
-- Severity score boundaries and thresholds.
-- The exact scale used for scoring.
-- Actual image-to-label mapping.
-- Annotation file format and location within the dataset.
+| Class | Verified description |
+|---|---|
+| Stage-1 | Healthy (Mild symptoms) |
+| Stage-2 | Initial infection; small lesions restricted to lower sheath |
+| Stage-3 | Progressive spread; lesions covering less than 25% of plant height |
+| Stage-4 | Moderate severity; lesions reaching 25–50% plant height |
+| Stage-5 | High severity; lesions reaching 50–75% plant height |
+| Stage-6 | Extreme severity; lesions reaching the flag leaf or more than 75% plant height |
 
-The official dataset description does not provide enough information to establish these details independently.
+### Verified Image Counts
 
-### Verification conclusion
+| Severity Class | Image Count |
+|---|---:|
+| Stage-1 | 157 |
+| Stage-2 | 326 |
+| Stage-3 | 410 |
+| Stage-4 | 355 |
+| Stage-5 | 263 |
+| Stage-6 | 98 |
+| **Total** | **1,609** |
 
-The dataset creator reports six progressive severity levels and expert-reviewed severity classification. However, the exact class definitions and scoring boundaries remain unverified.
+The six folder counts reconcile exactly with the reported total of 1,609 images.
 
-No standard 0-9 scale has been assumed.
+### Annotation and Severity Assessment Information
 
-No dataset archive was downloaded, extracted, modified, or inspected during this follow-up.
+The README describes severity assessment using:
 
-**Source:** https://data.mendeley.com/datasets/489spnkhp5/1
+- Vertical lesion progression relative to plant height.
+- Chromatic intensity, ranging from water-soaked green symptoms to necrotic grayish-white or brown areas.
+- Lesion density, spatial spread, and coalescence of necrotic patches on the sheath.
 
-**Follow-up date:** 19 November 2026
+### Remaining Unresolved Information
+
+- The exact reference or name of the standard severity evaluation scale.
+- Additional numerical boundaries or scoring thresholds beyond the stage definitions documented in the README.
+- Independent confirmation of image-to-label mapping beyond the class-folder organization.
+- Whether a separate annotation file exists and, if so, its format and location.
+- Visual quality and characteristics of the images, as image files were not extracted or inspected.
+
+The standard 0–9 rice sheath blight severity scale must not be assumed to apply to this dataset.
+
+### Updated Verification Status
+
+The severity stage descriptions, folder organization, and image counts are verified from the downloaded archive documentation.
+
+The severity scale reference, additional scoring boundaries, and individual image-to-label mapping remain unresolved. No author contact was made.
+
+**Updated conclusion:** The dataset's severity documentation is better understood following archive README verification. However, the remaining annotation and scale uncertainties should be considered during dataset suitability assessment. The dataset remains a candidate rather than receiving final approval.
+
+### Clarification Following Archive README Verification
+
+The initial follow-up identified several severity-label details as unverified. Subsequent archive-level verification of the README (`reaadme.txt`) clarified the six severity-stage names and definitions.
+
+**Now verified from the archive README:**
+- Six severity classes, Stage-1 through Stage-6.
+- Stage descriptions and severity progression criteria.
+- Folder-based class organization.
+- Image counts reconciled to 1,609.
+
+**Still unresolved:**
+- Exact reference or name of the standard numerical severity scale.
+- Additional scoring thresholds beyond the README stage definitions.
+- Independent verification of individual image-to-label mapping.
+- Separate annotation file and its format/location.
+
+The earlier statements about unavailable class definitions reflect the initial investigation stage and have been superseded by the archive README verification documented in Section 10.
+
+No standard 0–9 scale has been assumed.
 
 ## 10. Archive-Level Verification - README, Severity Classes, and Image Counts
 
@@ -236,11 +278,12 @@ This is a contact route identified from the dataset's own README. No email conta
 
 ### 10.7 Remaining Verification Limitations
 
-Although the archive README provides six stage descriptions and the image files are organized into six corresponding folders, the following items remain unverified:
+Although the archive README provides six severity-stage descriptions and the image files are organized into six corresponding folders, the following items remain unverified:
 
-- No separate annotation file (CSV, Excel, or other metadata file) has been confirmed.
-- No numeric scoring scale beyond the six stage descriptions has been verified.
-- The exact image-to-label mapping has not been independently inspected beyond the folder-based organization.
-- The image files themselves were not extracted, opened, or processed.
+- A separate annotation file (CSV, Excel, or other metadata file) has not been confirmed.
+- The exact reference or name of the standard numerical severity evaluation scale has not been verified.
+- Additional numeric scoring thresholds beyond the README stage descriptions have not been established.
+- Individual image-to-label mapping has not been independently verified beyond the folder-based organization.
+- The image files themselves were not extracted, opened, or visually inspected.
 
-**Updated status:** Six severity-stage descriptions verified from the archive README; folder structure verified; archive image counts reconciled to 1,609; contributor contact identified. Remaining annotation and scoring limitations are documented above.
+**Updated status:** Six severity-stage descriptions verified from the archive README; folder structure verified; archive image counts reconciled to 1,609; contributor contact identified. Remaining annotation and scoring limitations are documented.
