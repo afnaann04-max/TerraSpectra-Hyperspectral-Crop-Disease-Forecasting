@@ -4,7 +4,7 @@
 **Assigned responsibility:** Member 3 – RGB Dataset Investigation  
 **Investigation date:** 18 November 2026  
 **Dataset:** NUST Wheat Rust Disease Dataset (NWRD)  
-**Status:** Public-source follow-up completed; archive-level verification and author clarification pending
+**Status:** Public-source follow-up and archive-level verification completed; dataset licence clarification and split methodology remain pending.
 
 ---
 
@@ -16,7 +16,7 @@ This report records follow-up verification of the NWRD Wheat Rust dataset, focus
 2. Dataset licence clarification and available author contact channels.
 3. Reported image count, mask count and image-mask pairing questions.
 
-No dataset archive was downloaded or modified.
+The dataset archive was downloaded and verified using archive-listing commands; image files were not extracted or modified.
 
 ## 2. Dataset Sources
 
@@ -158,21 +158,26 @@ NWRD/
     └── masks/
 ```
 
-### 5.4 Unresolved archive-level questions
+### 5.4 Archive-Level Verification
 
-The following details cannot be confirmed without inspecting the archive:
+The downloaded archive was independently inventoried without extracting the dataset images.
 
-- Actual number of JPG images.
-- Actual number of PNG masks.
-- Number of images in each split.
-- Number of masks in each split.
-- Whether every image has a corresponding mask.
-- Whether image and mask filenames follow a consistent naming convention.
-- Whether any images or masks are missing or duplicated.
-- Whether the validation data are stored separately or generated dynamically.
-- Whether the archive directory structure matches the README.
+Verified results:
 
-No archive was downloaded for this investigation.
+- Actual JPG image count: 100
+- Actual PNG mask count: 100
+- Training images: 90
+- Training masks: 90
+- Testing images: 10
+- Testing masks: 10
+- Image-mask filename pairing: verified with zero unmatched filenames
+- Train-test filename overlap: zero shared filenames
+- Archive structure: train and test folders; no separate validation folder found
+- Archive checksum: verified against the official MD5
+
+Detailed archive-level results are documented in Section 10.
+
+Visual content, mask correctness, image resolution, and visual duplicates under different filenames have not been inspected.
 
 ## 6. Verification Status
 
@@ -185,34 +190,51 @@ No archive was downloaded for this investigation.
 | Research paper split | Reported as 80/10/10 |
 | GitHub README split | Reported as 90/10 |
 | Validation split configuration | `validation_split: 0.1` shown |
-| Exact split implementation | Unresolved |
-| Dataset reuse licence | Unresolved |
+| Actual archive train/test split | Verified: 90 train / 10 test |
+| Actual image count | Verified: 100 JPG |
+| Actual mask count | Verified: 100 PNG |
+| Train image-mask filename pairing | Verified: 0 unmatched |
+| Test image-mask filename pairing | Verified: 0 unmatched |
+| Train-test filename overlap | Verified: 0 shared filenames |
+| Archive file types | Verified: JPG and PNG only |
+| Separate validation folder | Not present in inspected archive |
+| Exact validation split implementation | Unresolved |
+| Dataset reuse licence | Licence evidence conflicting; clarification pending |
 | GitHub code licence | MIT displayed |
 | Public author contact person | Hirra Anwar identified |
 | Public author email | Not verified |
-| Actual image count | Not verified |
-| Actual mask count | Not verified |
-| Image-mask pairing | Not verified |
-| Dataset reuse licence | NLM Dataset Catalog lists CC BY 4.0; Zenodo displays Copyright (C) 2023 The Authors; discrepancy and author clarification pending |
+| Visual mask correctness/alignment | Not checked |
+| Visual duplicate images under different filenames | Not checked |
+| Image resolution | Not verified |
+| Model suitability approval | Pending |
+
+The archive-level checks are completed. Remaining unresolved items primarily concern dataset licensing, the validation methodology discrepancy, and visual inspection of images and masks.
 
 ## 7. Next Steps
 
-1. Seek author clarification on the 80/10/10 versus 90/10 split descriptions.
-2. Seek explicit clarification of the dataset image and mask reuse licence.
-3. Ask for confirmation of the actual image and mask counts.
-4. Ask whether every image has a corresponding binary segmentation mask.
-5. Obtain permission before downloading or modifying the archive if required by the project.
-6. Perform archive-level inventory only after explicit authorization.
-7. Seek author clarification on the licence discrepancy and confirm that CC BY 4.0 applies to both the dataset images and masks.
+1. Seek author clarification on the 80/10/10 split described in the research paper versus the 90/10 archive split.
+2. Clarify how the validation split is generated or used, since no separate validation folder was found in the downloaded archive.
+3. Seek confirmation that CC BY 4.0 applies to the dataset images and segmentation masks, given the conflicting rights information.
+4. If authorized for further inspection, visually inspect sample images and masks to assess image-mask alignment and mask quality.
+5. Check image resolution and mask pixel values if these become necessary for dataset suitability assessment.
+6. Assess potential visual duplicates under different filenames if required.
+7. Complete the final dataset suitability assessment for the TerraSpectra project after the remaining questions are resolved.
+
 ## 8. Restrictions and Investigation Notes
 
-- No dataset archive was downloaded.
-- No original files were modified or deleted.
-- No image-mask pairing was claimed as verified.
+- The official NWRD archive was downloaded and checksum-verified.
+- Archive contents were inspected using listing commands; dataset images were not extracted.
+- Image and mask filenames were compared within the train and test splits.
+- No unmatched image or mask filenames were found.
+- No filename overlap was detected between train and test images.
+- Image and mask contents were not visually inspected.
+- No original image or mask files were modified or deleted.
 - No preprocessing or augmentation was performed.
 - No model training was performed.
-- The dataset has not been approved for modelling.
-- The GitHub repository's MIT code licence was not assumed to cover the dataset.
+- Visual duplicate content under different filenames has not been checked.
+- Dataset licence clarification remains pending.
+- The GitHub repository's MIT code licence was not assumed to cover the dataset images and masks.
+- Final dataset suitability approval remains pending.
 
 ## 9. References
 
@@ -226,4 +248,100 @@ No archive was downloaded for this investigation.
 
 **Investigation date:** 18 November 2026  
 **Prepared by:** Member 3 – RGB Dataset Investigation  
-**Final status:** Public-source follow-up completed; author clarification and archive-level verification pending.
+**Final status:** Public-source follow-up and archive-level verification completed; dataset licence clarification, split methodology, and visual quality assessment remain pending.
+
+## 10. Downloaded Archive Verification
+
+### 10.1 Download Verification
+
+The official NWRD archive was downloaded from the Zenodo dataset record.
+
+- Archive name: `NWRD.zip`
+- Downloaded file size: 608,898,312 bytes
+- Approximate size: 608.9 MB
+- Expected MD5: `7b9193efebe1ed8c60b10c9f05d11e14`
+- Actual MD5: `7B9193EFEBE1ED8C60B10C9F05D11E14`
+- Checksum result: **MATCH**
+
+The downloaded archive matches the official MD5 checksum.
+
+### 10.2 Actual Archive File Inventory
+
+The archive was inventoried without extracting the images.
+
+| Split | Images (.jpg) | Masks (.png) |
+|---|---:|---:|
+| Train | 90 | 90 |
+| Test | 10 | 10 |
+| Total | 100 | 100 |
+
+| File type | Count |
+|---|---:|
+| JPG | 100 |
+| PNG | 100 |
+| Total files | 200 |
+
+No other file types were found.
+
+### 10.3 Image-Mask Filename Pairing
+
+Image and mask filenames were compared by filename stem within each split.
+
+| Split | Images without matching masks | Masks without matching images |
+|---|---:|---:|
+| Train | 0 | 0 |
+| Test | 0 | 0 |
+
+All 90 training images and all 10 testing images have corresponding mask filenames.
+
+This verifies filename-level pairing only. Mask pixel correctness and visual alignment have not been inspected.
+
+### 10.4 Train-Test Filename Overlap
+
+Training and testing image filename identifiers were compared.
+
+| Metric | Result |
+|---|---:|
+| Train image IDs | 90 |
+| Test image IDs | 10 |
+| Shared filenames | 0 |
+
+No filename overlap was detected. Identical or near-identical visual content under different filenames has not been checked.
+
+### 10.5 Archive Structure
+
+The verified archive contains:
+
+```text
+NWRD/
+|-- train/
+|   |-- images/  (90 JPG files)
+|   |-- masks/  (90 PNG files)
+|-- test/
+    |-- images/ (10 JPG files)
+    |-- masks/ (10 PNG files)
+```
+
+No separate validation folder was found in the archive listing.
+
+### 10.6 Verification Limitations
+
+- Images were not extracted or opened.
+- Masks were not visually inspected.
+- Image resolution was not independently verified.
+- Mask pixel values and segmentation quality were not examined.
+- Visual duplicates under different filenames were not checked.
+- Disease-class labels were not independently verified from image contents.
+- No preprocessing, augmentation, or model training was performed.
+
+### 10.7 Updated Conclusion
+
+The NWRD archive-level verification is completed.
+
+The downloaded ZIP matches the official MD5 checksum. It contains 100 JPG images and 100 PNG masks, with 90 image-mask pairs in train and 10 in test. Filename pairing was verified with zero unmatched files, and no filename overlap was found between train and test.
+
+The archive contains train and test folders only; no separate validation folder was found. The earlier split-description discrepancy is partially clarified by the actual archive structure, but the exact validation procedure described in the README and paper remains unresolved.
+
+Dataset licence clarification remains pending because the previously reviewed sources displayed inconsistent rights information.
+
+**Updated status: Download and archive-level verification completed. Visual inspection, licence clarification, and final dataset suitability assessment remain pending.**
