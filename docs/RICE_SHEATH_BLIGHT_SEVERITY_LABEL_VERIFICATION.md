@@ -1,6 +1,6 @@
-# Rice Sheath Blight – Severity Label Verification Report
+# Rice Sheath Blight - Severity Label Verification Report
 
-**Project:** TerraSpectra – RGB Dataset Investigation  
+**Project:** TerraSpectra - RGB Dataset Investigation
 **Team Member:** Member 3  
 **Date:** 16 November 2026
 
@@ -109,7 +109,7 @@ However, the following information remains unverified:
 
 A related ResearchGate publication was identified, but it has not been established as direct supporting documentation for this specific dataset's six-class annotation scheme.
 
-The standard 0–9 rice sheath blight severity scale must not be assumed to apply to this dataset.
+The standard 0-9 rice sheath blight severity scale must not be assumed to apply to this dataset.
 
 The dataset remains a candidate and should not receive final approval until the missing severity-label and annotation information is clarified.
 
@@ -152,10 +152,95 @@ The official dataset description does not provide enough information to establis
 
 The dataset creator reports six progressive severity levels and expert-reviewed severity classification. However, the exact class definitions and scoring boundaries remain unverified.
 
-No standard 0–9 scale has been assumed.
+No standard 0-9 scale has been assumed.
 
 No dataset archive was downloaded, extracted, modified, or inspected during this follow-up.
 
 **Source:** https://data.mendeley.com/datasets/489spnkhp5/1
 
 **Follow-up date:** 19 November 2026
+
+## 10. Archive-Level Verification - README, Severity Classes, and Image Counts
+
+### 10.1 Archive Inspection
+
+The dataset archive `SBSeverity.zip` was downloaded and inspected using archive-listing commands without extracting the image files.
+
+The archive contains the following six severity folders:
+
+- `Stage-1`
+- `Stage-2`
+- `Stage-3`
+- `Stage-4`
+- `Stage-5`
+- `Stage-6`
+
+The archive includes a text file named `reaadme.txt` (filename as present in the archive). Its contents provide the severity-stage definitions, annotation protocol, dataset information, and contributor contact details.
+
+### 10.2 Severity Class Definitions Verified from the Archive README
+
+| Folder | Severity definition |
+|---|---|
+| Stage-1 | Healthy (Mild symptoms) |
+| Stage-2 | Initial infection; small lesions restricted to the lower sheath |
+| Stage-3 | Progressive spread; lesions covering less than 25% of the plant height |
+| Stage-4 | Moderate severity; lesions reaching 25-50% of the plant height |
+| Stage-5 | High severity; lesions reaching 50-75% of the plant height |
+| Stage-6 | Extreme severity; lesions reaching the flag leaf or more than 75% of plant height |
+
+### 10.3 Annotation Protocol
+
+According to the archive README, severity levels were assigned considering:
+
+- **Vertical Progression:** Height of the highest lesion relative to the total plant height.
+- **Chromatic Intensity:** Transition from water-soaked green to necrotic grayish-white/brown.
+- **Lesion Density:** Spatial spread and coalescence of necrotic patches on the sheath.
+
+### 10.4 Archive Image Count Verification
+
+Image files were counted from the archive listing without extracting the images.
+
+| Severity folder | Verified image count |
+|---|---:|
+| Stage-1 | 157 |
+| Stage-2 | 326 |
+| Stage-3 | 410 |
+| Stage-4 | 355 |
+| Stage-5 | 263 |
+| Stage-6 | 98 |
+| **Total** | **1,609** |
+
+The total archive image count matches the README-reported count of 1,609 images.
+
+**Count reconciliation:**
+
+- README-reported total: 1,609
+- Archive inventory total: 1,609
+- Difference: 0
+
+### 10.5 Dataset Metadata Observed in the README
+
+- Image formats reported: JPG / PNG
+- Resolution reported: 3024 x 4032
+- Total images reported: 1,609
+
+### 10.6 Contributor Contact Information Found
+
+The archive README provides the following contact information:
+
+- **Name:** Sonu Varghese K
+- **Institution:** Sahrdaya College of Engineering and Technology, Thrissur, Kerala
+- **Email:** sonuvk13@gmail.com
+
+This is a contact route identified from the dataset's own README. No email contact attempt has been made as part of this investigation.
+
+### 10.7 Remaining Verification Limitations
+
+Although the archive README provides six stage descriptions and the image files are organized into six corresponding folders, the following items remain unverified:
+
+- No separate annotation file (CSV, Excel, or other metadata file) has been confirmed.
+- No numeric scoring scale beyond the six stage descriptions has been verified.
+- The exact image-to-label mapping has not been independently inspected beyond the folder-based organization.
+- The image files themselves were not extracted, opened, or processed.
+
+**Updated status:** Six severity-stage descriptions verified from the archive README; folder structure verified; archive image counts reconciled to 1,609; contributor contact identified. Remaining annotation and scoring limitations are documented above.
