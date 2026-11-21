@@ -1,8 +1,8 @@
 # TerraSpectra Team Investigation Tracker
 
-**Date:** 17 November 2026
+**Date:** 21 November 2026
 
-**Project stage:** Dataset investigation, evidence verification and suitability assessment
+**Project stage:** Evidence consolidation, experimental-design review and dataset suitability assessment
 
 ## 1. Team responsibilities
 
@@ -19,9 +19,9 @@ Current known dataset status based on previous investigations:
 | Dataset | Existing local status |
 |---|---|
 | Wheat Septoria VNIR | Available; selected scans investigated and suitability assessed |
-| Wheat Septoria SWIR | Official archive previously downloaded; historical 96/96 expected pot-side scan matches documented |
+| Wheat Septoria SWIR | Official archive publicly listed in Recherche Data Gouv; historical 96/96 expected pot-side scan matches documented. Current project-copy holder and archive contents remain unconfirmed; original raw-file technical verification is pending |
 | NWRD Wheat Rust | Official source investigated; archive not downloaded; archive contents not independently verified |
-| CCMT Tomato | Not located in previously searched project folders; source investigation pending |
+| CCMT Tomato | Available archive investigated; archive-level counts documented; discrepancy and leakage questions remain unresolved |
 | Rice Sheath Blight | Initial source and severity-label investigation completed; archive contents not yet fully verified |
 
 Not located in searched project folders does not mean publicly unavailable. External source and access verification must be documented separately.
@@ -88,12 +88,14 @@ Claims must be distinguished as verified findings, previously documented results
 |---|---|
 | VNIR investigation | Completed for the selected available scans; suitability assessment documented |
 | VNIR calibration provenance | Investigated; application of reflectance calibration to local NPZ files remains unverified |
-| SWIR source verification | Completed and documented |
+| SWIR source and public archive access-route verification | Completed and documented; archive listing verified, but archive contents not inspected |
 | SWIR historical 96/96 scan matching | Previously documented; original standalone filename list and matching table not preserved separately |
-| SWIR instrument and metadata investigation | Completed and documented; some acquisition settings remain unresolved |
+| SWIR instrument specifications and published metadata review | Documented; original raw headers, calibration references and acquisition records remain unverified |
 | SWIR final investigation report | Submitted and reviewed by Hiba |
 | SWIR Git handover | Completed; commit `09e134e` pushed to `Fahma` |
 | SWIR documentation files pushed | Five files confirmed by Member 2 |
+| SWIR project working-copy holder | Unconfirmed |
+| SWIR original raw-file technical verification | Pending access to and inspection of original files |
 | RGB Rice Sheath Blight initial source investigation | Completed |
 | Rice Sheath Blight severity-label investigation | Completed with remaining annotation questions |
 | NWRD Wheat Rust initial source verification | Completed; report reviewed |
@@ -101,7 +103,7 @@ Claims must be distinguished as verified findings, previously documented results
 | NWRD archive inventory and image-mask pairing | Not independently verified; archive not downloaded |
 | NWRD train/validation/test split | Zenodo/GitHub discrepancy unresolved |
 | NWRD Git handover | Completed; commit `20c1031` pushed to `Afnan` |
-| CCMT Tomato investigation | Pending further source verification |
+| CCMT Tomato investigation | Archive-level investigation completed; discrepancy and leakage verification remain pending |
 
 Statuses will be updated only after reviewing actual evidence.
 
@@ -287,89 +289,6 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 - Remaining questions include wavelength arrays, binary layout, ignore values, acquisition settings, calibration details and raw-value quality.
 - Historical scan mapping evidence remains a limitation.
 
-## 6. Scientific and repository rules
-
-- Preserve original raw data.
-- Keep SWIR and each RGB dataset separate during investigation.
-- Do not merge modalities without scientific justification.
-- Do not begin final model training before experimental-design review.
-- Do not claim forecasting capability without suitable temporal evidence.
-- Document commands, findings, errors and decisions.
-- Do not commit or push changes without project lead approval.
-- Do not treat pixels, patches or leaves from the same biological sample as independent observations.
-- Use group-aware validation based on the correct biological experimental unit.
-- Distinguish verified findings from historical reports, assumptions and unknowns.
-
-## 7. Pending work after 17 November review
-
-### SWIR — Member 2
-
-- Investigate remaining acquisition settings and technical uncertainties when supporting evidence becomes available.
-- Assess SWIR data readiness and propose a preprocessing workflow without modifying raw data.
-- Identify which data-quality checks can be performed reliably and which require additional information.
-
-### RGB — Member 3
-
-- Continue CCMT Tomato source and licence verification.
-- Obtain clarification of the NWRD dataset licence.
-- Resolve the NWRD Zenodo/GitHub train/validation/test split discrepancy.
-- Verify NWRD image counts and image-mask pairing when archive inspection is authorized.
-- Continue Rice Sheath Blight annotation verification where evidence is available.
-
-### VNIR — Hiba
-
-- Continue only the unresolved follow-up investigations recorded in Section 8.
-- Avoid repeating completed VNIR checks.
-
-### Project coordination — Hiba
-
-- Maintain the central investigation tracker.
-- Review team submissions and supporting evidence.
-- Keep RGB, VNIR and SWIR assessments separate until compatibility is established.
-- Decide dataset suitability before approving preprocessing or model development.
-
-## 8. VNIR follow-up items
-
-- Verify whether reflectance calibration was applied to the local VNIR data.
-- Obtain or reconstruct a reproducible NPZ processing pipeline.
-- Confirm the number of plants per pot and the true experimental unit from authoritative records.
-- Investigate physical leaf tracking across dates.
-- Establish which metadata pots have usable VNIR image files.
-- Design group-aware validation only after experimental units and dataset suitability are established.
-
-## 9. Plan for 18 November 2026
-
-| Person | Assignment |
-|---|---|
-| Hiba | Review team progress, coordinate dataset-readiness decisions and maintain the central tracker. |
-| Member 2 | Complete SWIR data-readiness and preprocessing-feasibility assessment. |
-| Member 3 | Continue CCMT Tomato source investigation and NWRD licence, split and archive-verification follow-ups. |
-
-## 10. Overall project assessment
-
-**Current stage:** Dataset investigation, evidence verification and feasibility assessment.
-
-**Progress:** Meaningful investigation and documentation have been completed across VNIR and SWIR. Initial Rice Sheath Blight and NWRD source investigations are completed, while further RGB source and annotation verification remains underway.
-
-**Main strengths:**
-
-- Dataset evidence and limitations are being documented.
-- Raw data is being preserved.
-- Modality-specific investigations are being kept separate.
-- Scientific limitations involving biological replication, metadata and temporal tracking are being considered before modelling.
-
-**Main risks:**
-
-- VNIR calibration provenance and processing reproducibility remain unresolved.
-- SWIR acquisition settings and some technical metadata remain unresolved.
-- NWRD licence, archive contents, image-mask pairing and split discrepancy require further verification.
-- Rice Sheath Blight annotation mappings and CCMT Tomato source details require further verification.
-- Dataset compatibility and reliable temporal labels have not been established.
-
-**Next milestone:** Complete the initial source and suitability assessment of all candidate datasets, establish the experimental units and determine which datasets can genuinely support the intended research objectives.
-
-**Final note:** Documentation completion does not equal scientific validation. The next priority is to establish whether the available data can support a defensible disease-detection, severity-assessment or forecasting study before moving into preprocessing and model development.
-
 ## 5F. Daily progress update — 19 November 2026
 
 ### Hiba — Cross-dataset assessment and integration
@@ -438,81 +357,165 @@ SWIR data-readiness and preprocessing-feasibility assessment. No preprocessing o
 | Rice Sheath Blight severity-label follow-up | Completed; exact class definitions and annotation mapping unresolved |
 | Cross-dataset suitability assessment | Updated; final team review pending |
 | RGB report retrieval into Hiba branch | Completed; three reports staged, not committed |
-| Tracker update | 19 November update being added |
+| Tracker update | 19 November update added |
 | Preprocessing and model training | Not approved or started |
 
-## 11. Next actions — 20 November 2026
+## 5H. Daily progress update — 21 November 2026
 
-- Hiba: Complete the cross-dataset assessment review and update the central tracker.
-- Member 2: Clarify whether additional SWIR metadata or calibration evidence can be obtained.
-- Member 3: Continue only RGB follow-ups for which new authoritative evidence is available.
-- Team: Confirm the fourth member's current progress and remaining responsibilities.
-- Hiba: Review staged and unstaged changes separately and seek approval before committing or pushing.
+### Hiba — Experimental design and coordination
 
-## 12. Updated overall assessment — 19 November 2026
+- Consolidated the cross-dataset experimental design framework.
+- Updated the cross-dataset suitability assessment using the available VNIR, SWIR and RGB evidence.
+- Reviewed Member 2's SWIR dataset access investigation report.
+- Verified the report's Git commit and file on the remote Fahma branch.
+- Updated the central investigation tracker with the latest SWIR access findings.
+- No preprocessing, feature engineering or model training was started.
 
-**Current stage:** Cross-dataset evidence consolidation and suitability assessment.
+**Git handover — Hiba:**
 
-Public-source investigations have advanced across all five candidate datasets. Archive-level verification, licence clarification and biological sample structure remain important limitations.
+- Branch: `Hiba`
+- Commit: `423f3e4`
+- File: `docs/CONSOLIDATED_EXPERIMENTAL_DESIGN_2026-11-21.md`
+- Commit: `ed899b5`
+- File: `docs/CROSS_DATASET_SUITABILITY_ASSESSMENT_2026-11-18.md`
+- Both commits were pushed successfully.
 
-No preprocessing or model training is approved by this update. Keep modality-specific pipelines separate until dataset compatibility and experimental design are established.
+### Member 2 — SWIR Wheat Septoria
 
-**Next milestone:** Complete the remaining evidence review and freeze candidate datasets and research objectives before preprocessing begins.
+**SWIR dataset access investigation: Completed and reviewed.**
 
-## Additional SWIR Technical Verification Update — 19 November 2026
+- Identified Recherche Data Gouv as the official repository.
+- Verified dataset DOI `10.57745/WVP0FJ`.
+- Identified Lorraine Latchoumane (INRAE) as the depositor and repository contact.
+- Confirmed that the official repository publicly lists `Data/SWIR/20210311.zip`, with a listed size of 4.3 GB.
+- Recorded the repository's Etalab Open License 2.0.
+- The archive was not downloaded or inspected during this investigation.
+- The project working-copy holder remains unconfirmed.
+- Availability of original `.hyspex`, matching `.hdr`, dark-current, white-reference and acquisition-record files remains unconfirmed.
+- Historical 96/96 expected pot-side scan matching remains documented; the separate original filename-to-pot/side mapping file has not been confirmed.
+- Fahma reported emailing Lorraine Latchoumane on 21 November to request clarification about archive contents and supporting files. A response was pending when the report was written.
+- No preprocessing, calibration, raw-data modification, feature engineering or model training was performed.
 
-### Member 2 — Fahma
+**SWIR Git handover:**
 
-**Status:** Technical verification preparation completed; original-data access remains blocked.
-
-- Completed and pushed the SWIR technical verification update.
 - Branch: `Fahma`
-- Commit: `7e3caa8`
-- File: `research/SWIR/SWIR_TECHNICAL_VERIFICATION_UPDATE_2026-11-19.md`
+- Commit: `0bc2880`
+- Commit message: `Document SWIR dataset access investigation`
+- File: `research/SWIR/SWIR_DATASET_ACCESS_INVESTIGATION_2026-11-21.md`
+- Remote branch and commit verified by Hiba.
+- Report reviewed by Hiba.
 
-**Completed work:**
-- Documented the availability status of the original SWIR archive and supporting files.
-- Retained the historical 96/96 scan verification without repeating it.
-- Prepared the header-inspection and raw-data quality-control checklists.
-- Documented the proposed preprocessing workflow.
-- Distinguished preparation steps from operations requiring verified metadata and calibration information.
+**SWIR readiness decision:**
 
-**Outstanding blockers:**
-- Original `.hyspex` files and matching `.hdr` files are unavailable.
-- Dark-current and white-reference calibration files remain unconfirmed.
-- Original archive holder and access arrangements remain unidentified.
-- Instrument acquisition records and detailed filename-to-pot/side mapping evidence remain unavailable.
+- Official repository and archive access route: Identified.
+- Project working-copy holder: Unconfirmed.
+- Internal archive contents and supporting calibration files: Not verified.
+- Original raw-file technical verification: Pending access and inspection.
+- Preprocessing remains on hold.
 
-**Readiness decision:** SWIR preprocessing is not ready for execution. Actual header inspection, raw-data quality checks and calibration verification must wait until the original files are accessible.
+### Member 3 — RGB
 
-**Restrictions:** No archive was downloaded again, no raw data was modified, no preprocessing was executed and no model was trained.
+- 21 November RGB investigation update: Awaiting submission and review.
+- Existing CCMT Tomato, Rice Sheath Blight and NWRD Wheat Rust evidence remains subject to the unresolved questions documented in the earlier investigation records.
+- No new RGB preprocessing or model training is authorized.
 
-**Next action:** Identify the original dataset holder, obtain the required files and perform read-only technical verification when access is provided.
+### Team status at the end of 21 November
 
-## Additional RGB Archive Verification Update — 20 November 2026
+- Hiba's experimental-design framework: Committed and pushed.
+- Fahma's SWIR access investigation: Submitted, reviewed and verified on the remote branch.
+- Afnan's 21 November RGB update: Pending review.
+- Dataset-specific technical readiness and final experimental approval remain outstanding.
 
-**Member:** Afnan — Member 3 (RGB Dataset Investigation)
-**Dataset:** CCMT Tomato
-**Source report:** `docs/TOMATO_DATASET_SOURCE_VERIFICATION.md`
-**Source branch:** `Afnan`
-**Source commit:** `8e1a310` — `docs: update CCMT tomato archive verification findings`
+## 6. Scientific and repository rules
 
-### Archive-level findings
+- Preserve original raw data.
+- Keep SWIR and each RGB dataset separate during investigation.
+- Do not merge modalities without scientific justification.
+- Do not begin final model training before experimental-design review.
+- Do not claim forecasting capability without suitable temporal evidence.
+- Document commands, findings, errors and decisions.
+- Do not commit or push changes without project lead approval.
+- Do not treat pixels, patches or leaves from the same biological sample as independent observations.
+- Use group-aware validation based on the correct biological experimental unit.
+- Distinguish verified findings from historical reports, assumptions and unknowns.
 
-- Official archive structure and image counts were inspected.
-- Verified archive totals: 21,723 training images and 5,435 test images, giving 27,158 images.
-- The publication reports 27,178 augmented tomato images, leaving an unresolved difference of 20 images.
-- Five-class archive counts were documented in the updated source report.
-- Filename-based train/test matching identified one cross-class pairing: a Septoria leaf spot training filename paired with a Leaf blight test filename. The inspected pair had different SHA256 hashes; this does not rule out near-duplicates or augmentation leakage.
-- CC BY 4.0 is listed as the dataset licence.
-- Image-level class labels are supported; bounding-box and segmentation annotations have not been established.
+## 7. Pending work after 21 November review
 
-### Remaining limitations
+### SWIR — Member 2
 
-The reason for the 20-image discrepancy, comprehensive train/test duplicate and near-duplicate checks, possible augmentation leakage, complete image-to-label mapping, annotation-file format and full image-integrity verification remain unresolved.
+- Await the response to Fahma's 21 November email to Lorraine Latchoumane.
+- Confirm who holds the project's original SWIR archive.
+- Establish whether the original `.hyspex`, matching `.hdr`, dark-current, white-reference and acquisition records are available.
+- Confirm whether an original filename-to-pot/side mapping file exists.
+- Once the files are available, perform read-only raw-file and header verification.
+- Keep preprocessing and calibration on hold until technical verification and experimental-design approval.
 
-### Readiness decision
+### RGB — Member 3
 
-The archive investigation provides stronger evidence for the CCMT tomato dataset's structure and class distribution. However, it is **not yet approved for model training**. Any later experiment must first resolve or explicitly document split leakage risks and preserve the original train/test separation.
+- Continue CCMT Tomato source and licence verification.
+- Investigate the 20-image difference between the available archive count and publication-reported augmented count.
+- Investigate original-to-augmented image relationships and possible train/test leakage.
+- Obtain clarification of the NWRD dataset licence.
+- Resolve the NWRD Zenodo/GitHub train/validation/test split discrepancy.
+- Verify NWRD image counts and image-mask pairing when archive inspection is authorized.
+- Continue Rice Sheath Blight annotation verification, particularly exact severity class definitions and image-to-label mapping.
+- Submit the 21 November RGB investigation update for review.
 
-No preprocessing, augmentation, dataset merging or model training was performed as part of this verification update.
+### VNIR — Hiba
+
+- Verify whether reflectance calibration was applied to the local VNIR data.
+- Obtain or reconstruct a reproducible NPZ processing pipeline.
+- Confirm the number of plants per pot and the true experimental unit from authoritative records.
+- Investigate physical leaf tracking across dates.
+- Establish which metadata pots have usable VNIR image files.
+- Design group-aware validation only after experimental units and dataset suitability are established.
+
+### Project coordination — Hiba
+
+- Maintain the central investigation tracker.
+- Review team submissions and supporting evidence.
+- Keep RGB, VNIR and SWIR assessments separate until compatibility is established.
+- Finalize dataset suitability and experimental-design decisions before approving preprocessing or model development.
+
+## 8. VNIR follow-up items
+
+- Verify whether reflectance calibration was applied to the local VNIR data.
+- Obtain or reconstruct a reproducible NPZ processing pipeline.
+- Confirm the number of plants per pot and the true experimental unit from authoritative records.
+- Investigate physical leaf tracking across dates.
+- Establish which metadata pots have usable VNIR image files.
+- Design group-aware validation only after experimental units and dataset suitability are established.
+
+## 9. Plan for 22 November 2026
+
+| Person | Assignment |
+|---|---|
+| Hiba | Review Afnan's RGB update, maintain the central tracker and continue experimental-design integration. |
+| Member 2 | Await the SWIR contact response and identify the project archive holder; no repeated searches or preprocessing. |
+| Member 3 | Submit the RGB evidence update and document unresolved CCMT, Rice and NWRD questions. |
+
+## 10. Overall project assessment
+
+**Current stage:** Evidence consolidation, experimental-design review and dataset suitability assessment.
+
+**Progress:** Investigation and documentation have been completed across the selected VNIR and SWIR evidence. Initial source and follow-up investigations have been completed for Rice Sheath Blight and NWRD. CCMT archive-level investigation has also advanced, while important RGB verification questions remain unresolved.
+
+**Main strengths:**
+
+- Dataset evidence and limitations are being documented.
+- Raw data is being preserved.
+- Modality-specific investigations are being kept separate.
+- Scientific limitations involving biological replication, metadata and temporal tracking are being considered before modelling.
+- Experimental-design requirements and approval gates are documented.
+
+**Main risks:**
+
+- VNIR calibration provenance and processing reproducibility remain unresolved.
+- SWIR original raw-file access, calibration references and acquisition records remain unverified.
+- NWRD licence, archive contents, image-mask pairing and split discrepancy require further verification.
+- Rice Sheath Blight annotation mappings and CCMT Tomato augmentation/leakage questions require further verification.
+- Dataset compatibility and reliable temporal labels have not been established.
+
+**Next milestone:** Complete the remaining evidence review, freeze candidate datasets and research objectives, and approve a defensible experimental design before preprocessing begins.
+
+**Final note:** Documentation completion does not equal scientific validation. The next priority is to establish whether the available data can support a defensible disease-detection, severity-assessment or forecasting study before moving into preprocessing and model development.
