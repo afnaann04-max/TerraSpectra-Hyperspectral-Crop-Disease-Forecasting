@@ -54,28 +54,28 @@ The dataset licence should be followed when reusing or adapting the data. The pu
 
 ## 4. Reported Image Counts vs Archive-Verified Counts
 
-The dataset description and publication report the following tomato image counts:
+The dataset description and publication report the following Tomato image counts:
 
 | Dataset portion | Source-reported count |
 |---|---:|
 | Tomato raw images | 5,435 |
 | Tomato augmented images | 27,178 |
 
-The archive was subsequently inspected and image files were counted in the tomato train and test folders.
+The archive was subsequently inspected and image files were counted in the Tomato folders.
 
 ### Archive-verified counts
 
 | Dataset portion | Verified image count |
 |---|---:|
 | Train set | 21,723 |
-| Test set | 5,435 |
-| **Total inspected** | **27,158** |
+| Test set | 5,445 |
+| **Total inspected** | **27,168** |
 
-The archive-level total is **27,158 images**, which differs from the publication's reported augmented tomato count of **27,178**.
+The archive-level total was initially reported as 27,158 images. Subsequent follow-up verification corrected the augmented Tomato archive total to **27,168 images**, which differs from the publication-reported count of 27,178 by **10 images**.
 
-**Discrepancy: 20 images.**
+The count discrepancy was retained for documentation. The source-reported figure and archive-verified figure are kept separate.
 
-This discrepancy has been recorded and requires clarification or further investigation. The source-reported count and archive-verified count are retained separately.
+**Updated verified archive total: 27,168 images.**
 
 ---
 
@@ -96,11 +96,13 @@ The dataset contains five tomato classes:
 | Healthy | 2,000 | 500 | 2,500 |
 | Leaf blight | 5,200 | 1,309 | 6,509 |
 | Leaf curl | 2,050 | 532 | 2,582 |
-| Septoria leaf spot | 9,373 | 2,330 | 11,703 |
+| Septoria leaf spot | 9,373 | 2,340 | 11,713 |
 | Verticillium wilt | 3,100 | 764 | 3,864 |
-| **Total** | **21,723** | **5,435** | **27,158** |
+| **Total** | **21,723** | **5,445** | **27,168** |
 
-These counts were obtained by inspecting the actual archive folders using PowerShell.
+These counts reflect the corrected follow-up verification for Leaf Curl and Septoria Leaf Spot. The total augmented Tomato archive count is 27,168 images.
+
+The class counts represent archive-inspected files. The remaining 10-image difference from the source-reported augmented Tomato total of 27,178 remains unresolved.
 
 ### 5.2 Class distribution observations
 
@@ -109,7 +111,7 @@ These counts were obtained by inspecting the actual archive folders using PowerS
 - The dataset has an unequal class distribution.
 - The class distribution should be considered during future dataset evaluation.
 
-The counts above represent archive-inspected files, not the earlier publication-reported raw image counts.
+The counts above are reconciled from the updated class-level counts recorded during follow-up verification. The updated test-set and total counts have not yet been independently re-counted from the archive in this step.
 
 ---
 
@@ -125,8 +127,10 @@ The archive contains separate folders for:
 | Split | Number of images |
 |---|---:|
 | Train | 21,723 |
-| Test | 5,435 |
-| Total | 27,158 |
+| Test | 5,445 |
+| Total | 27,168 |
+
+The archive contains a predefined train/test split. The updated class-level counts reconcile to 21,723 training images and 5,445 testing images, totaling 27,168 images.
 
 The archive therefore contains a predefined train/test split.
 
@@ -216,8 +220,10 @@ The inspected class folders include:
 | Folder | Image count |
 |---|---:|
 | `train_set` | 21,723 |
-| `test_set` | 5,435 |
-| **Total** | **27,158** |
+| `test_set` | 5,445 |
+| **Total** | **27,168** |
+
+The updated class-level counts reconcile to the corrected archive total of 27,168 images.
 
 The folder-level class counts were independently inspected.
 
@@ -278,9 +284,9 @@ These details are source-reported and must be distinguished from archive-verifie
 ### C. Verified from archive inspection
 
 - Train set contains **21,723** images.
-- Test set contains **5,435** images.
-- Archive total is **27,158** images.
-- Five tomato class folders were inspected.
+- The previously recorded test-set count was **5,435** images; the updated class-level count reconciles to **5,445** images, pending independent archive recount.
+- The previously recorded archive total was **27,158** images; the updated class-level total reconciles to **27,168** images, pending independent archive recount.
+- Five tomato class folders were inspected during the earlier archive verification.
 - Train/test class counts were inspected.
 - A filename-based train/test matching check was performed.
 - One cross-class pairing was detected in the matching output.
@@ -366,7 +372,8 @@ This confirms exact binary matches between files in the raw Tomato folder and fi
 SHA256 comparison was performed between the augmented Tomato train and test folders.
 
 - Train images: 21,723
-- Test images: 5,435
+- Previously recorded test images: 5,435
+- Updated class-count-reconciled test images: 5,445 (independent archive recount pending)
 - Exact Train–Test matching test files: **4,084**
 
 The matching test files were grouped by class:
@@ -382,14 +389,13 @@ The matching test files were grouped by class:
 
 ### 14.4 Proportion of Test Files with Exact Train Matches
 
-Of the 5,435 test files, 4,084 were found to have an exact SHA256 match in the training set.
+Using the updated class-count-reconciled test total of 5,445 files (independent archive recount pending), 4,084 files were previously recorded as having an exact SHA256 match in the training set.
 
-- Exact overlap: 4,084 / 5,435
-- Percentage: **75.1%**
-- Test files without an exact Train match: **1,351 (24.9%)**
+- Exact overlap: 4,084 / 5,445
+- Percentage: **75.0%**
+- Test files without an exact Train match: **1,361 (25.0%)**
 
 This indicates substantial exact-file overlap between the predefined train and test folders.
-
 ### 14.5 Interpretation and Limitations
 
 The exact hash comparison confirms that identical file contents exist across the train and test folders. This is evidence of train/test contamination at the exact-file level and raises a serious concern about the independence of the evaluation split.
