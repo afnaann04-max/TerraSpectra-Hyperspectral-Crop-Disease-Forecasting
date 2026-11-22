@@ -524,3 +524,69 @@ This discrepancy is classified as **unresolved**. We cannot conclude that files 
 - Published counts: Source-reported
 - Explanation for count discrepancy: Unresolved
 - Dataset completeness relative to publication: Not established
+
+## 14.10 Filename Lineage and External Research Follow-up (22 November 2026)
+
+### Filename Pattern Verification
+
+Sample filenames were inspected from the Raw, Train, and Test archive folders using ZIP metadata only.
+
+**Raw examples:**
+- `healthy100_.jpg`
+- `healthy101_.jpg`
+
+**Train examples:**
+- `0tomato_train_healthy.JPG`
+- `1001tomato_train_healthy.JPG`
+
+**Test examples:**
+- `104tomato_valid_healthy.JPG`
+- `101tomato_valid_healthy.JPG`
+
+The Raw filenames use class-based numbering, while Train and Test filenames use numeric prefixes with split and class identifiers.
+
+### Filename Lineage Finding
+
+The inspected filename samples do not provide an explicit mapping between an original Raw image and its augmented Train/Test variants.
+
+Filename patterns alone cannot establish augmentation parent-child relationships.
+
+### External Research Follow-up
+
+External research reports concerns regarding train/test leakage in the CCMT augmented dataset, including identical images and augmented variants across splits.
+
+This is external supporting evidence and is not a substitute for independent verification of every augmentation lineage relationship in our archive.
+
+### Split Methodology Limitation
+
+The available dataset documentation does not establish that source images were separated before augmentation in a way that guarantees all variants of an original image remain within one partition.
+
+Therefore, source-image-independent splitting cannot be confirmed.
+
+### Independent Count Corroboration
+
+A separate research source reports the Tomato augmented split counts:
+- Train: 21,723
+- Test: 5,445
+- Total: 27,168
+
+These counts corroborate our verified archive total of 27,168. The original publication's reported total of 27,178 remains discrepant by 10 images.
+
+### Remaining Limitations
+
+- Complete original-to-augmented mapping: Unverified
+- Non-identical augmentation lineage across splits: Unverified
+- Near-duplicate detection: Not performed
+- Source-image-independent split: Not established
+- Dataset leakage risk: Supported by exact overlap findings and external reports
+- Leakage-free status: Cannot be claimed
+
+### Verification Restrictions
+
+No images were extracted, opened, visually inspected, preprocessed, or used for training during this follow-up.
+
+### Conclusion
+
+The archive shows significant exact-content overlap between Raw, Train, and Test, while filename metadata does not reveal complete original-image lineage.
+
+The dataset's augmentation lineage and split independence remain unresolved. The evidence indicates a serious data leakage concern, and the dataset should not be assumed to provide an independent Train/Test evaluation.
