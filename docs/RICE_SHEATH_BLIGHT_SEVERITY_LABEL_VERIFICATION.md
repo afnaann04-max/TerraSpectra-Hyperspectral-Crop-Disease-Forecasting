@@ -287,3 +287,76 @@ Although the archive README provides six severity-stage descriptions and the ima
 - The image files themselves were not extracted, opened, or visually inspected.
 
 **Updated status:** Six severity-stage descriptions verified from the archive README; folder structure verified; archive image counts reconciled to 1,609; contributor contact identified. Remaining annotation and scoring limitations are documented.
+
+## 14. Rice Sheath Blight Archive Verification — 22 November 2026
+
+### Archive Details
+- Archive name: `SBSeverity.zip`
+- Verified archive size: 4,364,745,342 bytes
+- Documentation file found: `SBSeverity/reaadme.txt`
+- Total images reported in README: 1,609
+- Total images counted from archive metadata: 1,609
+- Image formats reported: JPG / PNG
+- README resolution: 3024 × 4032
+
+### Folder Structure
+The archive contains six severity folders:
+- Stage-1
+- Stage-2
+- Stage-3
+- Stage-4
+- Stage-5
+- Stage-6
+
+### Verified Class Descriptions
+| Stage | README description |
+|---|---|
+| Stage-1 | Healthy (Mild symptoms) |
+| Stage-2 | Initial infection; small lesions restricted to the lower sheath |
+| Stage-3 | Progressive spread; lesions covering less than 25% of plant height |
+| Stage-4 | Moderate severity; lesions reaching 25–50% of plant height |
+| Stage-5 | High severity; lesions reaching 50–75% of plant height |
+| Stage-6 | Extreme severity; lesions reaching the flag leaf or more than 75% of plant height |
+
+### Verified Image Counts
+| Stage | Images |
+|---|---:|
+| Stage-1 | 157 |
+| Stage-2 | 326 |
+| Stage-3 | 410 |
+| Stage-4 | 355 |
+| Stage-5 | 263 |
+| Stage-6 | 98 |
+| **Total** | **1,609** |
+
+The archive class counts exactly match the total reported in the README.
+
+### Annotation Protocol (README)
+The README states that severity assignment considered:
+- Vertical progression: highest lesion height relative to total plant height
+- Chromatic intensity: colour transition from water-soaked green to necrotic grayish-white/brown
+- Lesion density: spatial spread and coalescence of necrotic patches on the sheath
+
+### Filename Metadata Inspection
+Sample filenames from the stage folders follow patterns such as:
+- `IMG_100@10JAN-KTK.JPG`
+- `IMG_101@18FEB25-KTK.JPG`
+- `IMG_100@17JAN25-KTK.JPG`
+
+The filenames appear to contain image-number and date-like components. Similar image-number patterns appear across different stages; however, filename similarity alone does not establish that images represent the same plant, repeated observations, or duplicate content.
+
+### Label Organization
+- Severity labels are represented by the six folder names.
+- No separate CSV, JSON, XML, spreadsheet, or PDF annotation file was found in the archive metadata scan.
+- Image-to-folder assignment is structurally available from the archive paths.
+- The correctness of individual image labels was not visually verified.
+
+### Remaining Uncertainties
+- Exact detailed numerical boundaries for all severity stages: Not fully documented
+- Independent verification of image-to-label correctness: Not performed
+- Whether repeated image-number patterns represent the same plant or observation lineage: Unresolved
+- Duplicate or near-duplicate image detection: Not performed
+- No image extraction, visual inspection, preprocessing, or model training was performed
+
+### Conclusion
+The Rice Sheath Blight dataset has six folder-based severity classes and 1,609 images. The archive count exactly reconciles with the README. The README provides class descriptions and qualitative severity criteria, but exact definitions are incomplete for some stages. Folder labels are available, but the correctness of individual image-label assignments and potential repeated-image lineage remain unverified.
