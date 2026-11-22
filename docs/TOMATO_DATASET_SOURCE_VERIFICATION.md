@@ -441,3 +441,55 @@ These counts identify exact file-content matches between raw images and the augm
 The raw-to-train and raw-to-test match counts are separate from the train/test exact-overlap count of 4,084. The overlap investigation and raw-to-augmented investigation measure different file relationships.
 
 Further original-image lineage verification remains unresolved.
+
+### 14.8 Independent CRC32 Archive Verification (22 November 2026)
+
+An independent read-only verification was performed using Python's built-in ZIP metadata support. CRC32 checksums were compared for the Raw Tomato, augmented Train and augmented Test folders. The archive was not extracted, and no image files were modified.
+
+#### Archive file counts
+
+| Dataset portion | Image files |
+|---|---:|
+| Raw Tomato | 5,805 |
+| Augmented Train | 21,723 |
+| Augmented Test | 5,445 |
+| Total Augmented | 27,168 |
+
+#### Unique CRC32 counts
+
+| Dataset portion | Unique CRC32 values |
+|---|---:|
+| Raw | 5,351 |
+| Train | 21,721 |
+| Test | 5,445 |
+
+#### CRC overlap results
+
+| Comparison | Unique matching CRC32 values |
+|---|---:|
+| Raw and Train | 4,263 |
+| Raw and Test | 1,363 |
+| Train and Test | 4,084 |
+| Raw, Train and Test simultaneously | 1,241 |
+
+The comparison also counted 4,264 Raw-to-Train matching file entries, associated with 4,263 unique matching CRC values. Raw-to-Test matching file entries totalled 1,363.
+
+The Train/Test comparison found 4,084 unique CRC32 values present in both splits. The sample archive paths inspected showed that matching-content files may have different filenames across Train and Test.
+
+#### Interpretation
+
+These results provide additional evidence of substantial file-content overlap between the predefined Train and Test folders. The finding is a serious split-integrity concern and may affect the independence of evaluation.
+
+CRC32 is a checksum and is not cryptographic proof of file identity. These results should be described as CRC-based matches, not as a new cryptographic verification. The earlier SHA256 results documented in this report remain a separate historical verification.
+
+The CRC comparison does not establish the complete lineage of non-identical transformed or augmented images. It does not determine the impact on model metrics, and visual or transformed-image similarity analysis has not been performed.
+
+#### Verification limitations and restrictions
+
+- ZIP metadata was read without extracting image files.
+- No preprocessing, augmentation, visualization or model training was performed.
+- No dataset files were changed.
+- CRC32 was used for this independent comparison.
+- The unique checksum counts are not the same as matching file-entry counts.
+- Transformed or near-duplicate image lineage across Train and Test remains unresolved.
+- The dataset remains unapproved for modelling.
