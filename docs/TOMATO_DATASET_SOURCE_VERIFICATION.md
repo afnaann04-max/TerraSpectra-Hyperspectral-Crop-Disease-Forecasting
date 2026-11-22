@@ -493,3 +493,34 @@ The CRC comparison does not establish the complete lineage of non-identical tran
 - The unique checksum counts are not the same as matching file-entry counts.
 - Transformed or near-duplicate image lineage across Train and Test remains unresolved.
 - The dataset remains unapproved for modelling.
+
+## 14.9 Published Count Discrepancy — Follow-up Verification (22 November 2026)
+
+### Verified Archive Counts
+The current verified archive contains:
+- Raw Tomato images: 5,805
+- Augmented Train images: 21,723
+- Augmented Test images: 5,445
+- Total augmented images: 27,168
+
+### Published Counts
+The publication reports:
+- Raw Tomato images: 5,435
+- Augmented images: 27,178
+
+### Discrepancy
+- Raw dataset count difference: 370 images
+- Augmented dataset count difference: 10 images
+
+The current verified augmented archive count (27,168) supersedes the earlier count of 27,158 recorded during preliminary verification.
+
+### Finding
+The available publication information does not explain the 10-image discrepancy between the reported augmented count (27,178) and the verified archive count (27,168).
+
+This discrepancy is classified as **unresolved**. We cannot conclude that files are missing, corrupted, or intentionally excluded without additional source evidence.
+
+### Status
+- Archive counts: Verified
+- Published counts: Source-reported
+- Explanation for count discrepancy: Unresolved
+- Dataset completeness relative to publication: Not established
