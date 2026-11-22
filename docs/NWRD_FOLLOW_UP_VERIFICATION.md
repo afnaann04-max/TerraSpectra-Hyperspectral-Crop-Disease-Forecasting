@@ -345,3 +345,37 @@ The archive contains train and test folders only; no separate validation folder 
 Dataset licence clarification remains pending because the previously reviewed sources displayed inconsistent rights information.
 
 **Updated status: Download and archive-level verification completed. Visual inspection, licence clarification, and final dataset suitability assessment remain pending.**
+
+## Additional Licence and Dataset Reuse Verification
+
+### Public-source licence review
+
+A further review was conducted to distinguish the licensing of the NWRD software repository from the licensing of the wheat rust dataset itself.
+
+#### Findings
+
+- **Zenodo dataset:** The record provides public access to the dataset, but an explicit reuse licence for the images and masks could not be confirmed from the reviewed evidence.
+- **Copyright statement:** The dataset record includes a copyright notice identifying the authors.
+- **Research paper:** The paper's open-access licence applies to the publication. It does not independently confirm the licence of all downloadable dataset assets.
+- **GitHub repository:** The repository declares an MIT licence. However, the reviewed information does not clearly establish that the MIT licence covers the dataset's images and segmentation masks rather than repository code.
+- **Public availability:** The dataset can be downloaded publicly, but availability alone is not sufficient evidence of permission for dataset reuse or redistribution.
+
+### Licence status
+
+| Asset | Licence status |
+|---|---|
+| Repository code | MIT declared |
+| Wheat rust RGB images | Reuse licence not confirmed |
+| Segmentation masks | Reuse licence not confirmed |
+| Dataset redistribution rights | Unresolved |
+| Explicit dataset reuse permission | Not verified from reviewed public sources |
+
+### Conclusion
+
+The NWRD dataset's public accessibility has been established, but reuse rights for the dataset images and masks remain unresolved. The GitHub MIT licence should not be assumed to apply to the dataset assets without explicit supporting evidence.
+
+No author contact was initiated.
+
+### Remaining blocker
+
+Before treating NWRD as licence-cleared for reuse in TerraSpectra, explicit licensing or permission covering the dataset assets must be established. Until then, dataset reuse rights remain unresolved.
