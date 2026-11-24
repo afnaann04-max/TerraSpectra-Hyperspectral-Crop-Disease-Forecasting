@@ -3,45 +3,45 @@
 **Date:** 21 November 2026
 **Member:** Fahma (Member 2)
 **Branch:** Fahma
-**Previous access report:** SWIR_ACCESS_FOLLOWUP_2026-11-20.md
+**Previous access report:** SWIR\_ACCESS\_FOLLOWUP\_2026-11-20.md
 **Previous commit:** a537079
 
-## 1. Objective
+## 1\. Objective
 
 Identify the official SWIR dataset holder and access route, establish the public availability of the original archive, and determine whether technical verification can proceed.
 
 No previous local searches or historical scan verification were repeated.
 
-## 2. Official dataset source — independently verified
+## 2\. Official dataset source — independently verified
 
-- Dataset: Early detection of septoria infection on wheat leaves using hyperspectral imaging data.
-- DOI: 10.57745/WVP0FJ
-- Repository: Recherche Data Gouv.
-- Depositor and repository point of contact: Lorraine Latchoumane.
-- Associated institution: INRAE.
-- Repository file access: Public.
-- Licence: Etalab Open License 2.0.
-- Publication date: 15 November 2024.
+* Dataset: Early detection of septoria infection on wheat leaves using hyperspectral imaging data.
+* DOI: 10.57745/WVP0FJ
+* Repository: Recherche Data Gouv.
+* Depositor and repository point of contact: Lorraine Latchoumane.
+* Associated institution: INRAE.
+* Repository file access: Public.
+* Licence: Etalab Open License 2.0.
+* Publication date: 15 November 2024.
 
 Official dataset:
 https://entrepot.recherche.data.gouv.fr/dataset.xhtml?persistentId=doi:10.57745/WVP0FJ
 
-## 3. Original archive availability — independently verified
+## 3\. Original archive availability — independently verified
 
 The official repository file listing includes:
 
-- Filename: 20210311.zip
-- Repository path: Data/SWIR/20210311.zip
-- Listed size: 4.3 GB
-- Access status: Public
-- Publication date: 15 November 2024
-- Listed MD5: 7ad4e3b5a9a14704af51191269d2e019
+* Filename: 20210311.zip
+* Repository path: Data/SWIR/20210311.zip
+* Listed size: 4.3 GB
+* Access status: Public
+* Publication date: 15 November 2024
+* Listed MD5: 7ad4e3b5a9a14704af51191269d2e019
 
 The public repository listing establishes an official access route for this archive.
 
 Important limitation: The archive was not downloaded or inspected during this investigation. Its internal contents have not been verified.
 
-## 4. Dataset contact and responsible institution
+## 4\. Dataset contact and responsible institution
 
 The repository identifies Lorraine Latchoumane (INRAE) as the dataset point of contact and depositor.
 
@@ -56,21 +56,21 @@ The repository also provides a Contact Owner option.
 
 This identifies the official dataset contact and institutional route. It does not establish who currently holds the project's downloaded copy.
 
-## 5. Supporting-file availability
+## 5\. Supporting-file availability
 
-| Resource | Current finding |
-|---|---|
-| Original 20210311.zip | Publicly listed by official repository |
-| Internal .hyspex files | Not inspected; unconfirmed |
-| Matching .hdr files | Not inspected; unconfirmed |
-| Dark-current references | Unconfirmed |
-| White-reference files | Unconfirmed |
-| Instrument acquisition records | Unconfirmed |
-| Original filename-to-pot/side mapping | Historical mapping evidence exists, but separate original mapping file availability is unconfirmed |
+|Resource|Current finding|
+|-|-|
+|Original 20210311.zip|Publicly listed by official repository|
+|Internal .hyspex files|Not inspected; unconfirmed|
+|Matching .hdr files|Not inspected; unconfirmed|
+|Dark-current references|Unconfirmed|
+|White-reference files|Unconfirmed|
+|Instrument acquisition records|Unconfirmed|
+|Original filename-to-pot/side mapping|Historical mapping evidence exists, but separate original mapping file availability is unconfirmed|
 
 The repository landing-page listing does not independently establish the presence of all calibration and acquisition files inside the archive.
 
-## 6. Project-team contact status
+## 6\. Project-team contact status
 
 Hiba was previously contacted to identify the project archive holder and supporting files.
 
@@ -82,35 +82,35 @@ Direct email contact: The member reports sending an email to lorraine.latchouman
 
 Response status: Awaiting a response at the time of this report update.
 
-## 7. Technical verification status
+## 7\. Technical verification status
 
 No original archive was downloaded or inspected.
 
 The following checks remain pending:
 
-- Actual .hdr metadata inspection.
-- Spectral wavelengths and band count.
-- Raw image dimensions.
-- Data type, byte order and binary layout.
-- No-data and ignore values.
-- Basic raw-data quality checks.
-- Calibration-reference correspondence.
-- Acquisition-setting consistency.
+* Actual .hdr metadata inspection.
+* Spectral wavelengths and band count.
+* Raw image dimensions.
+* Data type, byte order and binary layout.
+* No-data and ignore values.
+* Basic raw-data quality checks.
+* Calibration-reference correspondence.
+* Acquisition-setting consistency.
 
 Published instrument specifications must not be substituted for actual header values.
 
-## 8. Restrictions observed
+## 8\. Restrictions observed
 
-- No repeated local archive searches.
-- No repeated 96/96 scan verification.
-- No archive redownload.
-- No modification of raw data.
-- No preprocessing or calibration transformations.
-- No normalization or feature engineering.
-- No model training.
-- No SWIR/VNIR/RGB merging.
+* No repeated local archive searches.
+* No repeated 96/96 scan verification.
+* No archive redownload.
+* No modification of raw data.
+* No preprocessing or calibration transformations.
+* No normalization or feature engineering.
+* No model training.
+* No SWIR/VNIR/RGB merging.
 
-## 9. Remaining blockers and next actions
+## 9\. Remaining blockers and next actions
 
 1. Await the response to the email sent to Lorraine Latchoumane on 21 November 2026. If necessary, follow up through the repository Contact Owner option.
 2. Ask for confirmation of the archive contents and availability of .hyspex and matching .hdr files.
@@ -119,7 +119,7 @@ Published instrument specifications must not be substituted for actual header va
 5. Obtain confirmation of the project's working-copy holder from Hiba or the project team.
 6. Once files are made available, perform read-only technical verification.
 
-## 10. Readiness decision
+## 10\. Readiness decision
 
 **Official archive access route: Identified.**
 
@@ -130,3 +130,114 @@ Published instrument specifications must not be substituted for actual header va
 **Technical verification: Pending access to and inspection of the original files.**
 
 Preprocessing remains on hold.
+
+
+
+
+
+\---
+
+## 24 November 2026 - Final Access Investigation and Readiness Update
+
+### 1. Official archive access
+
+The official Recherche Data Gouv dataset record was identified.
+
+- Dataset: Early detection of septoria infection on wheat leaves using hyperspectral imaging data
+- DOI: https://doi.org/10.57745/WVP0FJ
+- Repository: https://entrepot.recherche.data.gouv.fr/dataset.xhtml?persistentId=doi:10.57745/WVP0FJ
+- Archive: `20210311.zip`
+- Published location: `Data/SWIR`
+- Published size: 4.3 GB
+- Published MD5: `7ad4e3b5a9a14704af51191269d2e019`
+- Access status: Publicly listed.
+
+The public listing confirms an official access route. The archive has not been downloaded, its checksum has not been verified locally, and its internal contents have not been inspected.
+
+### 2. Storage assessment
+
+A PowerShell check on 24 November 2026 reported:
+
+- Available drive: `C:`
+- Free space: 172.93 GB
+- Storage directory: `C:\TerraSpectra_SWIR\raw\`
+- Directory creation: Successful.
+
+The directory is outside the Git repository. Available capacity appears sufficient for the published 4.3 GB archive, but the extracted size and additional storage requirements remain unknown.
+
+**Download status:** Not downloaded. Team approval is required before downloading.
+
+### 3. Supporting-file availability
+
+| Component | Evidence and status |
+|---|---|
+| `20210311.zip` | Publicly listed; not downloaded or inspected locally |
+| Original `.hyspex` files | Internal archive contents unverified |
+| Corresponding `.hdr` files | Internal archive contents unverified |
+| Dark-current measurements | Internal archive contents unverified |
+| White-reference measurements | Internal archive contents unverified |
+| Acquisition settings and records | Some instrument details described in the associated paper; original records unverified |
+| Sample, pot and side mapping | Public metadata CSVs previously examined; correspondence with original raw files not reverified |
+
+Previously examined metadata and the historical 96/96 filename-to-pot-side matching result are documented in earlier reports. They do not substitute for inspecting the original archive.
+
+### 4. Technical verification checklist
+
+| Verification item | Required evidence | Status |
+|---|---|---|
+| Spectral wavelength range | Original header or acquisition metadata | Pending |
+| Number of spectral bands | Original header and data dimensions | Pending |
+| Image dimensions | Header and binary-file consistency | Pending |
+| Data type | Header declaration | Pending |
+| Byte order | Header declaration and binary interpretation | Pending |
+| Binary layout/interleave | Header declaration and file consistency | Pending |
+| No-data values | Header and data-quality inspection | Pending |
+| Data quality | Read-only inspection of original files | Pending |
+| Dark-current correspondence | Matching calibration files and acquisition records | Pending |
+| White-reference correspondence | Matching reference files and acquisition records | Pending |
+| Acquisition settings | Original instrument records or headers | Pending |
+| Sample/pot/side correspondence | Original sample mapping and metadata | Pending |
+
+No technical values have been inferred or marked as verified without original-file evidence.
+
+### 5. Final SWIR recommendation
+
+**Recommendation: 2 - Partially suitable, with clearly documented limitations.**
+
+Evidence:
+
+- An official public dataset record and archive access route have been identified.
+- The archive's published size and checksum are documented.
+- Supporting metadata CSVs were previously examined.
+- Historical filename-to-pot-side matching results are documented.
+- C: drive capacity and a separate storage directory have been checked.
+
+Limitations:
+
+- The original archive has not been downloaded or inspected.
+- The presence and correspondence of `.hyspex`, `.hdr`, dark-current and white-reference files remain unverified.
+- Original acquisition settings and raw-file technical properties have not been verified.
+- The extracted archive size is unknown.
+- Team approval for downloading has not yet been confirmed.
+
+This recommendation does not certify that SWIR data is ready for preprocessing or model development.
+
+### 6. Remaining actions
+
+1. Obtain team approval before downloading the official archive.
+2. Download it to `C:\TerraSpectra_SWIR\raw\` only after approval.
+3. Verify the downloaded archive against the published MD5 checksum.
+4. Inspect archive contents without modifying original data.
+5. Verify raw files, headers and calibration references.
+6. Complete the technical checklist using actual file evidence.
+7. Update the recommendation if new evidence changes the assessment.
+
+### 7. Work restrictions and completion status
+
+- No raw data was modified.
+- No SWIR preprocessing or calibration was performed.
+- No feature extraction or model training was performed.
+- No archive download was initiated.
+- The investigation proceeded without waiting for the depositor's email response.
+
+**Status as of 24 November 2026:** Public access route identified, storage location prepared, and technical readiness limitations documented. Original archive inspection remains pending team approval and data access.
