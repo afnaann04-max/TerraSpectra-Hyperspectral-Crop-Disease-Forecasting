@@ -288,7 +288,7 @@ Although the archive README provides six severity-stage descriptions and the ima
 
 **Updated status:** Six severity-stage descriptions verified from the archive README; folder structure verified; archive image counts reconciled to 1,609; contributor contact identified. Remaining annotation and scoring limitations are documented.
 
-## 14. Rice Sheath Blight Archive Verification — 22 November 2026
+## 11. Rice Sheath Blight Archive Verification — 22 November 2026
 
 ### Archive Details
 - Archive name: `SBSeverity.zip`
