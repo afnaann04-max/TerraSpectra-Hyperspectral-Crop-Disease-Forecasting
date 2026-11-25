@@ -1,0 +1,53 @@
+{
+  "archive": "C:\\Users\\Afnan\\Downloads\\Dataset for Crop Pest and Disease Detection (1).zip",
+  "method": {
+    "sha256": "Calculated from ZIP entry content streams",
+    "crc32": "Independently calculated using zlib.crc32",
+    "images_extracted": false,
+    "raw_images_modified": false
+  },
+  "inventory": {
+    "train": 21723,
+    "test": 5445,
+    "by_split_and_class": {
+      "train/healthy": 2000,
+      "train/leaf blight": 5200,
+      "train/leaf curl": 2050,
+      "train/septoria leaf spot": 9373,
+      "train/verticulium wilt": 3100,
+      "test/healthy": 500,
+      "test/leaf blight": 1309,
+      "test/leaf curl": 532,
+      "test/septoria leaf spot": 2340,
+      "test/verticulium wilt": 764
+    }
+  },
+  "sha256": {
+    "unique_shared_hash_values": 4084,
+    "test_entries_with_train_match": 4084,
+    "train_entries_with_test_match": 4085,
+    "train_test_matching_file_pairs": 4085,
+    "unmatched_test_entries": 1361
+  },
+  "crc32": {
+    "unique_shared_hash_values": 4084,
+    "test_entries_with_train_match": 4084,
+    "train_entries_with_test_match": 4085,
+    "train_test_matching_file_pairs": 4085,
+    "unmatched_test_entries": 1361
+  },
+  "comparison": {
+    "same_shared_hash_value_count": true,
+    "same_matched_test_entry_count": true,
+    "same_matching_file_pair_count": true,
+    "sha256_shared_values": 4084,
+    "crc32_shared_values": 4084
+  },
+  "limitations": [
+    "CRC32 is not collision-resistant and is not proof of identity.",
+    "Matching hashes indicate identical file content, not biological sample identity.",
+    "Hash comparison does not establish original-to-augmented lineage.",
+    "Hash comparison does not establish complete biological sample independence.",
+    "Near-duplicate image comparison was not performed."
+  ]
+}
