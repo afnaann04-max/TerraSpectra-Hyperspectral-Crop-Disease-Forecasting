@@ -53,6 +53,13 @@ Important limitations:
 - Acquisition-time differences may confound infected and non-infected comparisons.
 - Four scans are insufficient to establish reliable independent classification or generalisation.
 
+**Additional header verification — 25 November 2026:**
+
+- All four available VNIR ENVI headers (01_D, 04_D, 07_D and 10_D) specify an ignore value of 4095.
+- All four report dimensions of 1370 lines, 1024 samples and 216 spectral bands, with wavelength units in nanometres.
+- The value 16383 was observed in an inspected SWIR header; it is not a contradiction in the inspected VNIR headers.
+- This confirms header metadata only. It does not establish reflectance calibration or processing provenance.
+
 **Proposed experimental direction:**
 
 - Preserve the original spectral measurements.
