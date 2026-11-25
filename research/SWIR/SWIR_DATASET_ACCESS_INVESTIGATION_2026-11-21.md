@@ -241,3 +241,63 @@ This recommendation does not certify that SWIR data is ready for preprocessing o
 - The investigation proceeded without waiting for the depositor's email response.
 
 **Status as of 24 November 2026:** Public access route identified, storage location prepared, and technical readiness limitations documented. Original archive inspection remains pending team approval and data access.
+
+### 8. 25 November 2026 — Official Archive Download and Technical Inventory
+
+#### Archive integrity
+- Archive: `20210311.zip`
+- Location: `C:\TerraSpectra_SWIR\raw\20210311.zip`
+- Downloaded: 25 November 2026
+- Size: 4,600,920,431 bytes
+- Published MD5: `7ad4e3b5a9a14704af51191269d2e019`
+- Local MD5: `7AD4E3B5A9A14704AF51191269D2E019`
+- Result: checksum matched.
+
+The archive was inspected read-only without extraction or modification.
+
+#### Archive inventory
+- 547 files, 97 folders
+- 96 `.hyspex` files and 96 matching `.hdr` files
+- 96 `.jpg` files
+- 259 `.csv` files
+- All files are under `20210311`.
+
+#### Technical verification
+All 96 raw/header pairs were checked. No missing matching headers or binary size mismatches were found.
+
+All 96 headers contain 256 wavelength entries, with range 964.181280–2494.388419 nm.
+
+Common configuration:
+- 420 lines × 320 samples × 256 bands
+- ENVI data type 12 (unsigned 16-bit integer)
+- Byte order 0 (little-endian)
+- Interleave BIL
+- Wavelength units nm
+- Data ignore value 16383
+- Header offset 1,974,272 bytes
+
+Representative header `01_D.hdr` reports acquisition date 2021-03-11 and start time 08:53:43. Descriptive fields include integration time 12000, frame period 17400, `CalibAvailable = 1`, and 200 background frames. Field units and meanings have not been independently confirmed.
+
+#### CSV structure
+The 259 CSVs are distributed across 96 scan folders:
+- 70 folders have 3 CSVs
+- 23 folders have 2 CSVs
+- 3 folders have 1 CSV
+
+All 259 CSVs were structurally checked:
+- 922,064 total rows
+- Exactly 2 numeric values per row
+- No blank or non-numeric rows
+- Column 1 range: 114–321
+- Column 2 range: 1–307
+
+The CSVs appear to contain coordinate-like annotation pairs; their exact meaning and coordinate convention remain unconfirmed.
+
+#### Limitations and updated assessment
+A filename/path search found no separately named dark, white, reference, calibration, acquisition, mapping, metadata, or sample files. This does not rule out information embedded in headers, CSV contents, or external documentation.
+
+The `18_D.hdr` and `18_D.hyspex` files are stored under the `18_G` folder; both are present and size-consistent.
+
+The archive checksum and all 96 raw/header pairs are verified. The dataset is suitable for continued technical research and documentation, but calibration-reference availability, acquisition/sample mapping, annotation semantics, and the folder-placement irregularity require clarification.
+
+No extraction, preprocessing, calibration, feature extraction, or model training was performed.
