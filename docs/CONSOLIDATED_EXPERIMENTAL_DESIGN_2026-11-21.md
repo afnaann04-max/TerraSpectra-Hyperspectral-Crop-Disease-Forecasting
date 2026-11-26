@@ -60,6 +60,16 @@ Important limitations:
 - The value 16383 was observed in an inspected SWIR header; it is not a contradiction in the inspected VNIR headers.
 - This confirms header metadata only. It does not establish reflectance calibration or processing provenance.
 
+**VNIR data provenance and preservation:**
+
+- Keep the original raw ENVI measurements, the original combined CSV and the corrected NPZ identified as separate data artifacts. The corrected NPZ is a derived dataset and must not be treated as the original raw measurement data.
+- The original combined CSV and baseline dataset each contain 7,559 missing values.
+- The corrected NPZ retains 723 values corresponding to the VNIR ignore value of 4095 as missing. Interpolation was limited to internal gaps of one or two spectral bands; larger gaps and edge gaps remain missing.
+- Validation compared 10 VNIR files against three CSV reference datasets (30 comparisons). Pixel counts and coordinate ordering passed the reported checks, while the corrected NPZ remained distinct from the original combined CSV.
+- The original NPZ generation and correction scripts have not been located in the repository search. The complete processing implementation and execution environment therefore remain unverified.
+- The publication describes reflectance calculation using a Spectralon reference and dark-current measurements, but the local NPZ processing has not been shown to apply that calculation. The processed VNIR spectra must therefore continue to be described as processed spectral-intensity data; calibrated reflectance is unverified.
+- Preserve the original raw measurements unchanged and maintain separate, traceable records for derived datasets and any future processing steps. This documentation does not approve preprocessing, calibration transformations or model development.
+
 **Proposed experimental direction:**
 
 - Preserve the original spectral measurements.
