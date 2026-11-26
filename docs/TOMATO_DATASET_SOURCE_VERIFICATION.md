@@ -700,3 +700,91 @@ No raw images were extracted or modified. No preprocessing, feature extraction, 
 
 **Investigation update:** 26 November 2026
 **Prepared by:** Member 3 - RGB Dataset Investigation
+
+## 14.12 Biological Sample Identifier Investigation (26 November 2026)
+
+### Objective
+Determine whether CCMT Tomato filenames or archive metadata provide plant, leaf, specimen or biological sample identifiers that could support group-based data partitioning.
+
+### Verification performed
+1. Searched the CCMT dataset archive for potential metadata and identifier files using terms including README, metadata, label, annotation, sample, plant, specimen and mapping. No matching files were found within the CCMT dataset folder.
+2. Searched the complete ZIP archive for documentation filenames containing README, metadata, annotation, description, dataset_info, license or licence. No matching files were found.
+3. Inspected Raw, Train and Test image filename patterns.
+4. Parsed numeric suffixes from Raw filenames matching the observed pattern, for example healthy100_.jpg.
+
+### Verified findings
+- Raw images: 5,805.
+- Augmented Train images: 21,723.
+- Augmented Test images: 5,445.
+- Raw filenames matching the numeric-suffix pattern: 5,425.
+- Numeric suffixes reused across multiple disease classes: 1,271.
+- Examples such as 100, 101 and 102 occur across all five disease classes.
+- Raw and augmented images use different filename conventions.
+
+### Interpretation
+The numeric suffixes are not globally unique across disease classes and cannot be treated as verified biological sample identifiers. No separate biological metadata or documentation explaining the numbering convention was identified in the inspected ZIP archive.
+
+### Limitations and unresolved questions
+- The absence of matching documentation filenames does not prove that biological identifiers are unavailable from every possible external source.
+- The numeric suffixes may represent class-specific image numbering, file sequence numbers or another convention; their intended meaning is unverified.
+- No plant, leaf or specimen-level grouping has been established.
+- Biological independence between Train and Test therefore cannot be claimed.
+- A leakage-safe biological group split cannot currently be demonstrated from the available archive evidence.
+
+### Recommendation
+Do not use filename numbers as plant or specimen group IDs. Treat biological sample identity as unresolved. Any future evaluation should use verified biological grouping information if it becomes available; otherwise, clearly state this limitation and avoid claiming biological independence.
+
+### Processing restrictions
+This investigation used archive filenames and metadata searches only. Original images and masks were not modified, and no preprocessing, augmentation, feature extraction or model training was performed.
+
+**Prepared by:** Member 3 - RGB Dataset Investigation
+
+## 14.13 CCMT Train-Test Leakage and Split Feasibility Assessment (26 November 2026)
+
+### Objective
+Assess whether the supplied CCMT Train-Test partition can support independent evaluation and whether a new leakage-reduced split can be established.
+
+### Verified exact-content overlap
+The existing SHA-256 Train-Test verification identified:
+- Train entries: 21,723.
+- Test entries: 5,445.
+- Test entries with exact SHA-256 matches in Train: 4,084.
+- Test entries without exact Train content matches: 1,361.
+
+Approximately 75% of supplied Test entries have identical file content in Train. Therefore, the supplied Test partition must not be treated as an independent test set.
+
+### Near-duplicate investigation
+A 64-bit difference-hash comparison was performed on the 1,361 Test entries without exact SHA-256 Train matches.
+- 361 Test entries had at least one Train candidate at a difference-hash distance of 8 or less.
+- Six selected candidate pairs were visually compared.
+- Five of the six selected pairs appeared to show the same photograph.
+- The six pairs were selected from close perceptual-hash candidates and are not a representative random sample.
+- Perceptual-hash similarity is candidate evidence, not proof of duplicate identity.
+
+These findings provide additional evidence of possible Train-Test image leakage beyond exact byte matches. They do not establish that all 361 candidates are duplicates.
+
+### Label consistency limitation
+The raw-to-augmented SHA-256 investigation identified two class-label disagreement file pairs involving one unique image content represented in two Raw classes and two Train classes.
+The correct disease label remains unresolved. This conflict must be investigated before using the affected image content in a classification experiment.
+
+### Biological grouping limitation
+The archive investigation did not establish plant, leaf or specimen identifiers. Filename numbers are reused across disease classes and cannot be treated as biological group IDs.
+Consequently, biological independence between partitions cannot be demonstrated.
+
+### Split feasibility recommendation
+1. Do not use the supplied Test partition as an independent evaluation set.
+2. A new image-content leakage-reduced split may be feasible after grouping exact duplicate content across all partitions.
+3. Near-duplicate candidates require further review and grouping before partition assignment.
+4. Conflicting-label image content must be resolved using reliable ground truth or excluded from a defensible classification experiment.
+5. Biological group independence cannot be guaranteed without verified plant, leaf or specimen identifiers.
+6. Any future split must clearly state whether it controls exact duplicates, reviewed near-duplicates and biological grouping separately.
+
+### Overall assessment
+The current CCMT archive does not establish a scientifically defensible independent Train-Test evaluation split. A provisional image-content leakage-reduced split may be possible, but it must not be described as biologically independent or fully leakage-safe.
+
+The five-class image-level classification suitability remains conditional on resolving label reliability concerns and clearly acknowledging the absence of verified biological sample identities.
+
+### Processing restrictions
+No original images were modified. This assessment did not involve preprocessing, augmentation, feature engineering or model training.
+
+**Prepared by:** Member 3 - RGB Dataset Investigation
