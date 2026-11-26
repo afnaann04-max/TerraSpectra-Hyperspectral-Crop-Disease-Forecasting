@@ -594,3 +594,84 @@ The existing split therefore contains substantial exact file-content overlap. Th
 **Documentation status:** Prepared for review
 
 **Git status:** Not committed or pushed
+
+## 16. Train-Test Perceptual Similarity and Visual Verification
+
+### 16.1 Perceptual Hash Method
+
+A 64-bit Difference Hash (dHash) comparison was performed between the 21,723 Train images and 5,445 Test images.
+
+The comparison was used to identify visually similar candidates beyond exact SHA-256 matches. Perceptual hash similarity does not establish that two files contain the same photograph.
+
+### 16.2 Corrected Train-Test Results
+
+The analysis excluded Test entries that already had exact SHA-256 matches in Train before counting non-exact perceptual candidates.
+
+| Measurement | Result |
+|---|---:|
+| Total Test images | 5,445 |
+| Exact SHA-256 Test matches in Train | 4,084 |
+| Test images without exact Train matches | 1,361 |
+| Non-exact Test images with dHash distance <= 8 | 361 |
+| Nearest distance <= 2 | 48 |
+| Nearest distance <= 4 | 85 |
+| Nearest distance <= 6 | 151 |
+| Nearest distance <= 8 | 361 |
+
+Eight non-exact Test entries had a nearest dHash distance of zero. Identical perceptual hashes do not establish identical image content.
+
+### 16.3 Manual Visual Verification
+
+Six candidate Train-Test pairs were selected for read-only visual inspection.
+
+| Test image | Train image | Observation |
+|---|---|---|
+| 11tomato_valid_leaf blight.JPG | 1855tomato_train_leaf blight.JPG | Same photograph observed |
+| 126tomato_valid_leaf blight.JPG | 5300tomato_train_septoria leaf spot.JPG | Different photographs observed |
+| 16tomato_valid_leaf blight.JPG | 1902tomato_train_leaf blight.JPG | Same photograph observed |
+| 38tomato_valid_leaf blight.JPG | 1703tomato_train_leaf blight.JPG | Same photograph observed |
+| 728tomato_valid_leaf blight.JPG | 759tomato_train_leaf blight.JPG | Same photograph observed |
+| 493tomato_valid_leaf blight.JPG | 4319tomato_train_leaf blight.JPG | Same photograph observed |
+
+Five of the six inspected pairs appeared to contain the same photograph despite different filenames and non-identical file contents.
+
+This is direct visual evidence of repeated photographs across the supplied Train and Test partitions. The six pairs were selected from similarity candidates and are not a representative sample from which to estimate the dataset-wide duplication rate.
+
+### 16.4 Raw Filename Inconsistency Investigation
+
+Fourteen images in the raw Verticillium wilt folder had filenames beginning with the prefix "leaf blight" instead of the expected "verticulium wilt" prefix.
+
+Exact SHA-256 comparison against the augmented Train and Test folders found:
+
+- 12 exact-content matches in the augmented Verticillium wilt class.
+- 11 matches in Train.
+- 1 match in Test.
+- 2 raw files without exact-content matches.
+
+The two unmatched raw images were compared with their closest dHash candidates through read-only visual inspection. No obvious same-photograph match was observed among the inspected candidates.
+
+The filename inconsistency is verified, but the actual disease labels of these images have not been independently established.
+
+### 16.5 Interpretation and Limitations
+
+The combined exact-hash and visual findings indicate substantial overlap between the supplied Train and Test partitions.
+
+The supplied Test partition should not be treated as an independent evaluation set for a model trained on the supplied Train partition.
+
+A new leakage-aware partition should be considered using verified original-image groups. However, biological independence cannot be guaranteed without plant, leaf or specimen identifiers.
+
+The dHash results are candidate matches, not confirmed duplicates. Only six Train-Test candidate pairs were visually inspected. The remaining candidates require further verification before being classified as duplicates.
+
+The investigation did not modify, preprocess or overwrite any original images.
+
+### 16.6 Updated Recommendation
+
+The supplied CCMT Train-Test split is unsuitable as an independent evaluation split based on the verified exact-content overlap and visually observed repeated photographs.
+
+A new split should be designed after resolving original-image lineage and, where possible, biological sample grouping. If reliable grouping information is unavailable, the limitation must be documented rather than assuming biological independence.
+
+**Verification status:** Exact-hash and initial visual investigation completed
+
+**Remaining work:** Broader candidate verification, biological grouping investigation and complete original-to-augmented lineage assessment
+
+**Documentation status:** Updated for review
