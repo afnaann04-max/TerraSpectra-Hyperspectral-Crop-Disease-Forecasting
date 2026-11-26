@@ -360,3 +360,140 @@ The filenames appear to contain image-number and date-like components. Similar i
 
 ### Conclusion
 The Rice Sheath Blight dataset has six folder-based severity classes and 1,609 images. The archive count exactly reconciles with the README. The README provides class descriptions and qualitative severity criteria, but exact definitions are incomplete for some stages. Folder labels are available, but the correctness of individual image-label assignments and potential repeated-image lineage remain unverified.
+---
+
+## Updated Verification — 26 November 2026
+
+This section supersedes earlier statements in this report where duplicate detection, visual inspection and biological grouping were described as not performed.
+
+### 1. Image Dimension Verification
+
+All 1,609 JPG images were checked using image metadata.
+
+| Actual dimensions (width × height) | Count |
+|---|---:|
+| 4032 × 3024 | 1,528 |
+| 3024 × 3024 | 81 |
+| **Total** | **1,609** |
+
+The README reports 3024 × 4032. However, 81 images have square dimensions of 3024 × 3024. This is a verified metadata discrepancy.
+
+### 2. Filename Pattern and Candidate Biological Groups
+
+A total of 1,607 filenames matched the expected pattern:
+
+`IMG_<number>@<date>-<location>.JPG`
+
+Two filenames did not match:
+
+- `Stage-2/IMG_4719.JPG`
+- `Stage-5/IMG_4@10MAR25-KTK (2).JPG`
+
+Filename analysis identified:
+
+| Measurement | Result |
+|---|---:|
+| Unique image-number/location combinations | 292 |
+| Groups appearing across multiple dates | 187 |
+| Total observations in repeated groups | 1,502 |
+| Groups appearing in multiple severity stages | 184 |
+
+These are candidate observation groups only. The README does not explain the meaning of image numbers or location codes. Therefore, they cannot be treated as confirmed plant, leaf or specimen identifiers.
+
+### 3. Exact Duplicate Image Verification
+
+SHA-256 hashes were calculated for all 1,609 JPG images directly from the ZIP archive.
+
+| Measurement | Result |
+|---|---:|
+| Images hashed | 1,609 |
+| Unique SHA-256 hashes | 1,602 |
+| Exact duplicate-content groups | 7 |
+| Same-stage duplicate groups | 5 |
+| Cross-stage duplicate groups | 2 |
+
+#### 3.1 Same-stage duplicate groups
+
+| Stage | First filename | Second filename |
+|---|---|---|
+| Stage-2 | `IMG_106@18FEB25-KTK.JPG` | `IMG_170@18FEB25-KTK.JPG` |
+| Stage-3 | `IMG_165@18FEB25-KTK.JPG` | `IMG_4@18FEB25-KTK.JPG` |
+| Stage-4 | `IMG_120@18FEB25-KTK.JPG` | `IMG_171@18FEB25-KTK.JPG` |
+| Stage-4 | `IMG_168@18FEB25-KTK.JPG` | `IMG_24@18FEB25-KTK.JPG` |
+| Stage-4 | `IMG_169@18FEB25-KTK.JPG` | `IMG_28@18FEB25-KTK.JPG` |
+
+#### 3.2 Cross-stage duplicate groups
+
+**Conflict 1**
+- Stage-2: `IMG_11@18FEB25-KTK.JPG`
+- Stage-3: `IMG_167@18FEB25-KTK.JPG`
+
+**Conflict 2**
+- Stage-2: `IMG_166@18FEB25-KTK.JPG`
+- Stage-3: `IMG_10@18FEB25-KTK.JPG`
+
+Both pairs have identical SHA-256 content despite being assigned to different severity stages.
+
+### 4. Visual Comparison of Cross-Stage Conflicts
+
+Both cross-stage duplicate pairs were visually compared.
+
+The images in each pair appeared visually identical. However, the visible photographs did not provide sufficiently clear evidence to independently determine whether Stage-2 or Stage-3 is the correct severity label.
+
+The correct labels remain unresolved. No labels were changed.
+
+### 5. Additional Filename Investigation
+
+The following similarly named files were compared:
+
+- Stage-4: `IMG_4@10MAR25-KTK.JPG`
+- Stage-5: `IMG_4@10MAR25-KTK (2).JPG`
+
+Their SHA-256 hashes were different. They are not exact binary duplicates, although their filenames are similar.
+
+Different hashes do not establish that they represent different plants or scenes.
+
+### 6. Biological Grouping and Leakage Limitations
+
+The README does not explain:
+
+- Whether image numbers identify plants, leaves or photographs.
+- What location codes such as KTK and KOD represent.
+- Whether the same plants were photographed repeatedly.
+- Whether individual specimens appear across multiple severity folders.
+
+The archive contains severity-stage folders rather than explicit Train, Validation and Test partitions. Therefore, no supplied Train-Test split could be verified.
+
+For future partitioning:
+- Exact duplicate images must remain in the same partition.
+- Candidate repeated image-number/location groups should be investigated before splitting.
+- Biological independence must not be claimed without specimen-level evidence.
+
+The image-number/location combination may be used as a provisional grouping key, but it is not a confirmed biological identifier.
+
+### 7. Updated Dataset Suitability Assessment
+
+| Evaluation area | Finding |
+|---|---|
+| Archive inventory | Verified |
+| Stage-wise image counts | Verified |
+| README severity descriptions | Source-reported |
+| Image dimensions | Verified |
+| Exact duplicate contents | Verified |
+| Cross-stage label conflicts | Two groups identified |
+| Repeated filename identifiers | Candidate groups identified |
+| Biological specimen identity | Unresolved |
+| Individual label correctness | Not independently established |
+| Leakage-safe biological split | Not established |
+
+**Recommendation:** The dataset is conditionally suitable for exploratory severity-classification research. Further validation of individual severity labels and biological grouping is required before making reliable benchmark or generalization claims.
+
+### 8. Final Conclusion
+
+The archive-level investigation identified seven exact duplicate-content groups, including two cross-stage label conflicts. Filename analysis also identified repeated candidate observation groups, but the biological meaning of those identifiers remains unknown.
+
+The dataset provides six severity folders and source-reported severity criteria. However, biological independence and individual label correctness have not been established.
+
+**Final recommendation: Conditional suitability for exploratory research; further label and biological-grouping validation is required.**
+
+**Investigation scope:** Read-only archive inspection, filename analysis, SHA-256 comparison, image metadata inspection and visual comparison of two duplicate pairs. Original images were not modified. No preprocessing, augmentation, feature extraction or model training was performed.
