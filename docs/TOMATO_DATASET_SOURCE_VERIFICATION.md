@@ -337,7 +337,7 @@ These details are source-reported and must be distinguished from archive-verifie
 ---
 
 **Investigation update:** 20 November 2026  
-**Prepared by:** Member 3 – RGB Dataset Investigation  
+**Prepared by:** Member 3 - RGB Dataset Investigation
 **Final status:** Public source verification and partial archive-level verification completed; further integrity and leakage checks pending.
 
 ## 14. Additional Archive Integrity and Train/Test Leakage Verification (20 November 2026)
@@ -590,3 +590,113 @@ No images were extracted, opened, visually inspected, preprocessed, or used for 
 The archive shows significant exact-content overlap between Raw, Train, and Test, while filename metadata does not reveal complete original-image lineage.
 
 The dataset's augmentation lineage and split independence remain unresolved. The evidence indicates a serious data leakage concern, and the dataset should not be assumed to provide an independent Train/Test evaluation.
+
+## 14.11 Raw-to-Augmented SHA-256 Reverification and Cross-Class Label Conflict (26 November 2026)
+
+### Verification Method
+
+A fresh SHA-256 verification was performed using the current archive:
+
+`Dataset for Crop Pest and Disease Detection.zip`
+
+The verification script streamed image contents directly from ZIP entries. No images were extracted, modified, or deleted.
+
+Script:
+`scripts/verify_ccmt_raw_to_augmented_lineage.py`
+
+Machine-readable outputs:
+- `reports/ccmt_raw_to_augmented/ccmt_raw_to_augmented_summary.json`
+- `reports/ccmt_raw_to_augmented/ccmt_raw_to_augmented_exact_matches.csv`
+
+### Verified Archive Inventory
+
+| Dataset portion | Image files |
+|---|---:|
+| Raw Tomato | 5,805 |
+| Augmented Train | 21,723 |
+| Augmented Test | 5,445 |
+| Total augmented | 27,168 |
+
+### Reconciled Raw-to-Augmented Exact-Match Results
+
+The fresh verification identified the following measurements:
+
+| Measurement | Verified count |
+|---|---:|
+| Raw file entries with at least one exact match | 4,771 |
+| Unique matched Raw SHA-256 values | 4,385 |
+| Distinct augmented Train files matched | 4,264 |
+| Distinct augmented Test files matched | 1,363 |
+| **Distinct augmented files matched** | **5,627** |
+| Raw-to-Augmented matching file pairs | 6,202 |
+
+The distinct augmented-file count reproduces the historical result of 5,627.
+
+The 6,202 matching file pairs are higher because multiple Raw file entries can contain identical content and therefore match the same augmented file. Pair counts must not be interpreted as distinct augmented-image counts.
+
+### Class-wise Exact Matches
+
+| Class | Raw-to-Train matches | Raw-to-Test matches |
+|---|---:|---:|
+| Healthy | 376 | 32 |
+| Leaf blight | 1,029 | 323 |
+| Leaf curl | 403 | 51 |
+| Septoria leaf spot | 1,837 | 918 |
+| Verticulium wilt | 619 | 39 |
+| **Total** | **4,264** | **1,363** |
+
+These fresh class-wise counts reproduce the historical Section 14.7 counts.
+
+### Verified Cross-Class Duplicate and Label Conflict
+
+One SHA-256 content value was found in two Raw class folders and two augmented Train class folders.
+
+SHA-256:
+
+`4e69cc3e3073bd2336e75447aab0a14e8476bb6916c14d9d1557ead234708c6e`
+
+The four exact-content matching pairs were:
+
+| Raw class | Augmented Train class | Label agreement |
+|---|---|---|
+| Leaf blight | Leaf blight | Yes |
+| Leaf blight | Septoria leaf spot | No |
+| Septoria leaf spot | Leaf blight | No |
+| Septoria leaf spot | Septoria leaf spot | Yes |
+
+The two Raw files are:
+- `leaf blight/leaf blight1315_.jpg`
+- `septoria leaf spot/septoria leaf spot47_.jpg`
+
+The two augmented Train files are:
+- `leaf blight/4449tomato_train_leaf blight.JPG`
+- `septoria leaf spot/8911tomato_train_septoria leaf spot.JPG`
+
+All four records have identical file content according to SHA-256.
+
+### Interpretation
+
+- The same image content is stored under both Leaf blight and Septoria leaf spot in the Raw dataset.
+- The same content is also stored under both labels in augmented Train.
+- This is a verified cross-class duplicate and label inconsistency.
+- The correct disease label cannot be established from hashes or folder names alone.
+- This finding raises a label-reliability concern for five-class image classification.
+- The finding should not be generalized to other images without further evidence.
+
+### Limitations and Status
+
+- Exact Raw-to-Augmented content matches: Reverified.
+- Historical distinct augmented-file count of 5,627: Reconciled.
+- Raw-to-Augmented pair count of 6,202: Verified.
+- Cross-class duplicate and conflicting label assignment: Verified.
+- Correct disease label for the conflicting image: Unresolved.
+- Complete transformed-image lineage: Unresolved.
+- Biological sample identity: Not established.
+- Dataset approval for modelling: Not granted by this verification.
+
+The SHA-256 results establish identical file content, not biological sample identity or complete augmentation lineage.
+
+No raw images were extracted or modified. No preprocessing, feature extraction, or model training was performed.
+
+**Investigation update:** 26 November 2026
+**Prepared by:** Member 3 - RGB Dataset Investigation

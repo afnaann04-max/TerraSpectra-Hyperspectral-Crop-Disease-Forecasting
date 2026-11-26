@@ -1,0 +1,48 @@
+{
+  "archive": "C:\\Users\\Afnan\\Downloads\\Dataset for Crop Pest and Disease Detection.zip",
+  "method": "SHA-256 over ZIP entry content streams",
+  "images_extracted": false,
+  "raw_images_modified": false,
+  "inventory": {
+    "raw_total": 5805,
+    "train_total": 21723,
+    "test_total": 5445,
+    "raw_by_class": {
+      "healthy": 470,
+      "leaf blight": 1301,
+      "leaf curl": 518,
+      "septoria leaf spot": 2743,
+      "verticulium wilt": 773
+    },
+    "augmented_by_split_and_class": {
+      "train/healthy": 2000,
+      "train/leaf blight": 5200,
+      "train/leaf curl": 2050,
+      "train/septoria leaf spot": 9373,
+      "train/verticulium wilt": 3100,
+      "test/healthy": 500,
+      "test/leaf blight": 1309,
+      "test/leaf curl": 532,
+      "test/septoria leaf spot": 2340,
+      "test/verticulium wilt": 764
+    }
+  },
+  "raw_to_augmented": {
+    "unique_raw_sha256_values": 5351,
+    "unique_matched_raw_sha256_values": 4385,
+    "raw_file_entries_with_exact_match": 4771,
+    "raw_file_entries_without_exact_match": 1034,
+    "raw_to_augmented_exact_file_pairs": 6202,
+    "train_exact_match_pairs": 4651,
+    "test_exact_match_pairs": 1551,
+    "class_label_agreement_pairs": 6200,
+    "class_label_disagreement_pairs": 2
+  },
+  "limitations": [
+    "Exact SHA-256 matches establish identical file content only.",
+    "A matching file does not establish biological sample identity.",
+    "Non-matching files may still be transformed versions of raw images.",
+    "This comparison does not establish complete original-to-augmented lineage.",
+    "Matching class folder names do not independently verify disease labels."
+  ]
+}
