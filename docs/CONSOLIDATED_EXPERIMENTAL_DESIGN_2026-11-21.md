@@ -71,28 +71,42 @@ Important limitations:
 
 ### 3.2 SWIR – Wheat Septoria
 
-**Proposed initial objective:** Exploratory spectral analysis and conditional disease-detection investigation.
+**Proposed initial objective:** Exploratory spectral analysis, conditional on resolving calibration, annotation and biological-sample provenance.
 
-The published dataset description reports:
+**Published study context:**
 
-- 48 pots.
-- Two wheat genotypes.
-- Infected and non-infected treatments.
-- 279 leaf-level records.
-- 256 spectral channels.
-- Multiple days post inoculation.
+The dataset publication describes a wheat Septoria experiment involving 48 pots, two wheat genotypes and infected and non-infected treatments. It reports 279 leaf-level records collected across multiple days post-inoculation. These are publication-level descriptions and should not be treated as proof that every biological sample and acquisition relationship has been mapped within the downloaded archive.
 
-The historical 96/96 pot-side scan matching result is documented, but original raw headers and calibration references remain unavailable for independent technical verification.
+The 25 November 2026 archive investigation by Member 2 verified:
+
+- The official SWIR archive was downloaded outside the repository.
+- The local MD5 checksum matches the published checksum.
+- The archive contains 96 `.hyspex` files, 96 matching `.hdr` files, 96 JPG files and 259 CSV files.
+- All 96 raw/header pairs were checked, with no missing matching headers or binary-size mismatches reported.
+- All inspected headers report 256 bands and a wavelength range of 964.181280–2494.388419 nm.
+- Common configuration: 420 lines × 320 samples × 256 bands, ENVI data type 12 (unsigned 16-bit integer), little-endian byte order and BIL interleave.
+- Headers specify wavelength units in nanometres and an ignore value of 16383.
+- All 259 CSV files were structurally checked: 922,064 rows, with two numeric values per row.
+
+**Outstanding limitations:**
+
+- Dark-current and white-reference correspondence has not been established.
+- CSV annotation meaning and coordinate convention remain unconfirmed.
+- Biological sample, leaf, pot and side relationships require verification.
+- `18_D.hdr` and `18_D.hyspex` are located inside the `18_G` folder; this irregularity requires clarification.
+- `CalibAvailable = 1` does not independently establish calibrated reflectance or a reproducible calibration procedure.
+- The archive was inspected read-only without extraction.
 
 **Proposed experimental direction:**
 
-- Obtain the original archive and supporting acquisition files.
-- Verify header metadata, spectral bands, dimensions and raw binary layout.
-- Confirm calibration references and acquisition settings.
-- Assess missing observations and biological sample relationships.
-- Design exploratory spectral analysis only after technical readiness is established.
+- Preserve the downloaded original archive unchanged and outside the repository.
+- Resolve calibration-reference availability and acquisition metadata.
+- Clarify CSV annotation semantics and sample-to-scan correspondence.
+- Investigate the folder-placement irregularity.
+- Establish biological experimental units and group-aware validation before predictive experiments.
+- Consider exploratory spectral analysis only after technical and scientific readiness review.
 
-**Current decision:** Technical verification is pending. Preprocessing and supervised modelling are not approved.
+**Current decision:** Archive integrity and raw/header inventory have been verified. SWIR is suitable for continued technical investigation, but calibration, annotation semantics and biological mapping remain unresolved. Preprocessing, calibration transformations, feature extraction and supervised modelling are not approved.
 
 ### 3.3 RGB – Rice Sheath Blight
 
@@ -132,28 +146,46 @@ Outstanding issues include dataset reuse permission, archive integrity, image-ma
 
 ### 3.5 RGB – CCMT Tomato
 
-**Proposed objective:** Five-class image-level classification.
+**Proposed objective:** Five-class image-level classification, conditional on resolving data lineage and establishing a defensible evaluation split.
 
-The available archive inspection identified 27,158 images:
+The 25 November 2026 verification by Member 3 reports the following archive inventory:
 
-- 21,723 training images.
-- 5,435 test images.
+- Raw Tomato images: 5,805.
+- Augmented Train images: 21,723.
+- Augmented Test images: 5,445.
+- Total augmented images: 27,168.
+- The publication reports 27,178 augmented images, leaving a 10-image discrepancy that remains unresolved.
 
-The archive contains five reported tomato classes. The publication reports 27,178 augmented images, leaving a 20-image discrepancy.
+**Exact-content Train-Test overlap verification:**
 
-Filename-based matching produced 4,085 matches. This is not a verified duplicate count. The inspected cross-class filename pair had different SHA-256 hashes.
+A reproducible script compared image contents directly from ZIP entry streams using SHA-256 and CRC32. Both methods returned identical counts:
 
-Outstanding issues include original-to-augmented relationships, possible train/test leakage, near-duplicates and biological sample grouping.
+- 4,084 unique shared image contents.
+- 4,084 Test entries with at least one Train match.
+- 4,085 matching Train-Test file pairs.
+- 1,361 Test entries without an exact Train content match.
+- Approximately 75.0% of Test entries have an exact-content match in Train.
+
+The difference between 4,084 unique shared contents and 4,085 file pairs occurs because one shared content appears in two Train entries and one Test entry. Those two Train entries have different class labels, indicating a label-consistency issue requiring investigation.
+
+**Outstanding limitations:**
+
+- Exact binary matching does not identify near-duplicates.
+- Original-to-augmented image lineage remains unresolved.
+- Biological plant, leaf or specimen identity cannot be inferred from these hash results.
+- Biological independence between Train and Test has not been established.
+- The publication-versus-archive count discrepancy remains unresolved.
 
 **Proposed experimental direction:**
 
-- Resolve the 20-image discrepancy.
-- Establish original-to-augmented relationships.
-- Investigate possible leakage across the supplied train/test partitions.
+- Investigate the repeated-content group and its conflicting Train labels.
+- Establish original-image and augmented-image relationships.
+- Investigate near-duplicates and biological sample grouping.
 - Determine whether a defensible group-aware split can be constructed.
-- Confirm the final class-to-image mapping.
+- Reconcile the archive and publication counts.
+- Do not use the supplied Test partition as an independent evaluation set until the overlap and grouping issues are resolved.
 
-**Current decision:** Conditional classification candidate. Modelling approval remains pending.
+**Current decision:** Exact-content overlap is reproducibly verified. The supplied Train-Test partition is not currently suitable as an independent test set. Classification modelling and performance evaluation remain on hold pending lineage, label and split review.
 
 ## 4. Experimental units and grouping
 
@@ -263,7 +295,7 @@ Therefore, modality-specific experiments must be completed and evaluated indepen
 |---|---|---|
 | Gate 1 – Source and access | Source, licence and archive access verified | Partially complete |
 | Gate 2 – Technical readiness | File structure, metadata and calibration verified | Pending for VNIR/SWIR and some RGB datasets |
-| Gate 3 – Label readiness | Labels and annotations verified | Pending for Rice and NWRD; CCMT follow-up ongoing |
+| Gate 3 – Label readiness | Labels and annotations verified | Pending for Rice and NWRD; CCMT lineage and label consistency unresolved |
 | Gate 4 – Experimental design | Experimental units and leakage-safe splits established | Provisional |
 | Gate 5 – Preprocessing | Modality-specific workflow reviewed and approved | Not approved |
 | Gate 6 – Modelling | Baseline and evaluation protocol approved | Not approved |
@@ -287,7 +319,7 @@ A dataset must not proceed to a later gate merely because its documentation has 
 
 **Member 3 – RGB**
 
-- Continue CCMT archive relationship and leakage investigation.
+- Resolve CCMT original-to-augmented lineage, repeated-content label inconsistency and leakage-safe split feasibility.
 - Verify Rice severity definitions and image-to-label mapping.
 - Investigate NWRD reuse permission and archive verification.
 
