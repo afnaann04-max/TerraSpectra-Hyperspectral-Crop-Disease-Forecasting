@@ -769,3 +769,75 @@ The paper's licence applies to the paper and does not automatically establish th
 | Resource | Publicly displayed licence or rights | Assessment |
 |---|---|---|
 | GitHub source
+
+## Actual Archive Inspection Results
+
+**Inspection date:** 27 November 2026
+
+### Archive Information
+- Archive: `NWRD.zip`
+- Total files: 200
+- Compressed size: 580.66 MB
+- Uncompressed size: 584.45 MB
+- ZIP integrity: Passed (no corrupt files detected)
+
+### Verified Folder Structure
+
+```text
+NWRD/
+├── train/
+│   ├── images/  (90 JPG files)
+│   └── masks/   (90 PNG files)
+└── test/
+    ├── images/  (10 JPG files)
+    └── masks/   (10 PNG files)
+```
+
+### File Inventory
+
+| Property | Verified Result |
+|---|---|
+| Total JPG images | 100 |
+| Total PNG masks | 100 |
+| Training pairs | 90 |
+| Testing pairs | 10 |
+| Matching filenames | 100 |
+| Unmatched images | 0 |
+| Unmatched masks | 0 |
+
+### Mask Properties
+
+- Image format: JPG
+- Image mode: RGB
+- Mask format: PNG
+- Mask mode: L (grayscale)
+- Observed mask pixel values: 0 and 255
+- Masks are binary-valued in the inspected samples.
+
+The semantic interpretation of the two pixel values has not yet been independently verified.
+
+### Image-Mask Dimension Verification
+
+All 100 image-mask pairs were checked.
+
+- Matching dimensions: 99
+- Dimension mismatches: 1
+- Dimension matching rate: 99%
+
+**Identified mismatch:**
+
+| File | Dimensions |
+|---|---|
+| `train/images/101.jpg` | 3612 × 3456 |
+| `train/masks/101.png` | 3593 × 3435 |
+
+The mask is 19 pixels narrower and 21 pixels shorter than its corresponding image.
+
+The cause of this mismatch remains unresolved. No resizing or modification has been performed.
+
+### Outstanding Verification Items
+
+1. Determine the semantic meaning of mask pixel values 0 and 255.
+2. Investigate the dimension mismatch for image-mask pair 101.
+3. Verify image and mask visual alignment.
+4. Record any remaining dataset limitations before model training.
