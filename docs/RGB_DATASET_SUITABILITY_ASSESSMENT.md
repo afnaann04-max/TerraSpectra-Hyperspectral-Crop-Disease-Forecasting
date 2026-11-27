@@ -94,6 +94,31 @@ The largest class contains approximately 5.84 times as many images as the smalle
 
 No model training or performance evaluation was performed as part of this dataset investigation.
 
+### 3.1.2 Raw vs Augmented Class Distribution Analysis
+
+The raw and augmented Tomato datasets were compared to examine changes in class proportions and image counts.
+
+| Disease class | Raw images | Raw % | Augmented images | Augmented % | Augmentation factor |
+|---|---:|---:|---:|---:|---:|
+| Healthy | 470 | 8.10% | 2,500 | 9.20% | 5.32x |
+| Leaf blight | 1,301 | 22.41% | 6,509 | 23.96% | 5.00x |
+| Leaf curl | 518 | 8.92% | 2,582 | 9.50% | 4.98x |
+| Septoria leaf spot | 2,743 | 47.25% | 11,713 | 43.11% | 4.27x |
+| Verticillium wilt | 773 | 13.32% | 3,864 | 14.22% | 5.00x |
+| **Total** | **5,805** | **100%** | **27,168** | **100%** | **4.68x overall** |
+
+**Findings:**
+
+- The augmented dataset has a different class distribution from the raw dataset.
+- Healthy has the highest count-based augmentation factor (5.32x).
+- Septoria leaf spot has the lowest factor (4.27x).
+- Septoria's share decreases from 47.25% in the raw dataset to 43.11% in the augmented dataset.
+- Class imbalance remains in the augmented collection.
+
+These factors compare image counts only. They do not establish unique original-image lineage for every augmented entry. The earlier exact-content investigation identified only partial raw-to-augmented lineage.
+
+No new augmentation or preprocessing was performed as part of this analysis.
+
 ### 3.2 Original-to-Augmented Lineage
 
 SHA-256 comparison between the raw Tomato images and augmented Train-Test images identified:
