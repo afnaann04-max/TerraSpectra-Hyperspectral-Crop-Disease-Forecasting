@@ -34,16 +34,16 @@ The project currently investigates five dataset candidates across three imaging 
 
 | Dataset | Crop / Disease | Proposed research task | Current status |
 |---|---|---|---|
-| CCMT Tomato | Tomato diseases | Five-class image classification | Conditional; leakage and lineage investigation pending |
-| Rice Sheath Blight | Rice sheath blight | Six-level disease severity estimation | Conditional; label and biological-grouping verification pending |
-| NWRD Wheat Rust | Wheat rust | Binary disease segmentation | Conditional; reuse permission and visual mask validation pending |
+| CCMT Tomato | Tomato diseases | Five-class image classification | Conditional exploratory candidate; supplied Test split unsuitable for independent evaluation; label conflicts and biological grouping unresolved |
+| Rice Sheath Blight | Rice sheath blight | Six-level disease severity estimation | Conditional exploratory candidate; duplicate-label conflicts, severity criteria and biological grouping unresolved |
+| NWRD Wheat Rust | Wheat rust | Binary disease segmentation | Conditional exploratory candidate; reuse permission and annotation consistency unresolved |
 
 ### 3.2 Hyperspectral Datasets
 
 | Dataset | Modality | Proposed research task | Current status |
 |---|---|---|---|
 | Wheat Septoria | VNIR | Exploratory spectral analysis | Not approved for modelling |
-| Wheat Septoria | SWIR | Exploratory spectral analysis and conditional disease detection/classification | Partially suitable; further verification required |
+| Wheat Septoria | SWIR | Exploratory spectral analysis | Technical and metadata investigation documented; calibration provenance unresolved; modelling not approved |
 
 **Important:** These datasets are being investigated independently. Their availability does not imply approval for preprocessing, model training or integration.
 
@@ -52,9 +52,11 @@ The project currently investigates five dataset candidates across three imaging 
 ### CCMT Tomato — RGB
 
 - The inspected archive contains 5,805 raw images, 21,723 training images and 5,445 test images.
-- SHA-256 and CRC32 comparisons identified 4,084 unique shared contents and 4,085 matching Train–Test file pairs.
-- One shared image content occurs in two training entries with different class labels.
-- Original-to-augmented lineage, near-duplicates and biological sample identities remain unresolved.
+- SHA-256 and CRC32 comparisons identified 4,084 unique shared contents and 4,085 matching Train–Test file pairs; 4,084 Test entries have at least one exact-content match in Train.
+- Raw-to-augmented inspection identified 6,202 exact file pairs; 4,771 raw entries had at least one exact-content match, while 1,034 had no exact-content match.
+- Two cross-class exact-content conflict groups were identified. Their correct labels remain unresolved.
+- Class imbalance is substantial: Septoria has approximately 5.84 times as many raw images as Healthy.
+- Biological sample independence is unestablished.
 - The supplied Test partition is not accepted as an independent evaluation set.
 
 ### Rice Sheath Blight — RGB
@@ -62,6 +64,8 @@ The project currently investigates five dataset candidates across three imaging 
 - The archive inventory identifies six folder-based severity stages.
 - Total reported inventory: 1,609 images.
 - The six class counts are 157, 326, 410, 355, 263 and 98.
+- SHA-256 inspection identified 1,602 unique image contents and seven duplicate groups: five within the same stage and two across different stages.
+- The two cross-stage duplicate groups contain identical image content assigned to different severity stages; the correct labels remain unresolved.
 - The public dataset record reports a CC BY 4.0 licence.
 - Exact severity boundaries, individual image-label correctness and biological grouping still require verification.
 
@@ -69,8 +73,11 @@ The project currently investigates five dataset candidates across three imaging 
 
 - The archive inventory reports 100 RGB images and 100 corresponding masks.
 - The archive checksum and filename-level image-mask pairing have been verified.
-- Dataset image and mask reuse permissions remain unresolved.
-- Visual mask alignment, mask values and the published-versus-README split discrepancy require further investigation.
+- Image-mask dimensions match for 99 of 100 pairs. The image `train/images/101.jpg` is 19 pixels wider and 21 pixels taller than its mask.
+- The RGB images contain one byte-identical duplicate pair (`train/images/15.jpg` and `train/images/32.jpg`), but their masks differ in foreground coverage.
+- No exact duplicate RGB image was identified across the supplied Train and Test partitions.
+- Dataset reuse permission and the intended meaning of mask foreground pixels remain unresolved; the duplicate-image mask difference requires annotation review.
+- Mask values are recorded as 0 and 255; foreground semantics and the published-versus-README split discrepancy still require verification.
 
 ### Wheat Septoria — VNIR
 
@@ -85,7 +92,11 @@ The project currently investigates five dataset candidates across three imaging 
 - The official dataset archive was downloaded and its MD5 checksum verified.
 - Read-only inventory confirmed 96 HYSPEX files, 96 matching headers, 96 JPG files and 259 CSV files.
 - The inspected headers contain 256 spectral bands across 964.181280–2494.388419 nm.
-- Calibration-reference correspondence, CSV annotation meaning and biological sample mapping remain unresolved.
+- All 96 scan IDs match the 96 official pot-side metadata groups. This mapping does not establish 96 independent biological samples or plants.
+- The metadata contains 279 leaf records, while coordinate CSVs exist for 259 leaf IDs. Twenty metadata leaf IDs have no corresponding coordinate CSV; no CSV leaf ID was unmatched to the metadata.
+- The publication documents column 1 as the vertical line coordinate and column 2 as the horizontal sample coordinate. A recheck of `24_G_leaf3.csv` found no out-of-range rows under that convention; visual annotation correspondence has not been independently validated.
+- The `18_D` HYSPEX/header/JPG files are stored under the `18_G` folder, while the `18_D` coordinate CSVs are stored under `18_D`.
+- Calibration-reference correspondence and whether the archived cubes are calibrated reflectance remain unverified. The header field `CalibAvailable=1` alone does not establish calibration.
 - Preprocessing and modelling have not been approved.
 
 ## 5. Scientific Methodology and Data Integrity
@@ -182,10 +193,10 @@ The structure above identifies important project documentation and intended rese
 | Research area | Status |
 |---|---|
 | VNIR investigation | Selected-scan technical verification documented; calibration and biological tracking unresolved |
-| SWIR investigation | Archive and header inventory verified; calibration and sample linkage unresolved |
-| CCMT Tomato | Exact-content overlap verified; additional lineage and leakage investigation pending |
-| Rice Sheath Blight | Archive inventory documented; severity-label and biological-grouping checks pending |
-| NWRD Wheat Rust | Archive inventory documented; reuse permissions and visual mask checks pending |
+| SWIR investigation | Archive, headers and scan-to-pot-side metadata mapping verified; calibration provenance and leaf-level annotation limitations documented |
+| CCMT Tomato | Exact Train–Test overlap and raw-to-augmented lineage investigated; label conflicts and independent evaluation limitations remain |
+| Rice Sheath Blight | Archive inventory and duplicate groups verified; cross-stage label conflicts and biological grouping unresolved |
+| NWRD Wheat Rust | Image-mask pairing, dimensions and duplicate-image issue investigated; reuse permission and annotation meaning unresolved |
 | Final dataset selection | Pending |
 | Experimental-design approval | Pending |
 | Preprocessing and model training | Not approved or started |

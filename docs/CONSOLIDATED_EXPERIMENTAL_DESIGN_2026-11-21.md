@@ -118,6 +118,18 @@ The 25 November 2026 archive investigation by Member 2 verified:
 
 **Current decision:** Archive integrity and raw/header inventory have been verified. SWIR is suitable for continued technical investigation, but calibration, annotation semantics and biological mapping remain unresolved. Preprocessing, calibration transformations, feature extraction and supervised modelling are not approved.
 
+**Additional verification - 27 November 2026:**
+
+- All 96 SWIR scan IDs match the 96 official pot-side metadata groups.
+- Metadata contains 279 leaf records across 48 pots.
+- 259 coordinate CSVs match metadata; 20 metadata leaf IDs have no coordinate CSV.
+- The publication defines column 1 as vertical line coordinate and column 2 as horizontal sample coordinate. Range checks passed; visual annotation mapping remains unverified.
+- The 18_D raw/header/JPG files are inside 18_G, while its CSVs are in 18_D.
+- No separate calibration-reference files were found by archive filename search. CalibAvailable = 1 does not prove calibrated reflectance.
+- Scan-to-pot-side matching does not establish independent biological replicates.
+
+**Updated decision:** Archive integrity, headers and scan mapping are verified. Calibration provenance, 20 missing CSVs and visual annotation mapping remain unresolved. No preprocessing or modelling approval.
+
 ### 3.3 RGB – Rice Sheath Blight
 
 **Proposed objective:** Image-level severity estimation.
@@ -136,6 +148,15 @@ However, the exact class definitions, severity boundaries and image-to-label map
 
 **Current decision:** Promising severity-estimation candidate, but supervised modelling remains on hold until labels and archive structure are verified.
 
+**Additional verification - 27 November 2026:**
+
+- 1,609 Rice images contain 1,602 unique contents, including seven duplicate groups.
+- Two duplicate groups contain identical images assigned to different severity stages. Correct labels remain unresolved.
+- Repeated filename/location groups do not prove tracking of the same biological specimen.
+- No supplied Train/Test partition was identified.
+
+**Updated decision:** Conditional exploratory severity-estimation candidate only. Resolve duplicate-label conflicts, severity definitions and biological grouping before modelling.
+
 ### 3.4 RGB – NWRD Wheat Rust
 
 **Proposed objective:** Binary rust segmentation.
@@ -153,6 +174,17 @@ Outstanding issues include dataset reuse permission, archive integrity, image-ma
 - If verified, conduct a separate binary segmentation experiment.
 
 **Current decision:** Conditional candidate. Modelling remains on hold.
+
+**Additional verification - 27 November 2026:**
+
+- NWRD has 100 image-mask filename pairs. 99 pairs have matching dimensions.
+- `train/images/101.jpg` is 3612 x 3456; its mask is 3593 x 3435.
+- The 100 RGB images contain 99 unique contents. Images 15.jpg and 32.jpg are byte-identical, but their masks differ.
+- No exact duplicate image content was found across Train and Test.
+- Mask values are 0 and 255; foreground meaning remains unverified.
+- Reuse permission remains unresolved. The repository MIT licence is not assumed to cover the dataset.
+
+**Updated decision:** Conditional segmentation candidate. Resolve permission, annotation meaning, duplicate-image mask inconsistency, dimension mismatch and biological grouping before modelling.
 
 ### 3.5 RGB – CCMT Tomato
 
@@ -196,6 +228,18 @@ The difference between 4,084 unique shared contents and 4,085 file pairs occurs 
 - Do not use the supplied Test partition as an independent evaluation set until the overlap and grouping issues are resolved.
 
 **Current decision:** Exact-content overlap is reproducibly verified. The supplied Train-Test partition is not currently suitable as an independent test set. Classification modelling and performance evaluation remain on hold pending lineage, label and split review.
+
+**Additional CCMT verification - 27 November 2026:**
+
+- 4,771 of 5,805 raw images have at least one exact-content match in the augmented archive; 1,034 have none.
+- 4,385 unique raw contents are represented in the augmented archive, with 6,202 exact file pairs.
+- 6,200 pairs have matching labels.
+- Two exact-content groups have cross-class label conflicts involving Leaf blight and Septoria.
+- The second conflict group contains identical Train and Test content with different labels; no exact raw match was identified.
+- These groups must not be double-counted as additional unique hashes or pairs.
+- The six visually reviewed near-duplicate pairs were a convenience sample, not a representative assessment.
+
+**Updated decision:** CCMT remains a conditional five-class exploratory candidate. Approximately 75% of supplied Test entries have exact-content matches in Train, so the supplied Test partition is unsuitable as an independent evaluation set. Lineage, label conflicts, biological grouping and publication/archive count discrepancies remain unresolved.
 
 ## 4. Experimental units and grouping
 
@@ -304,9 +348,9 @@ Therefore, modality-specific experiments must be completed and evaluated indepen
 | Gate | Requirement | Current status |
 |---|---|---|
 | Gate 1 – Source and access | Source, licence and archive access verified | Partially complete |
-| Gate 2 – Technical readiness | File structure, metadata and calibration verified | Pending for VNIR/SWIR and some RGB datasets |
-| Gate 3 – Label readiness | Labels and annotations verified | Pending for Rice and NWRD; CCMT lineage and label consistency unresolved |
-| Gate 4 – Experimental design | Experimental units and leakage-safe splits established | Provisional |
+| Gate 2 - Technical readiness | File structure, metadata and calibration verified | Partially verified: SWIR archive, headers and scan mapping checked; VNIR/SWIR calibration provenance and NWRD technical issues remain unresolved |
+| Gate 3 - Label readiness | Labels and annotations verified | Unresolved: Rice duplicate-stage conflicts; NWRD annotation and licence questions; CCMT lineage and cross-class conflicts |
+| Gate 4 - Experimental design | Experimental units and leakage-safe splits established | Provisional; biological grouping and defensible partitions remain unresolved |
 | Gate 5 – Preprocessing | Modality-specific workflow reviewed and approved | Not approved |
 | Gate 6 – Modelling | Baseline and evaluation protocol approved | Not approved |
 | Gate 7 – Forecasting/fusion | Required temporal or cross-modal evidence established | Not established |
@@ -315,23 +359,24 @@ A dataset must not proceed to a later gate merely because its documentation has 
 
 ## 11. Immediate team actions
 
-**Hiba – Coordination and VNIR**
+**Hiba - Coordination and VNIR**
 
-- Maintain this consolidated experimental-design framework.
-- Review the updated SWIR and RGB evidence.
-- Resolve any changes required in the dataset suitability decisions.
-- Coordinate the final team review and approval gates.
+- Maintain the consolidated evidence and experimental-design framework.
+- Complete central document review and retain the modality-specific decisions.
+- Keep VNIR at exploratory-analysis-only status pending calibration provenance, biological tracking and confounding review.
 
-**Member 2 – SWIR**
+**Member 2 - Fahma (28 November follow-up)**
 
-- Continue the original archive and technical-file access investigation.
-- Provide independently verified technical evidence or document the access blocker.
+- Make only the minor wording and path corrections identified in the SWIR report review.
+- Provide a standard diff against the actual repository file path.
+- No further dataset investigation or central-document updates are required for this follow-up.
 
-**Member 3 – RGB**
+**Member 3 - Afnan**
 
-- Resolve CCMT original-to-augmented lineage, repeated-content label inconsistency and leakage-safe split feasibility.
-- Verify Rice severity definitions and image-to-label mapping.
-- Investigate NWRD reuse permission and archive verification.
+- Current RGB evidence submissions have been reviewed.
+- No further broad investigation is required; respond only to targeted clarification requests.
+
+No teammate work is to be integrated into the central branch without review and explicit approval.
 
 ## 12. Current conclusion
 

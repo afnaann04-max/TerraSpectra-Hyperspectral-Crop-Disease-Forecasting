@@ -584,6 +584,33 @@ The updated investigation reports were retrieved and reviewed by Hiba.
 - No dataset has final approval for preprocessing or model training.
 - No preprocessing, feature engineering, model training or modality fusion was started.
 
+## 5K. Daily progress update — 27 November 2026
+
+### Hiba
+- Reviewed the latest RGB investigation evidence and completed the README update locally.
+- Reviewed Fahma's revised SWIR investigation report and identified minor final corrections.
+- Continued updating the central investigation tracker and consolidated experimental design.
+- No preprocessing, feature engineering, model training or multimodal fusion was performed or approved.
+
+### Member 2 — Fahma
+- Completed the SWIR archive, header, metadata and coordinate investigation.
+- Revised the SWIR investigation report following Hiba's review.
+- Minor wording and path corrections remain before final report acceptance.
+- The revised report was committed on Fahma's branch; no central-document modification was made.
+
+### Member 3 — Afnan
+- Completed the current RGB investigation review queue.
+- CCMT, Rice and NWRD findings are available for central documentation.
+- No repeat investigation is currently required; targeted clarification may be requested if necessary.
+
+### End-of-day assessment
+- VNIR: Exploratory evidence documented; biological tracking and calibration questions remain.
+- SWIR: Archive inventory and scan-to-pot-side mapping verified; calibration and visual annotation mapping remain unresolved.
+- CCMT: Exact Train-Test overlap and raw-to-augmented lineage investigated; label conflicts and publication-count discrepancies remain unresolved.
+- Rice: Duplicate-content findings documented; severity-label and biological grouping questions remain.
+- NWRD: Image-mask pairing and dimension checks completed; licence and annotation questions remain.
+- No dataset has received final experimental-design approval.
+
 ## 6. Scientific and repository rules
 
 - Preserve original raw data.
@@ -597,54 +624,35 @@ The updated investigation reports were retrieved and reviewed by Hiba.
 - Use group-aware validation based on the correct biological experimental unit.
 - Distinguish verified findings from historical reports, assumptions and unknowns.
 
-## 7. Pending work after 23 November review
+## 7. Pending work after 27 November review
 
-### SWIR — Member 2
+### SWIR
+- Fahma to complete the minor wording and path corrections in the revised report.
+- Preserve the distinction between coordinate-range validation and visual annotation verification.
+- Preserve the distinction between scan-to-pot-side correspondence and independent biological samples.
+- Keep the complete list of 20 missing coordinate CSV identifiers.
+- Provide the corrected report and a standard diff against the actual repository file.
+- Hiba must review the corrected report and diff before Git integration.
 
-- Follow up on the response to Fahma's 21 November email to Lorraine Latchoumane.
-- Confirm who holds the project's original SWIR archive and whether the public archive can be accessed by the team.
-- Establish whether the original `.hyspex`, matching `.hdr`, dark-current, white-reference and acquisition records are available.
-- Confirm whether the original filename-to-pot/side mapping file exists.
-- Once the files are accessible, perform read-only archive, raw-file and header verification.
-- Keep calibration, preprocessing and modelling on hold until technical verification and experimental-design approval.
+### RGB
+- No repeat investigation is currently required from Afnan.
+- Preserve the CCMT Train-Test overlap, raw-to-augmented lineage and cross-class label-conflict findings.
+- Preserve the Rice duplicate-content and severity-label limitations.
+- Preserve the NWRD image-mask dimension, duplicate-image and licensing limitations.
+- Request targeted clarification only if needed during central-document review.
 
-### RGB — Member 3
+### VNIR
+- Retain the existing follow-up items in Section 8.
+- Do not treat exploratory candidate bands as validated biomarkers.
+- Do not assume raw intensity values are calibrated reflectance.
+- Biological tracking and independent sample grouping remain unresolved.
 
-**CCMT Tomato**
-- Investigate the 10-image difference between the archive inventory and publication-reported augmented-image count.
-- Investigate the 370-image difference between the archive raw-image inventory and publication-reported raw-image count.
-- Continue original-to-augmented lineage and near-duplicate investigation.
-- Establish whether a defensible source-image-independent evaluation split can be created.
-- Keep existing Train/Test split independence unconfirmed.
-
-**Rice Sheath Blight**
-- Obtain exact severity-stage definitions and clarify the image-to-label mapping.
-- Visually inspect representative images from all six severity folders when authorized.
-- Investigate repeated-plant lineage, biological grouping and duplicate or near-duplicate images.
-
-**NWRD Wheat Rust**
-- Obtain explicit clarification of dataset image and mask reuse permissions.
-- Resolve the paper and README train/validation/test split discrepancy.
-- Perform visual image-mask alignment and mask-content checks when authorized.
-- Investigate image quality and possible duplicate or near-duplicate images.
-
-### VNIR — Hiba
-
-- Verify whether reflectance calibration was applied to the local VNIR data.
-- Obtain or reconstruct a reproducible NPZ processing pipeline.
-- Confirm the number of plants per pot and the true experimental unit from authoritative records.
-- Investigate physical leaf tracking across dates.
-- Establish which metadata pots have usable VNIR image files.
-- Design group-aware validation only after experimental units and dataset suitability are established.
-
-### Project coordination — Hiba
-
-- Maintain the central investigation tracker and update it only from reviewed evidence.
-- Review new team submissions and supporting evidence.
-- Maintain the cross-dataset suitability assessment and consolidated experimental design.
-- Keep RGB, VNIR and SWIR assessments separate until scientific and technical compatibility is established.
-- Identify candidate datasets and research objectives that can be supported by the available evidence.
-- Obtain explicit experimental-design approval before preprocessing or model development.
+### Hiba coordination
+- Complete the central tracker and consolidated experimental design updates.
+- Review Fahma's corrected report before integration.
+- Keep RGB, VNIR and SWIR investigations separate.
+- Do not approve preprocessing, modelling, forecasting or multimodal fusion without the required evidence and explicit design approval.
+- Inspect all changed files and diffs before any commit or push.
 ## 8. VNIR follow-up items
 
 - Verify whether reflectance calibration was applied to the local VNIR data.
@@ -654,41 +662,38 @@ The updated investigation reports were retrieved and reviewed by Hiba.
 - Establish which metadata pots have usable VNIR image files.
 - Design group-aware validation only after experimental units and dataset suitability are established.
 
-## 9. Current follow-up assignments — 26 November 2026
+## 9. Current follow-up assignments — 27 November 2026
 
-| Person | Assignment |
-|---|---|
-| Hiba | Review the updated tracker, continue cross-dataset suitability and experimental-design integration, and identify the evidence required for final dataset selection. |
-| Member 2 | Clarify SWIR calibration-reference availability, CSV annotation semantics, acquisition-to-sample mapping and the `18_D` folder-placement irregularity. |
-| Member 3 | Resolve CCMT original-to-augmented lineage, repeated-content label inconsistency and leakage-safe split feasibility; continue Rice severity-label and biological-grouping checks and NWRD permissions and visual mask validation. |
+### Hiba
+- Complete the central tracker and consolidated experimental design updates.
+- Review the corrected SWIR report and its standard Git diff.
+- Maintain scientific safeguards and review all changes before integration.
 
-**Team priority:** Resolve the remaining dataset-access, licensing, annotation, biological-grouping and leakage questions before approving preprocessing or model development.
+### Member 2 — Fahma
+- Complete the minor corrections to the SWIR investigation report.
+- Return the corrected report and standard diff for review.
+- Do not commit, push, merge or modify central project documents before approval.
 
+### Member 3 — Afnan
+- No new investigation assignment at present.
+- Remain available for targeted clarification of existing RGB evidence if requested.
+- Do not repeat completed investigations or modify central documents without approval.
 ## 10. Overall project assessment
 
-**Current stage:** Evidence consolidation, dataset suitability assessment and experimental-design approval.
+The project remains in the evidence-consolidation and experimental-design review stage.
 
-**Progress:** Investigation and documentation have advanced across VNIR, SWIR and the three RGB candidates. The latest review has improved archive inventory verification, documented important dataset limitations and clarified the remaining technical and scientific approval requirements.
+- **VNIR:** Technical header information has been verified. Exploratory spectral findings are documented, but calibration status, biological tracking and independent sample grouping remain unresolved.
+- **SWIR:** Archive integrity, raw/header inventory and all 96 scan-to-pot-side metadata matches have been verified. These matches do not establish 96 independent biological samples. Twenty metadata leaf records lack coordinate CSVs. Calibration and visual annotation mapping remain unresolved.
+- **CCMT Tomato:** Exact Train-Test content overlap is substantial: 4,084 unique shared hashes and 4,085 matching file pairs. Approximately 75% of Test entries have an exact Train match. Raw-to-augmented lineage and two cross-class label-conflict groups have also been documented. The supplied Test split is not suitable as an independent evaluation set.
+- **Rice Sheath Blight:** Six severity stages are represented, but duplicate-content groups, cross-stage conflicts and unresolved severity standards limit immediate modelling readiness.
+- **NWRD Wheat Rust:** Image-mask pairing has been checked. One image-mask dimension mismatch and one duplicate-image pair with differing masks require attention. Dataset reuse permission and annotation semantics remain unresolved.
 
-**Main strengths:**
+### Scientific decision
 
-- Dataset sources, archive inventories and evidence limitations are being documented.
-- Raw data preservation and read-only investigation principles are maintained.
-- RGB, VNIR and SWIR investigations remain separate.
-- Biological replication, metadata quality, temporal tracking and potential data leakage are considered before modelling.
-- Cross-dataset suitability and experimental-design requirements are documented.
-- A consolidated experimental-design framework is available for review.
+No dataset is approved for unrestricted modelling at this stage. Conditional exploratory work may be considered only after the relevant dataset-specific limitations and experimental-design requirements are addressed.
 
-**Main risks and unresolved issues:**
+Preprocessing, feature engineering, model training, forecasting and multimodal fusion remain unapproved.
 
-- **VNIR:** Calibration provenance, reproducible processing and biological sample tracking remain unresolved.
-- **SWIR:** Original archive access, raw headers, calibration references and acquisition records remain unverified.
-- **CCMT Tomato:** Publication/archive image-count discrepancies, image lineage and Train-Test checksum overlap prevent acceptance of the existing split as independent evaluation data.
-- **Rice Sheath Blight:** Exact severity definitions, individual image-label correctness and biological grouping remain unresolved.
-- **NWRD Wheat Rust:** Explicit dataset asset reuse permission, visual mask validation and split-description discrepancies remain unresolved.
-- Cross-dataset compatibility and reliable temporal labels have not been established.
-- The available evidence does not yet justify a unified multimodal forecasting claim.
+Forecasting requires identifiable biological units, genuine temporal observations, a defined prediction target and a future holdout. Multimodal fusion requires demonstrated correspondence between biological samples and compatible observations across modalities. These conditions have not yet been established.
 
-**Next milestone:** Resolve the highest-priority evidence gaps, select scientifically defensible candidate datasets and research objectives, and obtain approval of the experimental design before preprocessing begins.
-
-**Final note:** Documentation and archive-level verification do not equal scientific validation or modelling readiness. The project must establish whether each candidate dataset can support a defensible disease-detection, severity-estimation or forecasting objective before model development.
+The project must continue to prioritize evidence quality, reproducibility, biological sample independence, leakage prevention and transparent reporting over premature model development.
