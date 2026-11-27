@@ -944,3 +944,160 @@ No original RGB images or masks were modified.
 2. Investigate the cause of the dimension mismatch for image-mask pair 101.
 3. Pixel-level alignment remains unverified.
 4. Record remaining dataset limitations before model training.
+
+## Complete Mask Pixel-Value Verification - 27 November 2026
+
+All 100 PNG masks were inspected directly from the original NWRD.zip
+archive using Python, Pillow and NumPy. The original files were not
+extracted or modified during this audit.
+
+### Results
+
+- Total masks inspected: 100
+- Unique pixel values found: 0 and 255
+- Masks containing unexpected pixel values: 0
+
+### Pixel Distribution
+
+| Pixel value | Pixel count |
+|---|---:|
+| 0 (black) | 1,812,039,224 |
+| 255 (white) | 10,464,923 |
+| Total | 1,822,504,147 |
+
+- Black pixels: approximately 99.43%
+- White pixels: approximately 0.57%
+
+### Interpretation and Limitations
+
+All 100 masks use consistent binary pixel values.
+No grayscale or unexpected pixel values were detected.
+
+However, the biological meaning of the values has not been
+independently verified. It remains unconfirmed whether white
+represents rust-affected regions and black represents background.
+
+### Conclusion
+
+Binary mask format consistency is verified across all 100 masks.
+Mask-label semantics remain unresolved because the local archive
+does not contain a README or annotation guide establishing the
+meaning of the pixel values.
+
+Original RGB images and masks were not modified.
+
+## Dataset Image and Mask Reuse Permission Review - 27 November 2026
+
+### Sources Reviewed
+
+1. Official NWRD Zenodo dataset record:
+   https://zenodo.org/records/21672928
+
+2. Official NWRD GitHub repository:
+   https://github.com/dll-ncai/NUST-Wheat-Rust-Disease-NWRD
+
+3. Associated research paper:
+   https://pmc.ncbi.nlm.nih.gov/articles/PMC10422341/
+
+### Verified Findings
+
+- The Zenodo record describes NWRD as an open-source image dataset.
+- The Zenodo Rights section displays:
+  Copyright (C) 2023 The Authors.
+- No explicit dataset-specific reuse licence was identified in the
+  Zenodo Rights metadata inspected.
+- The GitHub repository identifies its source-code licence as MIT.
+- The associated research paper is published under CC BY 4.0.
+
+### Important Licence Distinction
+
+The GitHub MIT licence applies to the repository's software/code.
+It does not automatically establish permission to reuse the
+separately distributed dataset images and masks.
+
+Similarly, the research paper's CC BY 4.0 licence does not
+automatically establish that the image and mask assets are covered
+by the same licence.
+
+### Reuse Permission Assessment
+
+| Asset | Verification |
+|---|---|
+| RGB images | Dataset-specific reuse permission unresolved |
+| Segmentation masks | Dataset-specific reuse permission unresolved |
+| GitHub source code | MIT licence identified |
+| Research paper | CC BY 4.0 identified |
+
+### Conclusion
+
+The dataset is publicly accessible and described as open-source.
+However, the inspected Zenodo rights metadata displays a copyright
+notice without identifying an explicit dataset-specific licence.
+
+Therefore, unrestricted reuse, modification and redistribution
+of the RGB images and masks cannot be confirmed from the available
+licence evidence.
+
+No author contact was made.
+
+## Leakage-Safe Segmentation Split Feasibility Assessment - 27 November 2026
+
+### Verified Dataset Structure
+
+- Total RGB images: 100
+- Training images: 90
+- Test images: 10
+- Matching image-mask filename pairs: 100
+- Exact duplicate RGB pair: train/images/15.jpg and train/images/32.jpg
+- Both members of the identified duplicate pair are in the training partition.
+- No exact RGB duplicate was detected across the existing Train-Test partitions.
+
+### Leakage Investigation Findings
+
+The exact duplicate RGB pair 15.jpg and 32.jpg occurs entirely
+within the training partition.
+
+Therefore, this identified duplicate pair does not create
+direct exact-image overlap between the existing training and
+test partitions.
+
+However, biological sample independence has not been established.
+The available dataset documentation does not provide verified
+plant, leaf, plot or specimen identifiers.
+
+### Split Feasibility
+
+| Requirement | Assessment |
+|---|---|
+| Image-level partitioning | Technically feasible |
+| Known exact duplicate grouping | Identified |
+| Exact Train-Test duplicate leakage | Not detected |
+| Near-duplicate leakage | Not fully established |
+| Biological sample grouping | Unresolved |
+| Independent biological evaluation | Not established |
+
+### Recommendation
+
+The existing 90/10 split has no detected exact RGB duplicate
+overlap between Train and Test based on the completed hash audit.
+
+However, this does not prove biological independence.
+
+A leakage-safe biological segmentation split cannot currently
+be guaranteed because verified specimen-level identifiers are
+unavailable.
+
+The known duplicate RGB pair must remain in the same partition
+or one copy must be excluded.
+
+### Final Conclusion
+
+The NWRD dataset supports an image-level split assessment,
+but a fully leakage-safe biological evaluation cannot be
+confirmed from the available evidence.
+
+The existing split should not be described as biologically
+independent.
+
+No original images or masks were modified, and no model training
+was performed.
