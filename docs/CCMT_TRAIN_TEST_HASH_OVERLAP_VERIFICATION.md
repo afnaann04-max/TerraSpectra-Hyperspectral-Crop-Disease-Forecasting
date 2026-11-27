@@ -764,3 +764,135 @@ No images were relabelled, deleted, or modified.
 
 **Investigation date:** 27 November 2026
 **Status:** Two conflicting-content groups identified; label correctness unresolved
+
+## 18. Supplementary Train-Test dHash Candidate Investigation — 27 November 2026
+
+### 18.1 Objective
+
+A supplementary perceptual similarity investigation was performed to generate a detailed candidate-pair list for non-exact Train-Test image matches.
+
+The existing SHA-256 inventory was reused. Test entries with exact SHA-256 matches in Train were excluded before perceptual comparison.
+
+Images were read directly from the original ZIP archive. No original images were extracted, modified or overwritten.
+
+### 18.2 dHash Implementation
+
+A 64-bit Difference Hash (dHash) was calculated using Pillow:
+
+- Images converted to grayscale.
+- Images resized to 9 × 8 pixels using LANCZOS resampling.
+- Adjacent horizontal pixel intensities compared.
+- The resulting 64-bit hashes compared using Hamming distance.
+- Candidate threshold: Hamming distance ≤ 8.
+
+The original implementation used for the earlier Section 16 analysis was not preserved. Therefore, this supplementary implementation is documented separately. Its counts must not be treated as a direct reproduction or replacement of the earlier results.
+
+### 18.3 Supplementary Results
+
+| Measurement | Result |
+|---|---:|
+| Train images processed | 21,723 |
+| Total Test images | 5,445 |
+| Exact SHA-256 Test matches excluded | 4,084 |
+| Non-exact Test images compared | 1,361 |
+| Test images successfully compared | 1,361 |
+| Candidate pairs with dHash distance ≤ 8 | 550 |
+| Test images with nearest distance ≤ 2 | 45 |
+| Test images with nearest distance ≤ 4 | 70 |
+| Test images with nearest distance ≤ 6 | 118 |
+| Test images with nearest distance ≤ 8 | 219 |
+| Test images with nearest distance 0 | 8 |
+
+The 550 candidate pairs involve 219 Test images with at least one Train match at distance ≤ 8. Pair counts and unique Test-image counts are different measurements.
+
+### 18.4 Same-Class and Cross-Class Candidate Analysis
+
+The 550 candidate pairs were divided according to their assigned class labels.
+
+| Candidate type | Number of pairs |
+|---|---:|
+| Same-class pairs | 312 |
+| Cross-class pairs | 238 |
+| Total | 550 |
+
+The 238 cross-class candidate pairs involve:
+
+- 105 unique Test images.
+- 217 unique Train images.
+
+Thirteen cross-class pairs had a dHash distance ≤ 3.
+
+These results identify potential cross-class similarity and possible label or partition concerns. They do not establish that the images are identical photographs or that either assigned label is incorrect.
+
+### 18.5 Strong Cross-Class Candidate Pairs
+
+The following 13 pairs had dHash distances of 1–3:
+
+| Test image | Test class | Train image | Train class | Distance |
+|---|---|---|---|---:|
+| 550tomato_valid_verticulium wilt.JPG | Verticulium wilt | 1187tomato_train_leaf curl.JPG | Leaf curl | 1 |
+| 736tomato_valid_verticulium wilt.JPG | Verticulium wilt | 2007tomato_train_leaf curl.JPG | Leaf curl | 1 |
+| 736tomato_valid_verticulium wilt.JPG | Verticulium wilt | 1184tomato_train_leaf curl.JPG | Leaf curl | 1 |
+| 71tomato_valid_verticulium wilt.JPG | Verticulium wilt | 7175tomato_train_septoria leaf spot.JPG | Septoria leaf spot | 1 |
+| 736tomato_valid_verticulium wilt.JPG | Verticulium wilt | 1180tomato_train_leaf curl.JPG | Leaf curl | 2 |
+| 38tomato_valid_leaf blight.JPG | Leaf blight | 683tomato_train_septoria leaf spot.JPG | Septoria leaf spot | 2 |
+| 523tomato_valid_leaf curl.JPG | Leaf curl | 3037tomato_train_verticulium wilt.JPG | Verticulium wilt | 2 |
+| 523tomato_valid_leaf curl.JPG | Leaf curl | 2028tomato_train_verticulium wilt.JPG | Verticulium wilt | 2 |
+| 550tomato_valid_verticulium wilt.JPG | Verticulium wilt | 1183tomato_train_leaf curl.JPG | Leaf curl | 3 |
+| 1250tomato_valid_septoria leaf spot.JPG | Septoria leaf spot | 995tomato_train_leaf curl.JPG | Leaf curl | 3 |
+| 1025tomato_valid_septoria leaf spot.JPG | Septoria leaf spot | 1735tomato_train_verticulium wilt.JPG | Verticulium wilt | 3 |
+| 133tomato_valid_leaf blight.JPG | Leaf blight | 1454tomato_train_septoria leaf spot.JPG | Septoria leaf spot | 3 |
+| 736tomato_valid_verticulium wilt.JPG | Verticulium wilt | 2006tomato_train_leaf curl.JPG | Leaf curl | 3 |
+
+Some Test images appear in multiple candidate pairs. Therefore, these 13 rows do not represent 13 independent Test photographs.
+
+### 18.6 Visual Candidate Review
+
+A contact sheet was generated for the 13 strongest cross-class candidates:
+
+`reports/ccmt_hash_overlap/ccmt_cross_class_top13_contact_sheet.jpg`
+
+The contact sheet provides a side-by-side visual comparison of the candidate images.
+
+The displayed images show visual similarities in leaf appearance, orientation and visible damage. However, the contact sheet was viewed at reduced size, and the visual review does not establish that all candidate pairs contain the same original photograph.
+
+The 13 pairs remain perceptual similarity candidates. Full-resolution pair-by-pair verification is required before classifying them as confirmed repeated photographs or label conflicts.
+
+### 18.7 Generated Evidence Files
+
+The supplementary analysis generated:
+
+| File | Purpose |
+|---|---|
+| `ccmt_dhash_candidate_pairs_le8.csv` | All Train-Test candidate pairs with distance ≤ 8 |
+| `ccmt_dhash_nearest_train_matches.csv` | Nearest Train match for each non-exact Test image |
+| `ccmt_dhash_candidate_summary.json` | Overall supplementary dHash results |
+| `ccmt_dhash_cross_class_candidates.csv` | Cross-class candidate pairs |
+| `ccmt_dhash_cross_class_summary.json` | Cross-class candidate summary |
+| `ccmt_cross_class_top13_contact_sheet.jpg` | Visual comparison of the 13 strongest cross-class candidates |
+
+### 18.8 Interpretation and Limitations
+
+- Perceptual hash similarity identifies visually similar candidates; it does not prove photograph identity.
+- A dHash distance of zero does not establish identical file content.
+- The 550 candidate pairs are not 550 confirmed duplicate photographs.
+- Cross-class similarity does not establish which disease label is correct.
+- The supplementary implementation differs from the earlier undocumented dHash implementation. Its results must remain separate from the earlier Section 16 results.
+- Biological sample independence cannot be established without reliable plant, leaf or specimen identifiers.
+- Candidate lineage and transformed original-image relationships remain incompletely verified.
+
+### 18.9 Updated Recommendation
+
+The supplementary dHash investigation adds further evidence of potential Train-Test similarity and cross-class inconsistency.
+
+The supplied Train-Test split remains unsuitable as an independent evaluation split because of the previously verified exact-content overlap and visually observed repeated photographs.
+
+A leakage-aware partition should be considered only after original-image groups have been verified. Biological independence must not be claimed without reliable biological sample identifiers.
+
+No original images or labels were modified.
+
+**Investigation date:** 27 November 2026
+
+**Status:** Supplementary dHash candidate analysis completed; broader visual verification remains pending
+
+**Documentation status:** Prepared for review

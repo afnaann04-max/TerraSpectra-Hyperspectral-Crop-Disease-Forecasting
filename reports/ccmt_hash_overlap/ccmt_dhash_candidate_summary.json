@@ -1,0 +1,20 @@
+{
+    "method": "64-bit Difference Hash (dHash)",
+    "image_conversion": "Grayscale",
+    "resize": "9x8 using Pillow LANCZOS",
+    "comparison": "Horizontal adjacent-pixel differences",
+    "distance_metric": "Hamming distance",
+    "candidate_threshold": 8,
+    "train_images_in_inventory": 21723,
+    "test_images_in_inventory": 5445,
+    "exact_sha256_test_matches_excluded": 4084,
+    "non_exact_test_images": 1361,
+    "train_images_successfully_hashed": 21723,
+    "test_images_with_nearest_match": 1361,
+    "candidate_pairs_at_distance_8_or_less": 550,
+    "test_images_with_nearest_distance_le_2": 45,
+    "test_images_with_nearest_distance_le_4": 70,
+    "test_images_with_nearest_distance_le_6": 118,
+    "test_images_with_nearest_distance_le_8": 219,
+    "test_images_with_nearest_distance_zero": 8
+}

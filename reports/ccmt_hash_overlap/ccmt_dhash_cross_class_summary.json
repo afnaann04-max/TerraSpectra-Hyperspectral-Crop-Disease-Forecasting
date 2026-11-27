@@ -1,0 +1,9 @@
+{
+    "total_candidate_pairs_le_8": 550,
+    "same_class_candidate_pairs": 312,
+    "cross_class_candidate_pairs": 238,
+    "cross_class_pairs_distance_le_3": 13,
+    "unique_test_images_in_cross_class_candidates": 105,
+    "unique_train_images_in_cross_class_candidates": 217,
+    "interpretation": "Perceptual similarity candidates only; visual identity and label correctness are not established."
+}
