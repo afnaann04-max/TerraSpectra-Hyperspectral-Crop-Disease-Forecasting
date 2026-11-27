@@ -648,6 +648,17 @@ Exact SHA-256 comparison against the augmented Train and Test folders found:
 - 1 match in Test.
 - 2 raw files without exact-content matches.
 
+**Independent filename verification (27 November 2026):**
+
+A separate read-only SHA-256 comparison was performed against the original CCMT ZIP archive. All 14 raw images with filenames beginning with `leaf blight` were identified. The comparison independently reproduced the result of 12 exact-content matches and 2 unmatched files.
+
+The two unmatched raw filenames were:
+
+- `leaf blight914_.jpg`
+- `leaf blight918_.jpg`
+
+This confirms the filenames and exact-content matching results reported above. It does not independently establish the biological disease labels of these images.
+
 The two unmatched raw images were compared with their closest dHash candidates through read-only visual inspection. No obvious same-photograph match was observed among the inspected candidates.
 
 The filename inconsistency is verified, but the actual disease labels of these images have not been independently established.
