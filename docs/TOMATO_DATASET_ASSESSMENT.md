@@ -165,3 +165,74 @@ This indicates substantial exact-image overlap between the two splits. The exist
 
 This follow-up was conducted through archive filename listing and count verification. Images were not extracted or visually inspected. No preprocessing, feature engineering, or model training was performed.
 
+
+## 11. Raw-to-Augmented Exact-Content Lineage Verification — 26 November 2026
+
+### 11.1 Verification Method
+
+A reproducible script was used to calculate SHA-256 hashes directly from ZIP archive entry content streams.
+
+Script:
+
+`scripts/verify_ccmt_raw_to_augmented_lineage.py`
+
+Images were not extracted or modified during this hash comparison.
+
+### 11.2 Verified Results
+
+| Measurement | Result |
+|---|---:|
+| Raw image entries | 5,805 |
+| Train image entries | 21,723 |
+| Test image entries | 5,445 |
+| Unique raw SHA-256 values | 5,351 |
+| Unique matched raw SHA-256 values | 4,385 |
+| Raw entries with exact augmented matches | 4,771 |
+| Raw entries without exact augmented matches | 1,034 |
+| Raw-to-augmented exact file pairs | 6,202 |
+| Train exact-match pairs | 4,651 |
+| Test exact-match pairs | 1,551 |
+| Class-label agreement pairs | 6,200 |
+| Class-label disagreement pairs | 2 |
+
+### 11.3 Interpretation
+
+The comparison establishes exact binary-content matches between raw and augmented archive entries.
+
+However, the 1,034 raw entries without exact matches cannot automatically be considered absent from the augmented dataset. They may have undergone transformations that change their file contents.
+
+Exact hash matching does not establish complete original-to-augmented lineage.
+
+### 11.4 Cross-Class Label Disagreements
+
+Two raw-to-augmented matching pairs were identified with different class labels.
+
+Both disagreements share the same SHA-256 value:
+
+`4e69cc3e3073bd2336e75447aab0a14e8476bb6916c14d9d1557ead234708c6e`
+
+| Raw class | Raw filename | Augmented class | Augmented filename |
+|---|---|---|---|
+| Leaf blight | `leaf blight1315_.jpg` | Septoria leaf spot | `8911tomato_train_septoria leaf spot.JPG` |
+| Septoria leaf spot | `septoria leaf spot47_.jpg` | Leaf blight | `4449tomato_train_leaf blight.JPG` |
+
+The same binary image content is therefore represented under both Leaf blight and Septoria leaf spot labels in the raw and augmented datasets.
+
+The correct biological label remains unresolved. No relabelling has been performed.
+
+### 11.5 Supporting Evidence
+
+- `reports/ccmt_raw_to_augmented/ccmt_raw_to_augmented_summary.json`
+- `reports/ccmt_raw_to_augmented/ccmt_raw_to_augmented_exact_matches.csv`
+- `scripts/verify_ccmt_raw_to_augmented_lineage.py`
+
+### 11.6 Limitations and Remaining Work
+
+- Exact matches do not identify transformed versions of original images.
+- Unmatched raw entries require further investigation.
+- The correct labels for the conflicting image content require visual and, ideally, author verification.
+- Biological sample identity cannot be established without suitable sample identifiers or supporting metadata.
+
+**Verification status:** Exact-content comparison completed
+**Lineage status:** Partial; complete original-to-augmented lineage not established
+**Label status:** Two disagreement pairs identified; correctness unresolved

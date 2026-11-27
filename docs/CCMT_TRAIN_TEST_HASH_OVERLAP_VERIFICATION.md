@@ -675,3 +675,81 @@ A new split should be designed after resolving original-image lineage and, where
 **Remaining work:** Broader candidate verification, biological grouping investigation and complete original-to-augmented lineage assessment
 
 **Documentation status:** Updated for review
+
+
+## 17. Additional Cross-Class Label Conflict Investigation — 27 November 2026
+
+### 17.1 Objective
+
+An additional investigation was performed to identify exact-content duplicates assigned to different disease classes and determine whether the conflicting content could be traced to the raw Tomato dataset.
+
+The investigation used the existing SHA-256 inventory and raw-to-augmented lineage CSV outputs. No original image content or labels were modified.
+
+### 17.2 Conflicting Hash Group 1 — Raw and Augmented Train
+
+**SHA-256:**
+
+`4e69cc3e3073bd2336e75447aab0a14e8476bb6916c14d9d1557ead234708c6e`
+
+The same binary image content appears in two raw files and two augmented Train files:
+
+| Dataset portion | Class | Filename |
+|---|---|---|
+| Raw | Leaf blight | `leaf blight1315_.jpg` |
+| Raw | Septoria leaf spot | `septoria leaf spot47_.jpg` |
+| Train | Septoria leaf spot | `8911tomato_train_septoria leaf spot.JPG` |
+| Train | Leaf blight | `4449tomato_train_leaf blight.JPG` |
+
+All four entries have the same SHA-256 content hash according to the existing lineage and inventory reports.
+
+This establishes an exact-content class-label conflict in both the raw and augmented data.
+
+The correct disease label cannot be determined from hash equality alone. No conclusion is made about which class is biologically correct.
+
+### 17.3 Conflicting Hash Group 2 — Train and Test
+
+**SHA-256:**
+
+`4de9b764d1e45150519e26a523a2d3158ef532fd267a9403e74b2fa7f5353acd`
+
+The same binary image content appears in three augmented entries:
+
+| Split | Class | Filename |
+|---|---|---|
+| Train | Leaf blight | `1011tomato_train_leaf blight.JPG` |
+| Train | Septoria leaf spot | `1835tomato_train_septoria leaf spot.JPG` |
+| Test | Leaf blight | `314tomato_valid_leaf blight.JPG` |
+
+The three files have identical SHA-256 content.
+
+The raw-to-augmented exact-match CSV contains no record for this hash. Therefore, its exact raw-image source has not been identified through the current exact-content comparison.
+
+This group demonstrates both cross-class label inconsistency and exact-content overlap between Train and Test.
+
+### 17.4 Consolidated Findings
+
+Two distinct SHA-256 groups with conflicting class assignments have been identified:
+
+| Hash group | Number of augmented entries | Classes | Raw exact match |
+|---|---:|---|---|
+| `4e69cc3e...` | 2 | Leaf blight, Septoria leaf spot | Identified |
+| `4de9b764...` | 3 | Leaf blight, Septoria leaf spot | Not identified |
+
+The first group is also present as two raw entries with conflicting class labels.
+
+The second group contains an exact Train–Test duplicate.
+
+These two groups are additional findings within the existing hash investigation. They must not be added again as extra unique shared hashes or matching file pairs without recalculating the relevant totals.
+
+### 17.5 Limitations
+
+- Exact SHA-256 equality establishes identical file content, not disease identity.
+- The investigation does not establish which conflicting class label is correct.
+- The absence of an exact raw-image match does not prove that no transformed raw source exists.
+- Biological sample identity remains unknown.
+- Dataset-author clarification and further visual investigation are needed.
+
+No images were relabelled, deleted, or modified.
+
+**Investigation date:** 27 November 2026
+**Status:** Two conflicting-content groups identified; label correctness unresolved
