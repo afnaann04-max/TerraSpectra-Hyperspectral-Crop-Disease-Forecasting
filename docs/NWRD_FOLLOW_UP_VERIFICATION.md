@@ -884,3 +884,63 @@ The cause of this mismatch remains unresolved. No resizing or modification has b
 2. Investigate the dimension mismatch for image-mask pair 101.
 3. Verify image and mask visual alignment.
 4. Record any remaining dataset limitations before model training.
+## Visual RGB-Mask Inspection - Image 101 (27 November 2026)
+
+The original RGB image and corresponding mask were visually inspected.
+
+- RGB: train/images/101.jpg
+- Mask: train/masks/101.png
+- RGB dimensions: 3612 x 3456
+- Mask dimensions: 3593 x 3435
+
+### Observations
+- The RGB image shows wheat plants in a field.
+- The mask contains white segmented regions on a black background.
+- White regions appear broadly within the plant areas.
+- The RGB and mask dimensions do not match.
+
+### Conclusion
+Visual inspection alone does not establish pixel-level alignment.
+The meaning of the white and black mask values also remains independently unverified.
+
+The original files were not modified or resized.
+Alignment and mask-label semantics remain unresolved.
+
+## Visual Verification of Duplicate RGB Images and Masks - 27 November 2026
+
+### Files Inspected
+- RGB: train/images/15.jpg
+- RGB: train/images/32.jpg
+- Mask: train/masks/15.png
+- Mask: train/masks/32.png
+
+### RGB Image Findings
+- Both RGB images show the same photograph.
+- Both images have dimensions of 6016 x 4000.
+- SHA-256 verification previously confirmed identical RGB content.
+
+### Mask Findings
+- Both masks have dimensions of 6016 x 4000.
+- Both masks contain a similar central white segmented region.
+- Mask 32 contains an additional white region near the lower-right edge that is not visible in Mask 15.
+- The masks are not identical.
+
+### Interpretation
+The same RGB photograph is associated with two different segmentation masks.
+
+This indicates an annotation inconsistency or alternative annotation between duplicate image entries.
+
+The screenshots do not establish which mask correctly represents the rust-affected regions. The meaning of the additional white region also remains unverified.
+
+### Conclusion
+The duplicate RGB pair 15.jpg and 32.jpg must not be treated as independent samples.
+
+Their differing masks require annotation review before segmentation model training.
+
+No original RGB images or masks were modified.
+
+### Outstanding Verification Items
+1. Determine the semantic meaning of mask pixel values 0 and 255.
+2. Investigate the cause of the dimension mismatch for image-mask pair 101.
+3. Pixel-level alignment remains unverified.
+4. Record remaining dataset limitations before model training.

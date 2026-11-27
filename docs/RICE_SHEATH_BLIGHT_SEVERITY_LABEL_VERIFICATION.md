@@ -497,3 +497,34 @@ The dataset provides six severity folders and source-reported severity criteria.
 **Final recommendation: Conditional suitability for exploratory research; further label and biological-grouping validation is required.**
 
 **Investigation scope:** Read-only archive inspection, filename analysis, SHA-256 comparison, image metadata inspection and visual comparison of two duplicate pairs. Original images were not modified. No preprocessing, augmentation, feature extraction or model training was performed.
+
+## Visual Verification of Cross-Stage Duplicate Images — 27 November 2026
+
+The two cross-stage exact duplicate groups identified through SHA-256
+verification were visually inspected using the original images.
+
+### Pair 1
+- Stage 2: IMG_11@18FEB25-KTK.JPG
+- Stage 3: IMG_167@18FEB25-KTK.JPG
+- Visual finding: Both files show the same photograph, including the
+  same plant arrangement, leaf positions, background and visible damage.
+- Conclusion: Confirmed visual duplicate with conflicting severity labels.
+
+### Pair 2
+- Stage 2: IMG_166@18FEB25-KTK.JPG
+- Stage 3: IMG_10@18FEB25-KTK.JPG
+- Visual finding: Both files show the same photograph, including the
+  same plant arrangement, leaf positions, background and visible damage.
+- Conclusion: Confirmed visual duplicate with conflicting severity labels.
+
+### Interpretation
+Both pairs confirm that identical image content is assigned to
+different severity classes (Stage 2 and Stage 3).
+
+The correct severity label for either pair cannot be established
+from duplicate comparison alone. No labels were changed, and the
+original images were not modified.
+
+These conflicts should be resolved before using the affected images
+for severity classification. Exact duplicate images must remain
+together or be excluded from different data partitions.
