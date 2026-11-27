@@ -68,6 +68,32 @@ The five classes are:
 - Septoria leaf spot
 - Verticillium wilt
 
+### 3.1.1 Class Distribution and Imbalance Analysis
+
+The raw CCMT Tomato dataset contains five classes with an uneven distribution.
+
+| Disease class | Raw images | Percentage |
+|---|---:|---:|
+| Healthy | 470 | 8.1% |
+| Leaf blight | 1,301 | 22.4% |
+| Leaf curl | 518 | 8.9% |
+| Septoria leaf spot | 2,743 | 47.2% |
+| Verticillium wilt | 773 | 13.3% |
+| **Total** | **5,805** | **100%** |
+
+Septoria leaf spot is the dominant class, accounting for approximately 47.2% of the raw dataset. Healthy is the least represented class, accounting for approximately 8.1%.
+
+The largest class contains approximately 5.84 times as many images as the smallest class. This indicates substantial class imbalance.
+
+**Implications for future model evaluation:**
+
+- Overall accuracy alone may not adequately describe performance across all five classes.
+- Per-class precision, recall and F1-score should be examined.
+- A confusion matrix should be used to identify class-specific misclassification patterns.
+- Class balancing strategies may be investigated during future model development.
+
+No model training or performance evaluation was performed as part of this dataset investigation.
+
 ### 3.2 Original-to-Augmented Lineage
 
 SHA-256 comparison between the raw Tomato images and augmented Train-Test images identified:
