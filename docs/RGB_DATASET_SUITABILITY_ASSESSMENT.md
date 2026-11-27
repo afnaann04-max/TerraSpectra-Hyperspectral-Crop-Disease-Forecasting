@@ -54,35 +54,89 @@ The five classes are:
 - Septoria leaf spot
 - Verticulium wilt
 
+
 ### 3.2 Original-to-Augmented Lineage
 
-Exact SHA-256 comparison identified:
+SHA-256 comparison between the raw Tomato images and augmented Train-Test images identified:
 
-- 4,771 Raw file entries with exact matches in augmented files.
+- 5,805 raw image entries.
+- 4,771 raw file entries with at least one exact-content match in the augmented dataset.
+- 1,034 raw file entries without an exact-content match.
+- 4,385 unique raw SHA-256 values with an augmented match.
 - 6,202 Raw-to-Augmented exact file pairs.
 - 4,651 Train exact-match pairs.
 - 1,551 Test exact-match pairs.
 - 6,200 class-label agreement pairs.
 - Two class-label disagreement pairs.
 
-The two disagreements involve identical image content assigned to both Leaf blight and Septoria leaf spot.
+The two disagreement pairs share one SHA-256 content hash:
 
-This is evidence of a cross-class label inconsistency. The correct disease label has not been independently established.
+`4e69cc3e3073bd2336e75447aab0a14e8476bb6916c14d9d1557ead234708c6e`
+
+The conflicting content is associated with the following raw and augmented entries:
+
+| Dataset portion | Class | Filename |
+|---|---|---|
+| Raw | Leaf blight | `leaf blight1315_.jpg` |
+| Raw | Septoria leaf spot | `septoria leaf spot47_.jpg` |
+| Train | Septoria leaf spot | `8911tomato_train_septoria leaf spot.JPG` |
+| Train | Leaf blight | `4449tomato_train_leaf blight.JPG` |
+
+The raw images and augmented Train images contain identical content within this hash group, but the folder labels disagree. The correct disease label has not been independently established.
+
+A separate cross-class exact-content group was identified in the Train-Test hash inventory:
+
+`4de9b764d1e45150519e26a523a2d3158ef532fd267a9403e74b2fa7f5353acd`
+
+| Split | Class | Filename |
+|---|---|---|
+| Train | Leaf blight | `1011tomato_train_leaf blight.JPG` |
+| Train | Septoria leaf spot | `1835tomato_train_septoria leaf spot.JPG` |
+| Test | Leaf blight | `314tomato_valid_leaf blight.JPG` |
+
+These three entries have identical file contents despite being assigned to different classes. No exact raw-image content match was identified for this second group. This does not rule out a transformed raw source.
+
+The exact-content investigation establishes partial lineage only. Non-matching files may contain transformed versions of raw images, but their original-image relationships have not been established.
+
+The publication reports 5,435 raw Tomato images and 27,178 augmented Tomato images. The current archive contains 5,805 raw images and 27,168 augmented images. The differences of 370 raw images and 10 augmented images remain unresolved.
+
 
 ### 3.3 Train-Test Leakage Investigation
 
-Exact SHA-256 comparison found:
+Exact SHA-256 comparison between the supplied Train and Test partitions found:
 
-- 4,084 Test entries with matching Train content.
 - 4,084 unique shared content hashes.
+- 4,084 Test entries with at least one exact Train content match.
 - 4,085 matching Train-Test file pairs.
 - 1,361 Test entries without an exact Train content match.
 
-Approximately 75% of Test entries have exact content matches in Train.
+Approximately 75.0% of Test entries have exact file-content matches in Train.
 
-A perceptual-hash investigation identified 361 of the 1,361 entries without exact matches as having at least one dHash candidate at distance 8 or less.
+SHA-256 and CRC32 comparisons produced consistent overlap counts. SHA-256 was used as the stronger evidence of exact binary content equality.
 
-Six candidate pairs were visually inspected. Five appeared to show the same photograph and one appeared different. This was a similarity-focused sample, not a representative sample of all candidates.
+A perceptual-hash investigation was conducted on the 1,361 Test entries without exact Train matches.
+
+| Perceptual comparison | Test entries |
+|---|---:|
+| Nearest dHash distance <= 2 | 48 |
+| Nearest dHash distance <= 4 | 85 |
+| Nearest dHash distance <= 6 | 151 |
+| Nearest dHash distance <= 8 | 361 |
+
+Eight non-exact Test entries had a nearest dHash distance of zero. Perceptual hash similarity does not establish identical image content.
+
+Six candidate Train-Test pairs were selected for read-only visual inspection:
+
+- Five pairs appeared to contain the same photograph.
+- One pair appeared to contain different photographs.
+
+These six pairs were selected from similarity candidates and are not a representative sample of the entire dataset. Their results must not be used to estimate the overall duplicate rate.
+
+The combined exact-content and visual findings demonstrate substantial overlap between the supplied Train and Test partitions.
+
+The supplied Test partition must not be treated as an independent evaluation set for a model trained on the supplied Train partition.
+
+The remaining perceptual candidates require further verification. The investigation also does not establish biological sample independence because reliable plant, leaf or specimen identifiers have not been verified.
 
 ### 3.4 Biological Grouping
 
@@ -92,15 +146,23 @@ Filename numbers are not globally unique biological sample identifiers.
 
 Therefore, image-level duplicate grouping alone cannot establish biological independence.
 
+
 ### 3.5 Suitability Recommendation
 
-CCMT has a large image collection and five classification classes, but its supplied Train-Test split is unsuitable for independent evaluation because of substantial exact content overlap.
+CCMT provides a large Tomato image collection with five classification classes. However, several issues affect its reliability:
 
-A new content-grouped split may be investigated after resolving cross-class label conflicts and reviewing near-duplicate candidates.
+- Approximately 75.0% of supplied Test entries have exact file-content matches in Train.
+- Five of six visually inspected perceptual-similarity candidates appeared to contain the same photograph.
+- Cross-class exact-content label conflicts were identified.
+- Original-to-augmented lineage is only partially established.
+- Publication and archive image counts remain inconsistent.
+- Biological sample independence has not been established.
 
-Biological independence must not be claimed without sample-level evidence.
+The supplied Train-Test split is unsuitable for independent model evaluation.
 
-**Assessment:** Conditional candidate for exploratory tomato classification. Do not use the supplied Test partition as an independent evaluation set.
+A new leakage-aware partition should be investigated only after reviewing cross-class label conflicts, verifying original-image relationships and grouping known repeated content. Biological independence must not be claimed without reliable sample-level evidence.
+
+**Assessment:** Conditional candidate for exploratory Tomato classification. Do not use the supplied Test partition as an independent evaluation set.
 
 Supporting documentation:
 
@@ -301,11 +363,11 @@ Supporting documentation:
 
 | Risk area | CCMT | Rice Sheath Blight | NWRD |
 |---|---|---|---|
-| Exact duplicate content | Extensive Train-Test overlap | Seven duplicate groups | One duplicate RGB group |
-| Cross-label conflict | Confirmed | Confirmed | Different masks for identical RGB |
-| Near-duplicate risk | Candidates identified | Not fully assessed | Not fully assessed |
+| Exact duplicate content | 4,084 shared Train-Test contents; 4,085 matching file pairs | Seven duplicate groups | One duplicate RGB group |
+| Cross-label conflict | Raw-to-augmented disagreements and an additional cross-class Train-Test group | Two cross-stage duplicate conflicts | Different masks for identical RGB |
+| Near-duplicate risk | 361 Test candidates at dHash distance <= 8; six visually inspected | Not fully assessed | Not fully assessed |
 | Biological independence | Unresolved | Unresolved | Unresolved |
-| Annotation consistency | Label conflicts identified | Cross-stage conflicts identified | Duplicate-mask inconsistency |
+| Annotation consistency | Cross-class label conflicts identified | Cross-stage severity conflicts identified | Duplicate-mask inconsistency |
 | Partition reliability | Supplied split unsuitable for independent evaluation | No supplied split | No exact cross-partition duplicates detected |
 | Licence certainty | Requires source-specific confirmation | Requires source-specific confirmation | Conflicting evidence; unresolved |
 
@@ -347,7 +409,7 @@ The following restrictions were maintained:
 
 The investigation identified three RGB dataset candidates with different strengths and limitations.
 
-CCMT offers a large tomato image collection but has substantial exact Train-Test content overlap and label inconsistencies.
+CCMT offers a large Tomato image collection but has substantial exact Train-Test content overlap, visually observed repeated photographs, cross-class label conflicts and incomplete original-to-augmented lineage. Its supplied Test partition is unsuitable for independent model evaluation.
 
 Rice Sheath Blight offers six documented severity stages, but duplicate images with conflicting stage assignments and unresolved biological grouping affect its reliability.
 
