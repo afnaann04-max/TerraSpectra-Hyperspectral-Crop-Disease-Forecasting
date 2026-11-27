@@ -513,3 +513,109 @@ NWRD offers paired RGB images and binary masks for wheat rust segmentation, but 
 
 **Prepared by:** Member 3 – RGB Dataset Investigation
 **Date:** 27 November 2026
+
+## 10. Latest Follow-up Verification - 27 November 2026
+
+### 10.1 CCMT Tomato - Supplementary Perceptual Hash Analysis
+
+A supplementary difference hash (dHash) analysis was performed using a separate Python implementation with Pillow.
+
+This analysis is reported separately from the earlier dHash investigation because the implementations differ. Its results must not be combined with or substituted for the earlier results.
+
+The supplementary analysis processed:
+- 21,723 Train images.
+- 1,361 Test images without exact Train content matches.
+- 550 candidate Train-Test pairs with dHash distance <= 8.
+- 312 same-class candidate pairs.
+- 238 cross-class candidate pairs.
+- 13 cross-class candidate pairs with distance <= 3.
+
+Additional findings:
+- 105 unique Test images occurred in the cross-class candidate set.
+- 217 unique Train images occurred in the cross-class candidate set.
+- Eight Test images had a nearest dHash distance of zero.
+- A contact sheet was generated for the 13 closest cross-class candidates.
+
+These candidates indicate potential visual similarity and possible annotation or leakage concerns. They do not independently establish that every candidate is the same original photograph.
+
+The earlier six-pair visual inspection remains a separate, similarity-focused review. The supplementary contact sheet does not establish a verified duplicate rate.
+
+**Updated recommendation:** The supplied CCMT Test partition remains unsuitable for independent evaluation. Cross-class candidates and unresolved labels require further review before a new content-grouped split can be considered reliable.
+
+### 10.2 Rice Sheath Blight - Visual Confirmation of Cross-Stage Duplicates
+
+Two cross-stage exact duplicate groups were visually inspected.
+
+The following image pairs appeared visually identical:
+
+1. Stage-2 `IMG_11@18FEB25-KTK.JPG` and Stage-3 `IMG_167@18FEB25-KTK.JPG`.
+2. Stage-2 `IMG_166@18FEB25-KTK.JPG` and Stage-3 `IMG_10@18FEB25-KTK.JPG`.
+
+The images have conflicting severity-stage folder labels despite identical visual content.
+
+The correct severity label for either pair has not been established. No labels were changed.
+
+The archive does not provide verified plant, leaf or specimen identifiers. The correct biological experimental unit therefore remains unresolved.
+
+**Updated recommendation:** Keep exact duplicate images in the same future partition or exclude duplicate copies. Resolve cross-stage label conflicts before treating the six severity classes as fully reliable.
+
+### 10.3 NWRD Wheat Rust - Complete Mask Pixel Audit
+
+All 100 PNG masks were inspected directly from the original ZIP archive using Python, Pillow and NumPy.
+
+| Finding | Result |
+|---|---:|
+| Total masks inspected | 100 |
+| Unique pixel values | 0 and 255 |
+| Masks with unexpected pixel values | 0 |
+| Black pixels | 1,812,039,224 |
+| White pixels | 10,464,923 |
+| Total pixels | 1,822,504,147 |
+
+Approximate pixel distribution:
+- Black: 99.43%
+- White: 0.57%
+
+All masks use consistent binary pixel values. However, the semantic meaning of white and black has not been independently confirmed. Binary consistency does not prove annotation correctness or RGB-mask alignment.
+
+### 10.4 NWRD Wheat Rust - Image and Mask Reuse Permission
+
+The official Zenodo record, GitHub repository and associated research paper were reviewed.
+
+The GitHub MIT licence applies to repository source code and does not automatically establish reuse permission for separately distributed image and mask assets.
+
+The research paper's CC BY 4.0 licence also does not automatically establish that the dataset assets are covered by that licence.
+
+The inspected Zenodo rights information displays a copyright notice without a clearly identified dataset-specific reuse licence.
+
+**Conclusion:** Public access is established, but unrestricted reuse, modification and redistribution of the RGB images and masks remain unconfirmed. No author contact was made.
+
+### 10.5 NWRD Wheat Rust - Leakage-Safe Split Feasibility
+
+The archive contains:
+- 90 Train RGB images and masks.
+- 10 Test RGB images and masks.
+- One exact duplicate RGB pair: `train/images/15.jpg` and `train/images/32.jpg`.
+- No exact RGB duplicate detected across the existing Train-Test partitions.
+
+The identified duplicate pair occurs entirely within Train.
+
+However, verified plant, leaf, plot or specimen identifiers are unavailable. Near-duplicate and biological sample leakage have not been fully established.
+
+**Conclusion:** The existing split has no detected exact RGB duplicate overlap between Train and Test. This does not establish biological independence. A fully leakage-safe biological evaluation cannot currently be guaranteed.
+
+The known duplicate RGB pair should remain in the same partition or one copy should be excluded.
+
+### 10.6 Updated Overall RGB Dataset Recommendation
+
+| Dataset | Updated assessment |
+|---|---|
+| CCMT Tomato | Conditional candidate for exploratory five-class classification. Supplied Test split unsuitable for independent evaluation because of substantial exact content overlap and additional similarity and label concerns. |
+| Rice Sheath Blight | Conditional candidate for exploratory six-stage severity classification. Cross-stage duplicate labels and biological grouping remain unresolved. |
+| NWRD Wheat Rust | Conditional candidate for exploratory segmentation. Binary mask values are consistent, but annotation semantics, one dimension mismatch, duplicate RGB with different masks and asset reuse permissions remain unresolved. |
+
+All three datasets must remain separate because they represent different crops and prediction tasks.
+
+No dataset is currently established as fully validated for independent biological evaluation.
+
+The investigation did not modify original images or masks, perform model training, or contact dataset authors.
