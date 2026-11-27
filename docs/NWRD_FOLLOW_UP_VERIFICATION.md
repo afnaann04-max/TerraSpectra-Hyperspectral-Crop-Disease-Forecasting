@@ -379,3 +379,189 @@ No author contact was initiated.
 ### Remaining blocker
 
 Before treating NWRD as licence-cleared for reuse in TerraSpectra, explicit licensing or permission covering the dataset assets must be established. Until then, dataset reuse rights remain unresolved.
+
+## 11. Extended Archive-Level and Visual Verification — 27 November 2026
+
+### 11.1 Image and Mask Pairing
+
+A further read-only inspection was performed directly from the downloaded `NWRD.zip` archive.
+
+| Split | RGB images | Masks | Missing masks | Missing images |
+|---|---:|---:|---:|---:|
+| Train | 90 | 90 | 0 | 0 |
+| Test | 10 | 10 | 0 | 0 |
+| Total | 100 | 100 | 0 | 0 |
+
+All image-mask filenames were successfully matched using their filename stems.
+
+### 11.2 Image and Mask Dimensions
+
+99 of the 100 image-mask pairs have matching dimensions.
+
+One mismatch was identified:
+
+| Image | RGB dimensions | Mask dimensions |
+|---|---|---|
+| `train/images/101.jpg` | 3612 × 3456 | `train/masks/101.png`: 3593 × 3435 |
+
+The mask is 19 pixels narrower and 21 pixels shorter than its corresponding RGB image.
+
+A visual inspection and temporary overlay were performed. The mask-positive regions appeared broadly associated with the wheat vegetation, but exact pixel-level alignment and segmentation correctness could not be established.
+
+The original image and mask were not modified. Resizing was performed only on a temporary in-memory copy for visual inspection.
+
+**Finding:** Image 101 has a dimension inconsistency that must be considered before segmentation use.
+
+### 11.3 Binary Mask Encoding
+
+All 100 masks were inspected for image mode and distinct pixel values.
+
+Verified findings:
+
+- All masks use grayscale mode (`L`).
+- All masks contain exactly two pixel values: `0` and `255`.
+- No additional grayscale values were found.
+
+This confirms binary mask encoding.
+
+The public dataset documentation describes the task as wheat rust/non-rust semantic segmentation. However, the numerical mapping of `0` and `255` to the respective classes was not independently confirmed from an explicit pixel-value specification.
+
+### 11.4 Exact Duplicate Image and Mask Investigation
+
+SHA-256 hashes were calculated for all 200 image and mask files.
+
+One exact duplicate RGB image group was found within Train:
+
+| File | Finding |
+|---|---|
+| `train/images/15.jpg` | Exact duplicate |
+| `train/images/32.jpg` | Exact duplicate |
+
+Both files have the same SHA-256 hash:
+
+`a281c494f2b690a5b988a9401c0264caa709538bbf79263239aa05f0eca757a8`
+
+No exact duplicate mask groups were identified.
+
+### 11.5 Duplicate RGB Images with Different Masks
+
+The corresponding masks for the duplicate RGB images were compared.
+
+| Measurement | Mask 15 | Mask 32 |
+|---|---:|---:|
+| Dimensions | 6016 × 4000 | 6016 × 4000 |
+| White pixels | 25,371 | 40,832 |
+| Foreground coverage | Approximately 0.105% | Approximately 0.170% |
+
+Additional findings:
+
+- Different pixels: 16,653.
+- Difference bounding box: `(1106, 1578, 5370, 4000)`.
+- Mask 15 bounding box: `(1106, 1577, 3969, 2176)`.
+- Mask 32 bounding box: `(1106, 1577, 5370, 4000)`.
+
+Visual comparison confirmed that the RGB images depict the same photograph, while the corresponding masks differ.
+
+**Interpretation:** This is a potential annotation inconsistency. The correct segmentation cannot be determined from the available evidence alone.
+
+### 11.6 Train-Test Exact Duplicate Verification
+
+SHA-256 comparisons were performed separately for RGB images and masks across Train and Test.
+
+| Check | Exact duplicate groups |
+|---|---:|
+| RGB images across Train-Test | 0 |
+| Masks across Train-Test | 0 |
+| Total | 0 |
+
+No exact cross-partition duplicate content was detected.
+
+This does not establish biological independence. Near-duplicate photographs, related plants or specimens, and other forms of biological overlap have not been ruled out.
+
+### 11.7 Foreground Coverage Investigation
+
+All 100 masks were checked for the percentage of white foreground pixels.
+
+| Measurement | Result |
+|---|---:|
+| Masks checked | 100 |
+| Masks with zero foreground | 0 |
+| Masks with more than 50% foreground | 0 |
+| Lowest foreground coverage | 0.0312% |
+| Highest foreground coverage | 2.9885% |
+
+Examples:
+
+- Lowest: `train/masks/22.png` — 0.0312%.
+- Highest: `train/masks/19.png` — 2.9885%.
+
+Visual inspection of these two examples showed small foreground regions in Mask 22 and multiple narrow foreground regions in Mask 19.
+
+These observations do not independently establish that all foreground regions represent rust lesions. The dataset's exact annotation convention and biological correctness require further validation.
+
+### 11.8 Public Documentation and Licence Findings
+
+The archive contains only Train and Test directories, with JPG images and PNG masks. No README, licence file, annotation guide, or other documentation file was present inside the downloaded ZIP.
+
+The public GitHub documentation describes binary semantic segmentation for wheat rust and non-rust regions.
+
+The following distinctions remain important:
+
+- The GitHub MIT licence must not automatically be applied to dataset images and masks.
+- The NLM Dataset Catalog lists CC BY 4.0 for NWRD.
+- The Zenodo record's previously reviewed rights information displays a copyright notice.
+- The differing rights statements have not been conclusively reconciled.
+- The research paper's publication licence is not automatically the dataset licence.
+
+**Status:** There is positive CC BY 4.0 evidence from the NLM Dataset Catalog, but dataset asset reuse permissions should remain subject to rights verification.
+
+No author contact was initiated.
+
+### 11.9 Updated Verification Status
+
+| Verification item | Status |
+|---|---|
+| RGB-mask filename pairing | Verified: 100/100 |
+| Matching image-mask dimensions | 99/100 |
+| Binary mask encoding | Verified: values 0 and 255 |
+| Exact duplicate RGB images | One group within Train |
+| Exact duplicate masks | None found |
+| Duplicate RGB with different masks | Confirmed |
+| Exact Train-Test RGB overlap | None found |
+| Exact Train-Test mask overlap | None found |
+| Empty masks | None found |
+| Foreground coverage | 0.0312%–2.9885% |
+| Sample visual inspection | Completed |
+| Exact alignment of all masks | Not verified |
+| Numeric foreground/background mapping | Not explicitly verified |
+| Biological sample independence | Unresolved |
+| Dataset asset reuse permission | Conflicting evidence; unresolved |
+| Split methodology discrepancy | Partially clarified; exact procedure unresolved |
+
+### 11.10 Updated Dataset Suitability Recommendation
+
+NWRD is a promising candidate for exploratory wheat stripe rust segmentation because it provides 100 RGB images and corresponding binary masks.
+
+However, its suitability remains conditional because:
+
+1. One RGB image and mask have mismatching dimensions.
+2. Two identical RGB images have different segmentation masks.
+3. The numerical mapping of binary mask values requires explicit confirmation.
+4. Biological independence across Train and Test has not been established.
+5. Dataset image and mask reuse permissions remain subject to rights clarification.
+
+No model training, preprocessing, augmentation, feature extraction, or modification of original images or masks was performed.
+
+**Updated recommendation:** Retain NWRD as a conditionally suitable candidate for further segmentation research. Do not describe it as fully validated, biologically independent, or licence-cleared.
+
+### 11.11 Investigation Restrictions
+
+- Original archive files were read directly without modifying them.
+- Visual comparisons used temporary in-memory image displays.
+- Temporary resizing was used only for the Image 101 overlay.
+- No original image or mask was overwritten, resized, deleted, or redistributed.
+- No preprocessing, feature extraction, augmentation, or model training was performed.
+- No author contact was initiated.
+
+**Investigation date:** 27 November 2026
+**Prepared by:** Member 3 – RGB Dataset Investigation
