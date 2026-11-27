@@ -709,6 +709,19 @@ The dimension difference could be related to cropping or different image version
 
 **Recommendation:** Exclude Image 101 from segmentation experiments until its image-mask spatial correspondence is verified. Do not resize or crop the original files merely to force matching dimensions.
 
+#### Full Dataset Dimension Verification
+
+A programmatic dimension check was performed across all 100 matched RGB image-mask pairs in the NWRD archive.
+
+- Total pairs checked: 100
+- Matching image-mask dimensions: 99
+- Dimension mismatches: 1
+- Mismatched pair: `train/images/101.jpg` and `train/masks/101.png`
+- RGB image dimensions: 3612 x 3456
+- Mask dimensions: 3593 x 3435
+
+This confirms that the dimension mismatch is isolated to one pair in the downloaded archive. Visual alignment and annotation correctness for this pair remain unverified.
+
 ### 8. Updated NWRD Suitability Assessment
 
 Positive findings:
