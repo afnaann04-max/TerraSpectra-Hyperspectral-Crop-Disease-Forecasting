@@ -46,14 +46,27 @@ Note: CCMT also contains 5,805 raw images. Its 27,168 augmented images comprise 
 | Augmented Test | 5,445 |
 | Total augmented | 27,168 |
 
+
+**Verified class-wise image distribution**
+
+| Disease class | Raw images | Train images | Test images |
+|---|---:|---:|---:|
+| Healthy | 470 | 2,000 | 500 |
+| Leaf blight | 1,301 | 5,200 | 1,309 |
+| Leaf curl | 518 | 2,050 | 532 |
+| Septoria leaf spot | 2,743 | 9,373 | 2,340 |
+| Verticillium wilt | 773 | 3,100 | 764 |
+| **Total** | **5,805** | **21,723** | **5,445** |
+
+These counts were verified directly from the downloaded ZIP archive. The raw and augmented collections have different class distributions.
+
 The five classes are:
 
 - Healthy
 - Leaf blight
 - Leaf curl
 - Septoria leaf spot
-- Verticulium wilt
-
+- Verticillium wilt
 
 ### 3.2 Original-to-Augmented Lineage
 
