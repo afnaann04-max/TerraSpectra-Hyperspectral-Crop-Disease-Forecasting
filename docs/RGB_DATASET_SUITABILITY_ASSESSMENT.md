@@ -1,0 +1,359 @@
+# TerraSpectra – RGB Dataset Suitability Assessment
+
+**Project:** TerraSpectra – Hyperspectral Crop Disease Forecasting
+**Team Member:** Member 3 – RGB Dataset Investigation
+**Assessment Date:** 27 November 2026
+**Branch:** Afnan
+
+---
+
+## 1. Executive Summary
+
+This report consolidates the investigation of three RGB crop disease datasets:
+
+1. CCMT – Tomato
+2. Rice Sheath Blight Severity Dataset
+3. NWRD – Wheat Rust
+
+The datasets represent different crops, disease categories, annotation formats and computer-vision tasks. They must therefore be assessed independently rather than treated as one combined dataset.
+
+The investigation identified substantial Train-Test overlap in CCMT, duplicate-content label conflicts in Rice Sheath Blight, and image-mask quality concerns in NWRD.
+
+**Overall conclusion:** All three datasets remain research candidates with different suitability limitations. None should be considered fully validated for independent model evaluation at this stage.
+
+## 2. Dataset Overview
+
+| Attribute | CCMT Tomato | Rice Sheath Blight | NWRD Wheat Rust |
+|---|---|---|---|
+| Crop | Tomato | Rice | Wheat |
+| Disease | Multiple tomato diseases | Rice sheath blight | Wheat stripe/yellow rust |
+| Image count | 27,168 augmented images | 1,609 images | 100 RGB images |
+| Labels | Five classes | Six severity stages | Binary segmentation masks |
+| Annotation type | Folder-based classification | Folder-based severity classification | Pixel-level masks |
+| Intended task | Image classification | Severity classification | Semantic segmentation |
+| Main concern | Train-Test content overlap | Duplicate severity-label conflicts | Duplicate RGB with different masks |
+
+Note: CCMT also contains 5,805 raw images. Its 27,168 augmented images comprise 21,723 Train and 5,445 Test entries.
+
+## 3. CCMT Tomato Dataset Assessment
+
+### 3.1 Inventory
+
+| Dataset portion | Image count |
+|---|---:|
+| Raw Tomato | 5,805 |
+| Augmented Train | 21,723 |
+| Augmented Test | 5,445 |
+| Total augmented | 27,168 |
+
+The five classes are:
+
+- Healthy
+- Leaf blight
+- Leaf curl
+- Septoria leaf spot
+- Verticulium wilt
+
+### 3.2 Original-to-Augmented Lineage
+
+Exact SHA-256 comparison identified:
+
+- 4,771 Raw file entries with exact matches in augmented files.
+- 6,202 Raw-to-Augmented exact file pairs.
+- 4,651 Train exact-match pairs.
+- 1,551 Test exact-match pairs.
+- 6,200 class-label agreement pairs.
+- Two class-label disagreement pairs.
+
+The two disagreements involve identical image content assigned to both Leaf blight and Septoria leaf spot.
+
+This is evidence of a cross-class label inconsistency. The correct disease label has not been independently established.
+
+### 3.3 Train-Test Leakage Investigation
+
+Exact SHA-256 comparison found:
+
+- 4,084 Test entries with matching Train content.
+- 4,084 unique shared content hashes.
+- 4,085 matching Train-Test file pairs.
+- 1,361 Test entries without an exact Train content match.
+
+Approximately 75% of Test entries have exact content matches in Train.
+
+A perceptual-hash investigation identified 361 of the 1,361 entries without exact matches as having at least one dHash candidate at distance 8 or less.
+
+Six candidate pairs were visually inspected. Five appeared to show the same photograph and one appeared different. This was a similarity-focused sample, not a representative sample of all candidates.
+
+### 3.4 Biological Grouping
+
+No reliable plant, leaf or specimen identifiers were established from the available archive metadata.
+
+Filename numbers are not globally unique biological sample identifiers.
+
+Therefore, image-level duplicate grouping alone cannot establish biological independence.
+
+### 3.5 Suitability Recommendation
+
+CCMT has a large image collection and five classification classes, but its supplied Train-Test split is unsuitable for independent evaluation because of substantial exact content overlap.
+
+A new content-grouped split may be investigated after resolving cross-class label conflicts and reviewing near-duplicate candidates.
+
+Biological independence must not be claimed without sample-level evidence.
+
+**Assessment:** Conditional candidate for exploratory tomato classification. Do not use the supplied Test partition as an independent evaluation set.
+
+Supporting documentation:
+
+- `docs/TOMATO_DATASET_SOURCE_VERIFICATION.md`
+- `docs/CCMT_TRAIN_TEST_HASH_OVERLAP_VERIFICATION.md`
+
+## 4. Rice Sheath Blight Dataset Assessment
+
+### 4.1 Dataset Identification
+
+**Dataset:** Colour-Mix Augmentation Dataset for Rice Sheath Blight Severity Estimation
+**Source:** Mendeley Data
+**DOI:** 10.17632/489spnkhp5.1
+
+The archive contains 1,609 JPG images organized into six severity-stage folders.
+
+### 4.2 Severity Classes and Counts
+
+| Stage | Documented description | Images |
+|---|---|---:|
+| Stage-1 | Healthy (Mild symptoms) | 157 |
+| Stage-2 | Initial infection; small lesions restricted to lower sheath | 326 |
+| Stage-3 | Lesions covering less than 25% of plant height | 410 |
+| Stage-4 | Lesions reaching 25–50% of plant height | 355 |
+| Stage-5 | Lesions reaching 50–75% of plant height | 263 |
+| Stage-6 | Lesions reaching the flag leaf or more than 75% of plant height | 98 |
+| **Total** | | **1,609** |
+
+The archive README describes severity assessment using vertical lesion progression, chromatic intensity, lesion density and spatial spread.
+
+The exact reference or name of the standard numerical severity scale remains unresolved. The standard 0–9 scale must not be assumed to apply.
+
+### 4.3 Duplicate-Content Investigation
+
+SHA-256 comparison identified:
+
+- 1,609 images checked.
+- 1,602 unique image hashes.
+- Seven exact duplicate-content groups.
+- Five same-stage duplicate groups.
+- Two cross-stage duplicate groups.
+
+The two cross-stage conflicts are:
+
+1. Stage-2 `IMG_11@18FEB25-KTK.JPG` and Stage-3 `IMG_167@18FEB25-KTK.JPG`.
+2. Stage-2 `IMG_166@18FEB25-KTK.JPG` and Stage-3 `IMG_10@18FEB25-KTK.JPG`.
+
+Visual comparison indicated that the images in each pair appeared identical. The correct severity label could not be determined from the available evidence.
+
+### 4.4 Biological Grouping and Partitioning
+
+Filename patterns contain image-number and date/location-like components.
+
+The investigation identified 292 candidate image-number/location groups. A total of 187 groups appeared across multiple dates, and 184 appeared across multiple severity stages.
+
+These are candidate filename-based groups only. They do not prove that images belong to the same plant, leaf or biological specimen.
+
+The archive does not provide separate Train-Test partitions. Therefore, no supplied partition leakage assessment is possible.
+
+### 4.5 Suitability Recommendation
+
+The dataset has six documented severity stages and a reconciled image inventory.
+
+However, cross-stage duplicate-content conflicts, unresolved biological grouping and incomplete numerical severity-scale information limit its reliability for independent severity classification.
+
+Before partitioning, exact duplicates should be grouped, cross-stage label conflicts investigated and candidate biological groups reviewed.
+
+**Assessment:** Conditional candidate for exploratory six-stage rice sheath blight severity classification.
+
+Supporting documentation:
+
+- `docs/RICE_SHEATH_BLIGHT_SEVERITY_LABEL_VERIFICATION.md`
+
+## 5. NWRD Wheat Rust Dataset Assessment
+
+### 5.1 Dataset Identification and Inventory
+
+The NWRD archive contains 100 RGB images and 100 PNG masks.
+
+| Partition | RGB images | Masks |
+|---|---:|---:|
+| Train | 90 | 90 |
+| Test | 10 | 10 |
+| **Total** | **100** | **100** |
+
+A filename-stem comparison confirmed that all 100 RGB images have corresponding masks:
+- Train: 90 matched pairs; no missing images or masks.
+- Test: 10 matched pairs; no missing images or masks.
+
+This confirms filename pairing, not annotation correctness.
+
+### 5.2 Image and Mask Dimensions
+
+99 of the 100 image-mask pairs have matching dimensions.
+
+One mismatch was identified:
+
+| File | RGB dimensions | Mask dimensions |
+|---|---|---|
+| `train/images/101.jpg` | 3612 × 3456 | 3593 × 3435 |
+
+The mask is 19 pixels narrower and 21 pixels shorter than the RGB image. This needs resolution before using this pair for segmentation.
+
+### 5.3 Mask Format and Pixel Values
+
+All 100 masks were inspected directly from the ZIP archive.
+
+Verified findings:
+- All masks use grayscale mode (`L`).
+- All masks contain only pixel values 0 and 255.
+- All masks contain non-zero white foreground pixels.
+- White-pixel coverage ranges from 0.03125% to 2.98851%.
+- No zero-white masks were found.
+
+The numerical values were verified, but the exact semantic mapping of 0 and 255 to rust and background was not independently established from the archive.
+
+### 5.4 Exact Duplicate Investigation
+
+SHA-256 comparison identified:
+
+| Check | Result |
+|---|---:|
+| RGB images inspected | 100 |
+| Unique RGB image contents | 99 |
+| Exact duplicate RGB groups | 1 |
+| Masks inspected | 100 |
+| Unique mask contents | 100 |
+| Exact duplicate mask groups | 0 |
+| Exact duplicate groups across Train-Test | 0 |
+
+The duplicate RGB group consists of:
+- `train/images/15.jpg`
+- `train/images/32.jpg`
+
+These two RGB files are byte-identical. Their corresponding masks are different.
+
+### 5.5 Duplicate RGB with Different Masks: Visual Review
+
+Both images have dimensions of 6016 × 4000.
+
+| Measurement | Mask 15 | Mask 32 |
+|---|---:|---:|
+| Dimensions | 6016 × 4000 | 6016 × 4000 |
+| White pixels | 25,371 | 40,832 |
+| White coverage | 0.105431% | 0.169681% |
+
+A visual comparison showed that both masks mark the same main visible region on a central leaf. Mask 32 also appears to include an additional small region near the lower-right edge.
+
+This is a potential annotation inconsistency because identical RGB content has different mask annotations.
+
+The visual inspection does not establish whether the additional region is a valid rust annotation or an annotation error. Expert confirmation is required.
+
+### 5.6 Train-Test Duplicate Investigation
+
+The SHA-256 comparison found no exact duplicate RGB images or masks across Train and Test.
+
+This is limited to exact byte-level duplicates. It does not rule out visually similar images, shared plants or specimens, or other forms of biological leakage.
+
+### 5.7 Visual Validation Limitations
+
+The duplicate RGB and mask pair was visually inspected using the original archive files without modifying them.
+
+A representative visual alignment review of all image-mask pairs has not been completed. Therefore, the investigation does not establish that every mask is correctly aligned or accurately annotated.
+
+### 5.8 Licence and Documentation
+
+The downloaded archive contains image and mask files but no accompanying README, licence file or annotation guide.
+
+Previously reviewed public-source information includes:
+- The GitHub documentation describes binary wheat rust/non-rust segmentation.
+- The GitHub MIT licence must not automatically be applied to dataset image and mask assets.
+- The NLM Dataset Catalog lists CC BY 4.0.
+- Previously reviewed Zenodo rights information displays a copyright statement.
+
+These rights statements have not been conclusively reconciled. Dataset image and mask reuse permission remains unresolved.
+
+No author contact was initiated.
+
+### 5.9 Suitability Recommendation
+
+NWRD provides 100 filename-matched RGB-mask pairs for exploratory wheat rust segmentation.
+
+However, the following limitations remain:
+- One RGB-mask dimension mismatch.
+- One exact duplicate RGB group with different mask annotations.
+- Unresolved semantic mapping of mask pixel values.
+- No representative visual validation of all image-mask pairs.
+- Biological independence has not been established.
+- Dataset image and mask reuse permissions remain unresolved.
+
+**Assessment:** Conditional candidate for exploratory wheat rust segmentation. Further annotation, dimension, biological grouping and licence verification is required before final dataset approval or independent model evaluation.
+
+Supporting documentation:
+
+- `docs/NWRD_FOLLOW_UP_VERIFICATION.md`
+
+## 6. Comparative Risk Assessment
+
+| Risk area | CCMT | Rice Sheath Blight | NWRD |
+|---|---|---|---|
+| Exact duplicate content | Extensive Train-Test overlap | Seven duplicate groups | One duplicate RGB group |
+| Cross-label conflict | Confirmed | Confirmed | Different masks for identical RGB |
+| Near-duplicate risk | Candidates identified | Not fully assessed | Not fully assessed |
+| Biological independence | Unresolved | Unresolved | Unresolved |
+| Annotation consistency | Label conflicts identified | Cross-stage conflicts identified | Duplicate-mask inconsistency |
+| Partition reliability | Supplied split unsuitable for independent evaluation | No supplied split | No exact cross-partition duplicates detected |
+| Licence certainty | Requires source-specific confirmation | Requires source-specific confirmation | Conflicting evidence; unresolved |
+
+## 7. Overall Recommendations
+
+### CCMT Tomato
+
+Do not use the supplied Train-Test split for independent evaluation. Investigate a new content-grouped split and resolve label conflicts before relying on the five-class labels.
+
+### Rice Sheath Blight
+
+Retain as a candidate for severity classification. Investigate cross-stage duplicate labels and possible biological grouping before designing a partition.
+
+### NWRD Wheat Rust
+
+Retain as a candidate for segmentation. Review duplicate masks, the Image 101 dimension mismatch, mask-value semantics and reuse permissions.
+
+### Cross-Dataset Recommendation
+
+The three datasets must remain separate because they represent different crops, diseases and prediction tasks.
+
+No dataset should be declared fully validated or biologically independent based only on the current archive-level investigation.
+
+## 8. Investigation Scope and Restrictions
+
+The investigation focused on source verification, archive inventory, filename analysis, exact content hashing, selected perceptual-hash comparisons, label consistency and selected visual inspection.
+
+The following restrictions were maintained:
+
+- Original images and masks were not overwritten or modified.
+- Temporary in-memory operations were used only for inspection.
+- No model training was performed.
+- No feature extraction or feature engineering was performed.
+- No new augmentation or preprocessing pipeline was developed.
+- No author contact was initiated.
+- No unsupported biological-independence claims were made.
+
+## 9. Final Conclusion
+
+The investigation identified three RGB dataset candidates with different strengths and limitations.
+
+CCMT offers a large tomato image collection but has substantial exact Train-Test content overlap and label inconsistencies.
+
+Rice Sheath Blight offers six documented severity stages, but duplicate images with conflicting stage assignments and unresolved biological grouping affect its reliability.
+
+NWRD offers paired RGB images and binary masks for wheat rust segmentation, but has a duplicate-image annotation inconsistency, a dimension mismatch and unresolved asset reuse permissions.
+
+**Final recommendation:** Retain all three datasets as conditional research candidates. Further verification is required before approving any of them for final independent model evaluation.
+
+**Prepared by:** Member 3 – RGB Dataset Investigation
+**Date:** 27 November 2026
