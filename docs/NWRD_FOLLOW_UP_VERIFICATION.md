@@ -1,9 +1,9 @@
 # NWRD Wheat Rust — Follow-up Verification Report
 
-**Project:** TerraSpectra – Hyperspectral Crop Disease Forecasting  
-**Assigned responsibility:** Member 3 – RGB Dataset Investigation  
-**Investigation date:** 18 November 2026  
-**Dataset:** NUST Wheat Rust Disease Dataset (NWRD)  
+**Project:** TerraSpectra – Hyperspectral Crop Disease Forecasting
+**Assigned responsibility:** Member 3 – RGB Dataset Investigation
+**Investigation date:** 18 November 2026
+**Dataset:** NUST Wheat Rust Disease Dataset (NWRD)
 **Status:** Public-source follow-up and archive-level verification completed; dataset licence clarification and split methodology remain pending.
 
 ---
@@ -246,8 +246,8 @@ The archive-level checks are completed. Remaining unresolved items primarily con
 6. NLM Dataset Catalog — Dataset rights listing for NWRD (CC BY 4.0):
    https://datasetcatalog.nlm.nih.gov/dataset?q=0003216471
 
-**Investigation date:** 18 November 2026  
-**Prepared by:** Member 3 – RGB Dataset Investigation  
+**Investigation date:** 18 November 2026
+**Prepared by:** Member 3 – RGB Dataset Investigation
 **Final status:** Public-source follow-up and archive-level verification completed; dataset licence clarification, split methodology, and visual quality assessment remain pending.
 
 ## 10. Downloaded Archive Verification
@@ -558,10 +558,151 @@ No model training, preprocessing, augmentation, feature extraction, or modificat
 
 - Original archive files were read directly without modifying them.
 - Visual comparisons used temporary in-memory image displays.
-- Temporary resizing was used only for the Image 101 overlay.
+- A common top-left coordinate area was used only for the Image 101 diagnostic overlay; original files were not resized or      modified.
 - No original image or mask was overwritten, resized, deleted, or redistributed.
 - No preprocessing, feature extraction, augmentation, or model training was performed.
 - No author contact was initiated.
 
 **Investigation date:** 27 November 2026
 **Prepared by:** Member 3 – RGB Dataset Investigation
+
+## NWRD RGB–Mask Pairing and Visual Validation — 27 November 2026
+
+### 1. Filename Pairing Verification
+
+The NWRD archive was checked for matching RGB image and mask filenames using filename stems.
+
+| Partition | RGB images | Masks | Missing masks | Missing images |
+|---|---:|---:|---:|---:|
+| Train | 90 | 90 | 0 | 0 |
+| Test | 10 | 10 | 0 | 0 |
+| **Total** | **100** | **100** | **0** | **0** |
+
+All 100 RGB images have corresponding masks by filename.
+
+This confirms filename pairing only, not annotation correctness.
+
+### 2. Image and Mask Dimension Verification
+
+All 100 image-mask pairs were inspected.
+
+- 99 pairs have matching RGB and mask dimensions.
+- One mismatch was identified.
+
+| File | RGB dimensions | Mask dimensions |
+|---|---|---|
+| `train/images/101.jpg` | 3612 × 3456 | 3593 × 3435 |
+
+The mask is 19 pixels narrower and 21 pixels shorter than the RGB image.
+
+### 3. Mask Format and Pixel Values
+
+All 100 masks were inspected directly from the archive.
+
+Verified findings:
+- All masks use grayscale mode (`L`).
+- All masks contain only pixel values 0 and 255.
+- All masks contain non-zero white foreground pixels.
+- White-pixel coverage ranges from 0.03125% to 2.98851%.
+- No zero-white masks were found.
+
+The semantic mapping of 0 and 255 to rust and background has not been independently confirmed.
+
+### 4. Exact Duplicate Verification
+
+SHA-256 comparison produced the following results:
+
+| Check | Result |
+|---|---:|
+| RGB images | 100 |
+| Unique RGB contents | 99 |
+| Exact duplicate RGB groups | 1 |
+| Masks | 100 |
+| Unique mask contents | 100 |
+| Exact duplicate mask groups | 0 |
+| Cross-Train-Test exact duplicate groups | 0 |
+
+The exact duplicate RGB files are:
+- `train/images/15.jpg`
+- `train/images/32.jpg`
+
+### 5. Duplicate Image with Different Masks
+
+Both RGB images have dimensions of 6016 × 4000 and identical SHA-256 hashes.
+
+Their corresponding masks differ:
+
+| Measurement | Mask 15 | Mask 32 |
+|---|---:|---:|
+| Dimensions | 6016 × 4000 | 6016 × 4000 |
+| White pixels | 25,371 | 40,832 |
+| White coverage | 0.105431% | 0.169681% |
+
+Visual comparison indicated that both masks mark the same main visible region on a central leaf. Mask 32 also appears to include an additional small region near the lower-right edge.
+
+This is a potential annotation inconsistency. The available visual evidence does not establish whether the additional region is a valid rust annotation or an annotation error.
+
+### 6. Preliminary Visual Alignment Review
+
+Five dimension-matched pairs were visually inspected using RGB-mask overlays:
+
+- Train: Images 2, 64 and 100.
+- Test: Images 105 and 123.
+
+The highlighted regions generally appeared spatially associated with visible plant or leaf structures. No obvious gross alignment failure was observed in these five examples.
+
+However:
+- Some regions are difficult to assess because of overlapping vegetation.
+- Visual association with a leaf does not prove that a region represents rust.
+- Five examples do not constitute representative full-dataset validation.
+
+Therefore, annotation accuracy and alignment across all 100 pairs remain unverified.
+
+### 7. Image 101 Dimension Mismatch Investigation
+
+Image 101 was examined separately.
+
+Metadata findings:
+- RGB format: JPEG.
+- Mask format: PNG.
+- RGB mode: RGB.
+- Mask mode: grayscale (`L`).
+- Neither file contains EXIF metadata.
+- The JPEG contains JFIF, DPI and ICC-profile information.
+- The mask contains no additional metadata.
+
+Boundary inspection found zero white pixels along all four mask edges.
+
+A diagnostic overlay was created using only the common top-left coordinate area of the original image and mask. The overlay showed several highlighted regions over visible plant structures, but this does not establish correct spatial correspondence.
+
+The dimension difference could be related to cropping or different image versions, but neither explanation has been verified.
+
+**Recommendation:** Exclude Image 101 from segmentation experiments until its image-mask spatial correspondence is verified. Do not resize or crop the original files merely to force matching dimensions.
+
+### 8. Updated NWRD Suitability Assessment
+
+Positive findings:
+- All 100 image-mask filenames match.
+- 99 pairs have matching dimensions.
+- All masks contain binary values 0 and 255.
+- No exact duplicate masks were found.
+- No exact duplicate content was detected across Train and Test.
+- Five selected overlays showed no obvious gross alignment failure.
+
+Outstanding concerns:
+- One RGB-mask dimension mismatch.
+- One duplicate RGB image group with different masks.
+- Unresolved semantic interpretation of mask pixel values.
+- Full-dataset annotation alignment has not been validated.
+- Biological independence remains unestablished.
+- Dataset image and mask reuse permissions remain unresolved.
+
+**Conclusion:** NWRD remains a conditional candidate for exploratory wheat rust segmentation. Further verification is required before final dataset approval or independent model evaluation.
+
+### 9. Investigation Restrictions
+
+- Original RGB images and masks were not modified.
+- Inspection was performed directly from the ZIP archive.
+- No resizing, cropping, preprocessing or augmentation was applied to the source files.
+- No model training or feature extraction was performed.
+- No author contact was initiated.
