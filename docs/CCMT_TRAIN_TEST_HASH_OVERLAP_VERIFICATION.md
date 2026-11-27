@@ -896,3 +896,42 @@ No original images or labels were modified.
 **Status:** Supplementary dHash candidate analysis completed; broader visual verification remains pending
 
 **Documentation status:** Prepared for review
+
+## 19. Biological Metadata and Identifier Audit - 27 November 2026
+
+### 19.1 Objective
+
+A read-only audit was performed on all 5,805 raw Tomato images to determine whether filename patterns or embedded EXIF metadata could support biological sample grouping.
+
+### 19.2 Results
+
+| Check | Result |
+|---|---:|
+| Raw Tomato images checked | 5,805 |
+| Images containing EXIF metadata | 0 |
+| Filenames containing numbers | 5,805 |
+| Filenames containing four or more digits | 2,109 |
+| Filenames matching broad biological-identifier keyword search | 4,576 |
+
+No EXIF metadata was available.
+
+Although filenames contain numeric values and some contain words such as leaf, these patterns do not establish plant, leaf, specimen or sample identity.
+
+### 19.3 Biological Grouping Conclusion
+
+Reliable biological sample identifiers could not be established from the available raw-image filenames or EXIF metadata.
+
+The numeric filename components must not be interpreted as unique plant or specimen identifiers without supporting evidence.
+
+Therefore:
+
+- Biological independence between images cannot be verified.
+- A biological-grouped Train-Test split cannot currently be guaranteed.
+- Exact-content and verified original-image groups can still be used for image-level leakage control.
+- Any remaining biological-independence limitation must be explicitly documented.
+
+No original images or metadata were modified.
+
+**Investigation date:** 27 November 2026
+
+**Status:** Available filename and EXIF metadata audit completed; biological grouping unresolved
