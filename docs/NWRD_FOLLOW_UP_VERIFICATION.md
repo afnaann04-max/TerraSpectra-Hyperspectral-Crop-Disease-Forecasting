@@ -210,6 +210,36 @@ Visual content, mask correctness, image resolution, and visual duplicates under 
 
 The archive-level checks are completed. Remaining unresolved items primarily concern dataset licensing, the validation methodology discrepancy, and visual inspection of images and masks.
 
+#### Repository Code Verification - Training and Validation Split
+
+The public GitHub repository was cloned and its data-loading implementation was inspected.
+
+**Files inspected:**
+- `config.json`
+- `train.py`
+- `data_loader/data_loaders.py`
+- `base/base_data_loader.py`
+- `dataset/datasets.py`
+- `base/base_dataset.py`
+
+**Verified findings:**
+
+1. The repository's `config.json` specifies `validation_split: 0.1`.
+2. `train.py` initializes the main data loader from the configuration and calls `data_loader.split_validation()`.
+3. The separate inference loader explicitly uses `validation_split=0.0`; this does not override the main training loader's configured validation split.
+4. `BaseDataLoader._split_sampler()` calculates the validation subset as `int(self.n_samples * split)`.
+5. The validation indices are selected after shuffling the dataset indices with NumPy random seed 0.
+6. `PatchedDataset.make_dataset()` creates patches for the training and validation image indices. Validation patches are created with `no_overlap=True`.
+7. `BaseDataset` loads original images and masks separately from the `train` or `test` directories. The repository does not define a separate validation directory in this loading implementation.
+
+**Interpretation and limitation:**
+
+The repository code confirms that the configured 10% validation subset is selected from the original training image indices before patch generation. The validation images are then used to generate patches with `no_overlap=True`.
+
+If this configuration is applied to the downloaded archive containing 90 training images and 10 test images, it would produce approximately 81 training images, 9 validation images, and 10 test images.
+
+However, the repository configuration alone does not prove that this exact configuration and dataset version were used to produce the results reported in the research paper.
+
 ## 7. Next Steps
 
 1. Seek author clarification on the 80/10/10 split described in the research paper versus the 90/10 archive split.
