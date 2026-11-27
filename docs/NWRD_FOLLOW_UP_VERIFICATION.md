@@ -706,3 +706,66 @@ Outstanding concerns:
 - No resizing, cropping, preprocessing or augmentation was applied to the source files.
 - No model training or feature extraction was performed.
 - No author contact was initiated.
+
+## NWRD Dataset Image and Mask Licence Verification — 27 November 2026
+
+### 1. Purpose
+
+This investigation reviews the publicly available licence information for the NWRD Wheat Rust dataset.
+
+The objective is to distinguish the licensing status of:
+- GitHub source code.
+- Research paper.
+- Dataset RGB images and segmentation masks.
+
+A licence associated with one of these resources must not automatically be assumed to apply to the others.
+
+### 2. Source Verification
+
+#### 2.1 Zenodo Dataset Record
+
+**Source:** https://zenodo.org/records/21672928
+
+The Zenodo record identifies the dataset authors and displays the rights statement:
+
+`Copyright (C) 2023 The Authors`
+
+An explicit Creative Commons or other dataset reuse licence was not identified in the previously reviewed Rights information.
+
+**Finding:** Dataset image and mask reuse permission is not established by this rights statement alone.
+
+#### 2.2 GitHub Repository
+
+**Source:** https://github.com/dll-ncai/NUST-Wheat-Rust-Disease-NWRD
+
+The GitHub repository declares an MIT licence.
+
+The MIT licence applies to the repository's licensed software/code. It must not automatically be interpreted as permission to reuse separately hosted dataset images and segmentation masks.
+
+**Finding:** The repository's MIT licence does not independently establish the asset licence.
+
+#### 2.3 NLM Dataset Catalog
+
+**Source:** https://www.ncbi.nlm.nih.gov/gds/
+
+The previously reviewed NLM Dataset Catalog entry for NWRD lists Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+However, the relationship between this catalog metadata and an explicit licence declaration by the dataset creators has not been independently established.
+
+**Finding:** CC BY 4.0 is listed in the catalog, but its authority for the original dataset assets remains unresolved.
+
+#### 2.4 Research Paper
+
+**Source:** https://www.mdpi.com/1424-8220/23/15/6942
+
+The associated research paper is published under CC BY 4.0.
+
+The paper's licence applies to the paper and does not automatically establish the reuse rights of the separately distributed RGB images and segmentation masks.
+
+**Finding:** The paper's licence cannot be treated as definitive dataset asset permission.
+
+### 3. Comparative Licence Assessment
+
+| Resource | Publicly displayed licence or rights | Assessment |
+|---|---|---|
+| GitHub source
