@@ -402,3 +402,74 @@ The following remain unresolved:
 The dataset is suitable for continued technical investigation and documentation. It is not yet approved for preprocessing, calibration, feature extraction, or model training. The coordinate order should be described as inferred until confirmed by documentation or visual annotation validation.
 
 No archive extraction, raw-data modification, preprocessing, calibration transformation, feature engineering, or model training was performed during this update.
+
+---
+
+## 8. Investigation addendum - 27 November 2026
+
+This addendum supersedes earlier unresolved statements where new evidence is available. The original report content is retained for investigation history.
+
+### 8.1 Verified findings
+
+**Coordinate and annotation investigation**
+- The associated publication documents CSV coordinates as: column 1 = vertical line coordinate; column 2 = horizontal sample coordinate.
+- Expected dimensions for the inspected archive are 420 lines and 320 samples.
+- Rechecking `24_G_leaf3.csv` under this documented order found 0 out-of-range rows.
+- The previously reported 37 unusual rows resulted from checking the coordinate columns in reverse order. They are not confirmed anomalies.
+
+**Biological sample mapping**
+- Official `Data_description.csv` contains 279 valid leaf records across 48 pot IDs and 96 pot-side groups.
+- The metadata contains genotypes EPO_67 and EPO_68 and treatments Infected and Non-infected.
+- All 96 unique scan IDs match the 96 official pot-side groups; no unmatched scan IDs or metadata pot-side pairs were found.
+- Genotype and treatment are consistent within all 96 pot-side groups.
+- No duplicate pot-side/leaf identifiers were found.
+- The scan ID identifies pot and side; the official metadata supplies leaf number, genotype, treatment and confidence level.
+
+**Leaf-coordinate CSV comparison**
+- 279 unique biological leaf IDs were found in the metadata.
+- 259 unique leaf-coordinate CSV IDs were found in the archive.
+- 20 metadata leaf IDs have no matching coordinate CSV.
+- 0 coordinate CSV IDs lack a metadata match.
+- The affected pot-side scans exist. The sampling table contains recorded counts for these pot-sides, but its date-level aggregate counts do not identify the specific missing leaf CSVs or explain their absence.
+
+Missing coordinate CSV IDs:
+`04_D_leaf2`, `04_G_leaf3`, `10_D_leaf1`, `13_D_leaf2`, `13_D_leaf3`, `21_G_leaf3`, `24_D_leaf3`, `25_G_leaf2`, `26_D_leaf3`, `27_D_leaf1`, `28_G_leaf2`, `32_D_leaf3`, `32_G_leaf2`, `32_G_leaf3`, `33_D_leaf1`, `35_D_leaf2`, `45_D_leaf2`, `46_G_leaf2`, `47_D_leaf2`, `47_G_leaf1`.
+
+**Structural placement**
+- `18_D.hdr`, `18_D.hyspex` and `18_D.jpg` are stored under `20210311/18_G/`.
+- The three `18_D` leaf CSVs are stored under `20210311/18_D/`.
+- The `18_D` scan and matching header are present and were included in the 96/96 structural verification.
+- This is a confirmed folder-placement inconsistency; it does not indicate a missing scan. The original archive was not modified.
+
+**Calibration evidence**
+- A filename search found 0 archive paths containing the searched calibration/reference keywords.
+- The inspected header contains `CalibAvailable = 1`, `Number of background = 200`, and `Integration time = 12000`.
+- These header fields do not prove that the archived cubes are calibrated reflectance or establish reference-file correspondence.
+- The publication describes a reflectance-calibration method using a certified Spectralon SRS99 reference and dark-current measurements. The availability and correspondence of the required reference measurements for this exact archive remain unverified.
+
+### 8.2 Inferred findings
+
+- Pot-side scan IDs can be used to associate scans with pot and side, with the official metadata providing biological labels.
+- Leaf-level coordinate extraction is incomplete for the 20 metadata-listed leaf IDs without coordinate CSVs.
+- Folder-based matching alone is unsafe for pot 18 because the `18_D` scan files are stored under `18_G`; filename-based matching must account for this exception.
+
+These are evidence-based interpretations, not proof of the cause of missing coordinate files or the folder-placement inconsistency.
+
+### 8.3 Unresolved findings
+
+- Whether the required dark-current and white-reference measurements are included in another file, embedded in the acquisition data, or available separately.
+- Whether the archived `.hyspex` cubes have already undergone any reflectance calibration.
+- Why the 20 metadata-listed leaf coordinate CSVs are absent.
+- Why the `18_D` scan files are placed under the `18_G` folder.
+- Whether the dataset is suitable for the team's intended forecasting task, considering its acquisition timeline, biological replication and target definition.
+
+### 8.4 Updated readiness recommendation
+
+**Suitable for:** continued documentation, metadata review, scan/sample mapping and planning of exploratory analysis.
+
+**Not yet approved for:** preprocessing, calibration transformations, feature extraction, spectral analysis or model training.
+
+The archive remains read-only. No extraction, raw-data modification, calibration transformation, preprocessing, feature engineering or model training was performed during this investigation.
+
+
+---
