@@ -119,6 +119,36 @@ These factors compare image counts only. They do not establish unique original-i
 
 No new augmentation or preprocessing was performed as part of this analysis.
 
+### 3.1.3 Train-Test Class Distribution Analysis
+
+The augmented Tomato dataset contains 21,723 training images and 5,445 testing images, representing an overall split of approximately 80:20.
+
+The class distribution within each partition was calculated to examine whether the five classes are proportionally represented.
+
+| Disease class | Train images | Train % | Test images | Test % |
+|---|---:|---:|---:|---:|
+| Healthy | 2,000 | 9.21% | 500 | 9.18% |
+| Leaf blight | 5,200 | 23.94% | 1,309 | 24.04% |
+| Leaf curl | 2,050 | 9.44% | 532 | 9.77% |
+| Septoria leaf spot | 9,373 | 43.15% | 2,340 | 42.98% |
+| Verticillium wilt | 3,100 | 14.27% | 764 | 14.03% |
+| **Total** | **21,723** | **100%** | **5,445** | **100%** |
+
+**Findings:**
+
+- The overall Train-Test ratio is approximately 80:20.
+- The class proportions are similar across the two partitions.
+- The largest difference in class proportion is for Leaf curl, at approximately 0.33 percentage points.
+- The supplied split appears approximately stratified by class.
+
+**Important limitation:**
+
+Similar class proportions do not establish independent Train-Test partitions. The earlier SHA-256 investigation identified 4,084 unique shared content hashes between Train and Test, with 4,085 matching file pairs.
+
+Therefore, the supplied Test partition remains unsuitable for independent model evaluation despite its similar class distribution.
+
+No model training or performance evaluation was performed as part of this analysis.
+
 ### 3.2 Original-to-Augmented Lineage
 
 SHA-256 comparison between the raw Tomato images and augmented Train-Test images identified:
