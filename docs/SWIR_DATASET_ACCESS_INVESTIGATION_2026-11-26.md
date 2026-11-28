@@ -463,13 +463,85 @@ These are evidence-based interpretations, not proof of the cause of missing coor
 - Why the `18_D` scan files are placed under the `18_G` folder.
 - Whether the dataset is suitable for the team's intended forecasting task, considering its acquisition timeline, biological replication and target definition.
 
-### 8.4 Updated readiness recommendation
+### 8.4 Missing leaf-coordinate CSV inventory
 
-**Suitable for:** continued documentation, metadata review, scan/sample mapping and planning of exploratory analysis.
+The comparison reported:
 
-**Not yet approved for:** preprocessing, calibration transformations, feature extraction, spectral analysis or model training.
+- **279 unique leaf IDs** in the official metadata.
+- **259 unique leaf-coordinate CSV IDs** in the archive.
+- **20 metadata leaf IDs** without a matching coordinate CSV.
+- **0 coordinate CSV IDs** without a metadata match.
 
-The archive remains read-only. No extraction, raw-data modification, calibration transformation, preprocessing, feature engineering or model training was performed during this investigation.
+The 20 missing coordinate-file IDs are:
 
+`04_D_leaf2`, `04_G_leaf3`, `10_D_leaf1`, `13_D_leaf2`, `13_D_leaf3`, `21_G_leaf3`, `24_D_leaf3`, `25_G_leaf2`, `26_D_leaf3`, `27_D_leaf1`, `28_G_leaf2`, `32_D_leaf3`, `32_G_leaf2`, `32_G_leaf3`, `33_D_leaf1`, `35_D_leaf2`, `45_D_leaf2`, `46_G_leaf2`, `47_D_leaf2`, `47_G_leaf1`.
 
----
+These are **missing leaf-coordinate CSV files**, not evidence that the corresponding hyperspectral scans are missing. The pot-side scans for the affected IDs were found. `SWIR_data.csv` contains date-level aggregate counts for pot-sides, but those totals do not identify the specific absent leaf CSVs or explain why they are absent.
+
+The reported comparison used the metadata leaf identifiers constructed from pot, side and leaf fields and compared them with the leaf IDs parsed from archive CSV filenames. A dedicated comparison script or saved machine-readable inventory was not located in the repository search. The counts and full missing-ID list above are retained as the available investigation evidence; independent script-based reproduction remains a gap.
+
+### 8.5 Pot 18 folder-placement inconsistency
+
+The archive paths show:
+
+- `20210311/18_G/18_D.hdr`
+- `20210311/18_G/18_D.hyspex`
+- `20210311/18_G/18_D.jpg`
+- The three `18_D` leaf-coordinate CSVs are under `20210311/18_D/`.
+
+The `18_D` scan and matching header are present and were included in the 96/96 structural verification. This is a confirmed folder-placement inconsistency; it does not indicate a missing scan. The original archive was not modified. The reason for the placement remains unknown.
+
+### 8.6 Calibration evidence and limitations
+
+The publication describes reflectance calibration using sample intensity \(I\), dark intensity \(I_d\), and reference intensity \(I_0\), with a certified Spectralon SRS99 reference and dark-current measurements. It also describes the `.hyspex` signal as dark-current-corrected intensity.
+
+That publication describes the method; it does **not** establish that the required reference measurements are available for, or correctly correspond to, this exact downloaded archive. The investigation's filename/path search found no separately named calibration/reference files among the searched terms. A filename search cannot rule out information embedded in data/header contents or separately supplied outside the archive.
+
+The inspected header's `CalibAvailable = 1`, `Number of background = 200`, and `Integration time = 12000` fields are not sufficient proof that the archived cubes are calibrated reflectance, nor do they establish reference-file identity, acquisition correspondence, or calibration provenance. Calibration provenance therefore remains unresolved.
+
+### 8.7 Final suitability recommendation
+
+**Suitable for continued work**
+- Metadata investigation and review.
+- Coordinate and annotation review.
+- Scan-to-pot-side mapping.
+- Planning exploratory analysis.
+
+**Potentially suitable, subject to explicit limitations**
+- Read-only, descriptive exploratory analysis of the archive's **dark-current-corrected intensity values**, if the analysis is clearly labeled as uncalibrated intensity and does not interpret values as reflectance. This is a conditional option, not a declaration that calibration is complete or that the dataset supports the project's forecasting objective.
+
+**Not yet approved**
+- Reflectance-based spectral interpretation without verified calibration provenance.
+- Calibration transformations.
+- Preprocessing and feature extraction.
+- Model training and forecasting.
+
+Evidence supporting this cautious decision includes the verified archive checksum and raw/header structure, consistent header wavelength entries, documented coordinate convention, coordinate-range results, and scan-to-pot-side metadata matches. Limitations include unresolved reference-measurement correspondence, no independent visual annotation validation, 20 missing coordinate CSVs, unresolved biological replication/grouping, the pot 18 path inconsistency, and no demonstrated forecasting target/validation design. The dataset should not be forced into a forecasting objective if the acquisition timeline and biological design do not support it.
+
+### 8.8 Supporting evidence references and gaps
+
+| Finding | Available source/path | Evidence status |
+|---|---|---|
+| Coordinate convention | Publication, Sections 3 and 4.3; DOI above | Publication-documented |
+| Coordinate range check | Archive `C:\TerraSpectra_SWIR\raw\20210311.zip`; member `20210311/24_G/24_G_leaf3.csv`; archive-wide CSV checks summarized above | Historical check result reported; dedicated script/output not located |
+| 96/96 scan-to-pot-side match | `C:\Users\MUHAMMED ADINAN\Downloads\Data_description.csv`; archive scan IDs | Historical comparison result reported; dedicated script/output not located |
+| 279 vs 259 and missing 20 IDs | `Data_description.csv`; ZIP CSV member paths; list in Section 8.4 | Historical comparison result and complete list retained; dedicated script/output not located |
+| Pot 18 path placement | ZIP members listed in Section 8.5 | Archive path inventory |
+| Calibration investigation | Publication Sections 4.1 and 4.3; representative member `20210311/01_D/01_D.hdr`; archive filename/path search | Method is publication-documented; archive reference correspondence unresolved |
+| Sampling-count context | `C:\Users\MUHAMMED ADINAN\Downloads\SWIR_data.csv` | Aggregate counts only; does not identify individual missing coordinate files |
+
+The local archive was previously reported as checksum-matched to the repository's published MD5 and inspected read-only. No raw data were modified. A repository search for likely `*SWIR*.py`, `*SWIR*.ps1`, `*coordinate*.py`, and `*metadata*.py` files returned no output, and the `research\SWIR` listing showed reports rather than a dedicated validation script. This report therefore identifies the evidence that is available and explicitly records the missing reproducibility artifacts instead of inventing script names or paths.
+
+### 8.9 Final quality and status check
+
+- Historical investigation sections retained.
+- Verified, inferred and unresolved findings separated.
+- Numerical counts and the full missing-ID list retained.
+- Publication title, authors, year, journal, article number, DOI and relevant sections included.
+- Today's readiness wording was refined to distinguish dark-current-corrected intensity from verified reflectance.
+- The earlier `git diff --check` completed without whitespace errors; it must be rerun after adding these sections.
+- UTF-8 text was used when saving the earlier wording update; verify encoding and formatting again after this full revision.
+- No new raw-data or archive changes made.
+- No calibration, preprocessing, feature extraction, or model training performed.
+
+**Status:** Revised report content prepared for review. No commit, push, merge, or central project-document update has been made.
