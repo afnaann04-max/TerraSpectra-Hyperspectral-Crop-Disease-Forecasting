@@ -130,6 +130,16 @@ The 25 November 2026 archive investigation by Member 2 verified:
 
 **Updated decision:** Archive integrity, headers and scan mapping are verified. Calibration provenance, 20 missing CSVs and visual annotation mapping remain unresolved. No preprocessing or modelling approval.
 
+**Conditional exploratory-analysis boundary:**
+
+Descriptive, read-only exploratory analysis may be considered using the archive's
+**dark-current-corrected intensity values**, provided all results are explicitly
+labelled as uncalibrated intensity. This wording does not establish that the
+downloaded cubes have verified reflectance calibration or that the required
+reference measurements correspond to this archive. Reflectance-based
+interpretation, calibration transformations, preprocessing, feature extraction,
+model training and forecasting remain unapproved.
+
 ### 3.3 RGB – Rice Sheath Blight
 
 **Proposed objective:** Image-level severity estimation.
@@ -152,6 +162,7 @@ However, the exact class definitions, severity boundaries and image-to-label map
 
 - 1,609 Rice images contain 1,602 unique contents, including seven duplicate groups.
 - Two duplicate groups contain identical images assigned to different severity stages. Correct labels remain unresolved.
+- Both cross-stage duplicate groups were visually inspected; the images appeared identical despite their different stage labels.
 - Repeated filename/location groups do not prove tracking of the same biological specimen.
 - No supplied Train/Test partition was identified.
 
@@ -182,6 +193,7 @@ Outstanding issues include dataset reuse permission, archive integrity, image-ma
 - The 100 RGB images contain 99 unique contents. Images 15.jpg and 32.jpg are byte-identical, but their masks differ.
 - No exact duplicate image content was found across Train and Test.
 - Mask values are 0 and 255; foreground meaning remains unverified.
+- The aggregate mask-pixel audit found approximately 99.43% black pixels and 0.57% white pixels across the 100 masks. These proportions do not establish foreground semantics.
 - Reuse permission remains unresolved. The repository MIT licence is not assumed to cover the dataset.
 
 **Updated decision:** Conditional segmentation candidate. Resolve permission, annotation meaning, duplicate-image mask inconsistency, dimension mismatch and biological grouping before modelling.
@@ -238,6 +250,8 @@ The difference between 4,084 unique shared contents and 4,085 file pairs occurs 
 - The second conflict group contains identical Train and Test content with different labels; no exact raw match was identified.
 - These groups must not be double-counted as additional unique hashes or pairs.
 - The six visually reviewed near-duplicate pairs were a convenience sample, not a representative assessment.
+- A separate supplementary dHash implementation identified 550 candidate Train-Test pairs at distance <= 8: 312 same-class and 238 cross-class. Thirteen cross-class candidates had distance <= 3. The candidate set involved 105 Test images and 217 Train images; 8 Test images had a nearest distance of zero.
+- These dHash results indicate visual-similarity candidates, not confirmed identical photographs. They come from a separate implementation and must not be combined with the earlier dHash results.
 
 **Updated decision:** CCMT remains a conditional five-class exploratory candidate. Approximately 75% of supplied Test entries have exact-content matches in Train, so the supplied Test partition is unsuitable as an independent evaluation set. Lineage, label conflicts, biological grouping and publication/archive count discrepancies remain unresolved.
 

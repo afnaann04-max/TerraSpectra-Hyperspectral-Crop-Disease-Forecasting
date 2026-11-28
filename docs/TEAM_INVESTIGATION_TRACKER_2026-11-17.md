@@ -697,3 +697,31 @@ Preprocessing, feature engineering, model training, forecasting and multimodal f
 Forecasting requires identifiable biological units, genuine temporal observations, a defined prediction target and a future holdout. Multimodal fusion requires demonstrated correspondence between biological samples and compatible observations across modalities. These conditions have not yet been established.
 
 The project must continue to prioritize evidence quality, reproducibility, biological sample independence, leakage prevention and transparent reporting over premature model development.
+
+## 11. Progress update - 28 November 2026
+
+### Hiba - central documentation
+- Reviewed the latest RGB dataset suitability assessment and supplementary findings from Afnan.
+- Reviewed Fahma's SWIR report corrections and confirmed that the correction commit is included in the latest `origin/Fahma` branch history.
+- Updated the consolidated experimental design with a conditional boundary for read-only descriptive analysis of SWIR dark-current-corrected intensity values. Results must be labelled as uncalibrated intensity; reflectance interpretation and further processing remain unapproved.
+- Added the visual inspection result for both Rice cross-stage duplicate groups. The images appeared identical despite different severity-stage labels.
+- Added the NWRD aggregate mask-pixel distribution: approximately 99.43% black and 0.57% white. Foreground semantics remain unverified.
+- Added Afnan's supplementary CCMT dHash findings: 550 candidate Train-Test pairs at distance <= 8, including 238 cross-class candidates. These are similarity candidates, not confirmed identical photographs, and are kept separate from the earlier dHash analysis.
+- Experimental-design changes passed `git diff --check`. The tracker update, formatting and Git review are complete.
+
+### Fahma - SWIR
+- The SWIR wording and path corrections are included in the latest `origin/Fahma` branch history.
+- Archive and header inventory findings remain documented.
+- Calibration/reference correspondence, visual annotation mapping, 20 missing coordinate CSVs, biological grouping and the `18_D` folder-placement issue remain unresolved.
+- No preprocessing, calibration transformation, feature extraction, modelling or forecasting is approved.
+
+### Afnan - RGB
+- Supplementary RGB findings are available and have been incorporated into the central experimental-design document.
+- No repeat investigation is assigned.
+- Existing unresolved CCMT lineage and label conflicts, Rice severity standards and biological grouping, and NWRD annotation semantics and reuse permission remain open.
+
+### Overall position
+- Central documentation integration, formatting and full Git diff review are complete.
+- No dataset is approved for unrestricted modelling.
+- No preprocessing, feature engineering, model training, forecasting or multimodal fusion is approved.
+- No commit or push has been made.
